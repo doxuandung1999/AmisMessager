@@ -1,0 +1,238 @@
+.list{
+    width: 100%;
+    height: 100%;
+    background-color: #0a1d3b;
+    // padding-left: 24px;
+    padding-top: 24px;
+    // padding-right: 24px;
+    padding-bottom: 12px;
+    position: relative;
+    font-size: 16px;
+    
+}
+
+p {
+    margin: 0;
+    padding: 2px;
+}
+
+.search{
+    /* background-color: rgba(255, 255, 255, 0); */
+    /* border-radius: 8px; */
+    width: 80%;
+    height: 32px;
+    overflow: hidden;
+    border-bottom: 1px solid #ada9a9 ;
+    position: relative;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        display: none;
+    }
+    @media screen and (max-width : 576px){
+        display: none;
+    }
+    
+}
+#icon_search{
+    width: 16px;
+    height: 16px;
+   
+}
+#text_search{
+    font-size: 13px;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    margin-left: 5px;
+    outline: none;
+}
+#icon_add{
+    background-color: #2196f3;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    // position: absolute;
+    // bottom: 0;
+    cursor: pointer;
+   
+
+}
+#head_left{
+    display: flex;
+    // width: 100%;
+    position: relative;
+    padding-left: 24px;
+    padding-right: 24px;
+    flex-direction: row;
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        width: 50px;
+        height: 32px;
+        padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 15px;
+      
+        
+    }
+    @media screen and (max-width : 576px){
+        width: 50px;
+        height: 32px;
+        padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 15px;
+     
+    }
+}
+#add{
+    position: absolute;
+    right: 0;
+    padding-right: 24px;
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        // margin-left :30px;
+        padding-right: 0px;
+    }
+    @media screen and (max-width : 576px){
+        // margin-left: 10px;
+        padding-right: 0px;
+    }
+}
+
+#friend{
+    /* width: 100%; */
+    height: 10%;
+    /* border: 1px solid red; */
+    margin-top: 10px;
+    padding-left: 24px;
+    padding-right : 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        align-items: center;
+        justify-content: center;
+    }
+    @media screen and (max-width : 576px){
+        align-items: center;
+        justify-content: center;
+    }
+   
+}
+#friend:hover{
+    background-color: #1d3c6e;
+}
+
+#avatar img{
+    background-color: #fd612c;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    overflow: hidden;
+    margin-top: 12px;
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        width: 50px;
+        height: 50px;
+    }
+    @media screen and (max-width : 576px){
+        width: 50px;
+        height: 50px;
+    }
+    
+}
+
+#status img{
+    background-color: #48bb56;
+    border-radius: 50%;
+    border: 1px solid #0a1d3b;
+    width: 9px;
+    height: 9px;
+    overflow: hidden;
+    margin-left: -10px;
+    margin-top: 30px;
+
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        margin-top: 50px;
+        width: 12px;
+        height: 12px;
+    }
+    @media screen and (max-width : 576px){
+        margin-top: 50px;
+        width: 12px;
+        height: 12px;
+    }
+    
+    
+    
+}
+#name{
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+    padding: 0px;
+}
+#message{
+    font-size: 13px;
+    color: #ffffff;
+    margin: 0px;
+}
+.content p{
+    overflow: hidden;
+}
+.content{
+    padding: 0px;
+    font-size: 2rem;
+    margin: 15px;
+    margin-top: 7px;
+    display: inline-block;
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        display: none;
+    }
+    @media screen and (max-width : 576px){
+        display: none;
+    }
+}
+#time{
+    margin-top: 12px;
+    font-size: 11px;
+    color: #8e97a5;
+    display: flex;
+    align-items: center;
+    line-height: 5px;
+    flex-direction: column;
+}
+.p1{
+    display: flex;
+    flex-direction: row;
+}
+.detail{
+    
+    display: flex;
+    flex-direction: column;
+    @media screen and (max-width : 992px) and (min-width : 576px){
+        display: none;
+    }
+    @media screen and (max-width : 576px){
+        display: none;
+    }
+}
+#count-message{
+    background-color: rgba(255, 255, 255, .3);
+    border-radius: 4px;
+    width: 16px;
+    height: 16px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-top: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    
+}
+.list_friend{
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+}
+
