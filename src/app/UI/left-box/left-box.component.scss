@@ -1,6 +1,6 @@
 .list{
     width: 100%;
-    height: 100%;
+    height: 94vh;
     background-color: #0a1d3b;
     // padding-left: 24px;
     padding-top: 24px;
@@ -8,6 +8,7 @@
     padding-bottom: 12px;
     position: relative;
     font-size: 16px;
+    overflow-y: hidden;
     
 }
 
@@ -99,14 +100,15 @@ p {
 
 #friend{
     /* width: 100%; */
-    height: 10%;
+    height: 7.5%;
     /* border: 1px solid red; */
+    position: relative;
     margin-top: 10px;
     padding-left: 24px;
     padding-right : 24px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    // justify-content: space-between;
     cursor: pointer;
     @media screen and (max-width : 992px) and (min-width : 576px){
         align-items: center;
@@ -121,8 +123,11 @@ p {
 #friend:hover{
     background-color: #1d3c6e;
 }
-
-#avatar img{
+.show{
+    height: 30px;
+    border: 1px solid red;
+}
+#img_1{
     background-color: #fd612c;
     border-radius: 50%;
     width: 28px;
@@ -130,17 +135,15 @@ p {
     overflow: hidden;
     margin-top: 12px;
     @media screen and (max-width : 992px) and (min-width : 576px){
-        width: 50px;
-        height: 50px;
+        
     }
     @media screen and (max-width : 576px){
-        width: 50px;
-        height: 50px;
+        
     }
     
 }
 
-#status img{
+#img_2{
     background-color: #48bb56;
     border-radius: 50%;
     border: 1px solid #0a1d3b;
@@ -160,9 +163,6 @@ p {
         width: 12px;
         height: 12px;
     }
-    
-    
-    
 }
 #name{
     font-size: 13px;
@@ -180,10 +180,11 @@ p {
 }
 .content{
     padding: 0px;
-    font-size: 2rem;
+    overflow: hidden;
     margin: 15px;
     margin-top: 7px;
-    display: inline-block;
+    height: 100%;
+    width: 60%;
     @media screen and (max-width : 992px) and (min-width : 576px){
         display: none;
     }
@@ -200,14 +201,13 @@ p {
     line-height: 5px;
     flex-direction: column;
 }
-.p1{
-    display: flex;
-    flex-direction: row;
-}
+
 .detail{
     
     display: flex;
     flex-direction: column;
+    position: absolute;
+    right: 24px;
     @media screen and (max-width : 992px) and (min-width : 576px){
         display: none;
     }

@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./right-box.component.scss']
 })
 export class RightBoxComponent implements OnInit {
-
+  check = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  showInfor(){
+    this.check = !this.check;
   }
 
 }

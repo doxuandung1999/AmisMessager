@@ -1,1 +1,24 @@
-<p>right-box works!</p>
+<div class="message-all">
+    <div class="message">
+        <router-outlet name = "name"></router-outlet>
+    </div>
+    <div class="infor">
+        <div class="option">
+            <img src="../../../assets/ICON/IconAppChat/4.svg" alt="">
+            <img (click) = "showInfor()" [src]=" check == false ? '../../../assets/ICON/IconAppChat/5.svg' : '../../../assets/ICON/IconAppChat/6.svg'">
+            <img src="../../../assets/ICON/IconAppChat/2.svg" alt="">
+        </div>
+        <!-- <app-extend-box></app-extend-box> -->
+    </div>
+    <!-- <div class = "type-bot">
+        <div class="icon">
+            <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
+            <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
+            <p id="buzz">Buzz!</p>
+        </div>
+        <div class="send">
+            <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên">
+            <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
+        </div>
+    </div> -->
+</div>

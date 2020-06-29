@@ -1,1 +1,34 @@
-<p>extend-box works!</p>
+<div class="infor-right">
+    <div class="infor-acc">
+        <img id="avatar" src="../../../assets/Avatar/2.jpg" alt="">
+        <div id="infor-text">
+            <p id="name">Đỗ Xuân Dũng</p>
+            <p id="phone">0975 255 650</p>
+            <p id="email">dungrma99@gmail.com</p>
+        </div>
+    </div>
+    <div class="file-shared">
+        <div class="title">
+            <p id="name-file">TỆP ĐÃ CHIA SẺ</p>
+            <img id="icon" (click)="showFile()"
+                [src]="checkFile == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg'">
+        </div>
+        <div id="list-file" [hidden]="checkFile">
+            <div id="file" *ngFor="let file of arrFileShared">
+                <img id="icon-pdf" src="../../../assets/ICON/IconAppChat/pdf-icon.svg">
+                <p id="name-pdf">{{file.pdf}}</p>
+            </div>
+        </div>
+        <div class="title-img">
+            <p id="name-file">ẢNH ĐÃ CHIA SẺ</p>
+            <img id="icon" (click)="showImg()"
+                [src]="checkImg == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg' ">
+        </div>
+        <div id="list-img" [hidden]="checkImg">
+            <div id="img" *ngFor="let imgs of arrImgShared">
+                <img src="{{imgs.img}}" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>

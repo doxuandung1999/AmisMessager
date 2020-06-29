@@ -1,5 +1,4 @@
 import {Friend} from "./friend";
-import { time } from 'console';
 export const FRIENDS : Friend[] = [
     {   
         id:2,
