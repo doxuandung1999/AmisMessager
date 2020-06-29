@@ -9,6 +9,7 @@ import { HeaderBoxComponent } from './UI/header-box/header-box.component';
 import { MessageModule} from '../app/module/message/message.module';
 import {listModule} from "./module/share/list.module";
 import { from } from 'rxjs';
+import {FriendService} from "../app/service/friend.service";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { from } from 'rxjs';
     listModule,
     MessageModule
   ],
-  providers: [],
+  providers: [FriendService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

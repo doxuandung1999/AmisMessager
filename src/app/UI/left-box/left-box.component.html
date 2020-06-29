@@ -11,7 +11,7 @@
     </div>
 
     <div class="list_friend">
-        <div id="friend" *ngFor="let friends of friend" routerLink="message/{{friends.id}}" >
+        <div id="friend" *ngFor="let friends of friend" (click) = "onClick(friends.id)" >
 
             <div id="avatar">
                 <img id="img_1" src="{{friends.avatar}}" alt="">
