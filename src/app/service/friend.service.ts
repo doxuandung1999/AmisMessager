@@ -8,6 +8,8 @@ import {Friend} from '../model/friend/friend';
 
 export class FriendService {
   private listFriend : Friend[] = [
+  
+  
     {   
       id:2,
       name : 'Đào Đức Khiêm',
@@ -24,7 +26,7 @@ export class FriendService {
       id:3,
       name : 'Nguyễn Văn Minh',
       avatar : '../../../assets/Avatar/3.jpg',
-      status : true,
+      status : false,
       lastMassage : 'ngày mai có lịch họp nhé',
       time : '14:30',
       noRep : 2,
@@ -49,7 +51,7 @@ export class FriendService {
       id:5,
       name : 'Hải Dương',
       avatar : '../../../assets/Avatar/5.jpg',
-      status : true,
+      status : false,
       lastMassage : 'nhớ làm bài tập đấy',
       time : '14:30',
       noRep : 0,

@@ -4,15 +4,24 @@ p{
 }
 .head-right{
     width: 100%;
-    height: 100px;
-    padding: 24px;
+    
+    padding: 24px 24px 5px 24px;
     position: relative;
-}
-.infor_1{
     display: flex;
     flex-direction: row;
-    float: left;
+    
 }
+.option{
+  height: 65px;
+  position: absolute;
+  right: 24px;
+}
+.option img{
+  margin-left: 12px;
+  cursor: pointer;
+  float: right;
+}
+
 #avatar img{
    
     border-radius: 50%;
@@ -33,11 +42,12 @@ p{
     margin-left: 7px;
 }
 //chia
-.contact{
-    height: 80%;
-}
+
 .bubbleWrapper {
-	padding: 10px 10px;
+  padding-top: 10px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 0px;
 	display: flex;
 	justify-content: flex-end;
 	flex-direction: column;
@@ -46,74 +56,94 @@ p{
 }
 .inlineContainer {
   display: inline-flex;
+  align-items: center;
 }
 .inlineContainer.own {
   flex-direction: row-reverse;
 }
 .inlineIcon {
   width:20px;
+  height: 20px;
   object-fit: contain;
+  border-radius: 50%;
 }
 .ownBubble {
 	min-width: 60px;
-	max-width: 700px;
+	max-width: 406px;
 	padding: 7px 8px;
   margin: 6px 8px;
 	background-color: #2688e6;
-	border-radius: 16px 16px 0 16px;
+	border-radius: 16px 16px 16px 16px;
   border: 1px solid #2688e6;
   color: #ffffff;
+  font-size: 13px;
+  
  
 }
 .otherBubble {
 	min-width: 60px;
-	max-width: 700px;
+	max-width: 406px;
 	padding: 7px 8px;
   margin: 6px 8px;
 	background-color:  #eeeeee;
-	border-radius: 16px 16px 16px 0;
+	border-radius: 16px 16px 16px 16px;
   border: 1px solid  #eeeeee;
   color: #212121;
+  font-size: 13px;
+  
   
 }
+.message-left{
+  position: absolute;
+  left: 0;
+}
+.message-right{
+  position: relative;
+}
 .own {
-	align-self: flex-end;
+  align-self: flex-end;
+ 
 }
 .other {
-	align-self: flex-start;
+  align-self: flex-start;
+ 
 }
 span.own,
 span.other{
-  font-size: 14px;
+  font-size: 12px;
   color: grey;
 }
-.option{
-  float: right;
-  padding-right: 24px;
-  height: 65px;
-  padding-top: 24px;
-}
-.option img{
-  margin-left: 12px;
-  cursor: pointer;
-  float: right;
-}
+
 .right{
   position: relative;
+  height: 100%;
 }
-.text{
-  width: 80%;
-  float: left;
-  // border: 1px solid red;
-}
-.infor{
-  width: 20%;
-  height: 94vh;
-  float: right;
-  // border: 1px solid blue;
+.text_box{
+  width: 100%;
+  position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  height: 83%;
 }
+.contact{
+  height: 80%;
+  width: 75.2%;
+  display: inline-block;
+  flex-direction: column;
+  position: relative;
+  overflow-y: scroll;
+}
+.contact::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+.extend{
+  position: absolute;
+  right: 24px;
+  width: 24.8%;
+  height: 100%
+}
+
 // type
 .type-bot{
   /* position: relative; */
@@ -122,7 +152,10 @@ span.other{
   display: flex;
   /* flex-direction: row; */
   align-items: center;
-  width: 100%;
+  width: 75.2%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 
   
 }

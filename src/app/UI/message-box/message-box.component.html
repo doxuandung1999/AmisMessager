@@ -1,62 +1,77 @@
-
 <div class="right">
-    <div class= "text">
-        <div class="head-right">
-            <div class="infor_1">
-                <div id="avatar">
-                    <img src="{{friends.avatar}}" alt="">
-                </div>
-                <div id="content" >
-                    <p id="name">{{friends.name}}</p>
-                    <p id="status" >Hoạt động 12 phút trước</p>
-                </div>
-            </div>
+
+    <div class="head-right">
+
+        <div id="avatar">
+            <img src="{{friends.avatar}}" alt="">
         </div>
-            <div class="contact" >
-                <div class="bubbleWrapper">
+        <div id="content">
+            <p id="name">{{friends.name}}</p>
+            <p id="status">Hoạt động 12 phút trước</p>
+        </div>
+
+        <div class="option">
+            <img src="../../../assets/ICON/IconAppChat/2.svg" alt="">
+            <img (click)="showInfor()"
+                [src]=" check == false ? '../../../assets/ICON/IconAppChat/5.svg' : '../../../assets/ICON/IconAppChat/6.svg'">
+            <img src="../../../assets/ICON/IconAppChat/4.svg" alt="">
+            
+
+
+
+        </div>
+
+
+    </div>
+    <div class="text_box">
+        <div class="contact">
+            <div class="inline" *ngFor="let m of messages">
+
+                <div class="bubbleWrapper" *ngIf="m.senderId != idAmin">
                     <div class="inlineContainer">
-                        <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
+                        <img class="inlineIcon" src="{{friends.avatar}}">
                         <div class="otherBubble other">
-                            
+                            {{m.message}}
                         </div>
-                    </div><span class="other">08:41</span>
+                    </div>
+                    <!-- <span class="other">08:41</span> -->
                 </div>
-                <div class="bubbleWrapper">
+
+
+                <div class="bubbleWrapper" *ngIf="m.senderId == idAmin">
                     <div class="inlineContainer own">
 
-                        <img class="inlineIcon" src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
+                        <img class="inlineIcon"
+                            src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
                         <div class="ownBubble own">
-                         lllllllllllllllllllll
+                            {{m.message}}
                         </div>
-                    </div><span class="own">08:55</span>
+                    </div>
+                    <!-- <span class="own">08:55</span> -->
                 </div>
-               
+
+
+
             </div>
+
+        </div>
+        <div class="extend" [hidden]="check">
+            <app-extend-box></app-extend-box>
+        </div>
+        <div class="type-bot">
+            <div class="icon">
+                <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
+                <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
+                <p id="buzz">Buzz!</p>
+            </div>
+            <div class="send">
+                <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên">
+                <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
+            </div>
+        </div>
+
     </div>
-    <!-- <div class = "type-bot">
-        <div class="icon">
-            <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
-            <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
-            <p id="buzz">Buzz!</p>
-        </div>
-        <div class="send">
-            <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên">
-            <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
-        </div>
-    </div> -->
 
-    
-        <div class="infor">
-            <div class="option">
-                <img src="../../../assets/ICON/IconAppChat/2.svg" alt="">
-                <img (click) = "showInfor()" [src]=" check == false ? '../../../assets/ICON/IconAppChat/5.svg' : '../../../assets/ICON/IconAppChat/6.svg'">
-                <img src="../../../assets/ICON/IconAppChat/4.svg" alt="">
-                
-            </div>
-            <div class="extend" [hidden] = "check" >
-                <app-extend-box></app-extend-box>
-            </div>
-        </div>
+
+
 </div>
-
-

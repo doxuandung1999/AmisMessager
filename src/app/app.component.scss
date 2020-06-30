@@ -11,16 +11,13 @@ html,body{
 .union{
     height: 100%;
 }
-.m100{
-    height: 100%;
-    min-height: 100%;
-}
+
 .container-fluid{
     margin: 0 !important;
     padding: 0 !important;
 }
 #left{
-    width: 25%;
+    width: 23.28%;
     height: 100%;
     @media screen and (max-width : 992px) {
         width: 97px;
@@ -34,6 +31,7 @@ html,body{
     }
 }
 .header{
+    height: 56px;
     width: 100%;
     position: fixed!important;
     top: 0;
@@ -42,7 +40,6 @@ html,body{
 #right{
     flex-grow: 1;
     order: 2;
-    border: 1px solid red;
     height: 100%;
    
     

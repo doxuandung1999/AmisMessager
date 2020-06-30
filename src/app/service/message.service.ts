@@ -13,10 +13,46 @@ export class MessageService {
       time : '07:09'
     },
     {
+      idMessage : 1,
+      senderId : 2,
+      receiveId : 1,
+      message : 'hello', 
+      time : '07:09'
+    },
+    {
+      idMessage : 1,
+      senderId : 2,
+      receiveId : 1,
+      message : 'hello', 
+      time : '07:09'
+    },
+    {
+      idMessage : 1,
+      senderId : 2,
+      receiveId : 1,
+      message : 'hello', 
+      time : '07:09'
+    },
+    {
+      idMessage : 1,
+      senderId : 2,
+      receiveId : 1,
+      message : 'hello', 
+      time : '07:09'
+    },
+    
+    {
+      idMessage : 1,
+      senderId : 2,
+      receiveId : 1,
+      message : 'hello', 
+      time : '07:09'
+    },
+    {
       idMessage : 2,
       senderId : 1,
       receiveId : 2,
-      message : 'good morning', 
+      message : 'good morning sdfsdf adasdas asdasd sds asdas asda asdas asda asda sdfs sdfsdf sdfsd sdfs sdf d asdas dasdasd asdasd asdasd asdasd ', 
       time : '07:19'
     },
     {
@@ -40,10 +76,10 @@ export class MessageService {
   getMessage() : Message[]{
     return this.listMessage;
   }
-  getMessageId(id : number) {
-    return this.listMessage.filter(e => (e.senderId === id && e.receiveId == 1) || (e.senderId == 1 && e.receiveId === id));
+  getMessageId(id : number , idadmin : number) : Message[] {
+    return this.listMessage.filter(e => (e.senderId === id && e.receiveId === idadmin) ||  e.receiveId === id && e.senderId === idadmin);
   }
-  // getMessageArr(id : number) : Message[]{
-  //   return this.listMessage.find(e => (e.senderId === id && e.receiveId == 1) || (e.senderId == 1 && e.receiveId === id));
-  // }
+ 
+
+  
 }

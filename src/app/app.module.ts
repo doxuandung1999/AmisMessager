@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BoxComponent } from './UI/box/box.component';
 import { HeaderBoxComponent } from './UI/header-box/header-box.component';
 
 import { MessageModule} from '../app/module/message/message.module';
@@ -17,7 +16,6 @@ import {MessageService} from '../app/service/message.service';
 @NgModule({
   declarations: [
     AppComponent,
-    BoxComponent,
     HeaderBoxComponent
     
   ],
