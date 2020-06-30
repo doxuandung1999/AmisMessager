@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Friend} from "../../model/friend/friend";
+import {FriendService} from "../../service/friend.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-extend-box',
@@ -8,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class ExtendBoxComponent implements OnInit {
   checkFile = false;
   checkImg = false;
+  friends : Friend;
   arrFileShared = [
     {id:1 , pdf : 'Nội dung hội nghị.pdf'},
     {id:2 , pdf : 'Test 2.pdf'},
@@ -21,8 +25,19 @@ export class ExtendBoxComponent implements OnInit {
     {id:4 , img : '../../../assets/Avatar/4.jpg'},
     {id:5 , img : '../../../assets/Avatar/5.jpg'},
   ]
-  constructor() { }
-  
+  constructor( private friendService : FriendService , 
+    private route : ActivatedRoute) { 
+      this.route.paramMap.subscribe(x => {
+        this.getId();
+      });
+    }
+  getId(){
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.friends = this.friendService.getFriendId(id);
+  }
+  ngOndestroy(){
+    this.getId();
+  }
   ngOnInit(): void {
   }
   showFile(){

@@ -10,20 +10,25 @@ import { MessageModule} from '../app/module/message/message.module';
 import {listModule} from "./module/share/list.module";
 import { from } from 'rxjs';
 import {FriendService} from "../app/service/friend.service";
+import { FriendFilterPipe } from './pipe/friend-filter.pipe';
+import {FormsModule} from '@angular/forms';
+import {MessageService} from '../app/service/message.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoxComponent,
-    HeaderBoxComponent,
+    HeaderBoxComponent
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     listModule,
     MessageModule
+   
   ],
-  providers: [FriendService],
+  providers: [FriendService , MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

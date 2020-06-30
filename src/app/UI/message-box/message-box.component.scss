@@ -4,7 +4,7 @@ p{
 }
 .head-right{
     width: 100%;
-    height: 65px;
+    height: 100px;
     padding: 24px;
     position: relative;
 }
@@ -42,7 +42,7 @@ p{
 	justify-content: flex-end;
 	flex-direction: column;
 	align-self: flex-end;
-  color: #fff;
+  // color: #fff;
 }
 .inlineContainer {
   display: inline-flex;
@@ -57,21 +57,23 @@ p{
 .ownBubble {
 	min-width: 60px;
 	max-width: 700px;
-	padding: 14px 18px;
+	padding: 7px 8px;
   margin: 6px 8px;
-	background-color: #5b5377;
+	background-color: #2688e6;
 	border-radius: 16px 16px 0 16px;
-	border: 1px solid #443f56;
+  border: 1px solid #2688e6;
+  color: #ffffff;
  
 }
 .otherBubble {
 	min-width: 60px;
 	max-width: 700px;
-	padding: 14px 18px;
+	padding: 7px 8px;
   margin: 6px 8px;
-	background-color: #6C8EA4;
+	background-color:  #eeeeee;
 	border-radius: 16px 16px 16px 0;
-	border: 1px solid #54788e;
+  border: 1px solid  #eeeeee;
+  color: #212121;
   
 }
 .own {
@@ -84,4 +86,101 @@ span.own,
 span.other{
   font-size: 14px;
   color: grey;
+}
+.option{
+  float: right;
+  padding-right: 24px;
+  height: 65px;
+  padding-top: 24px;
+}
+.option img{
+  margin-left: 12px;
+  cursor: pointer;
+  float: right;
+}
+.right{
+  position: relative;
+}
+.text{
+  width: 80%;
+  float: left;
+  // border: 1px solid red;
+}
+.infor{
+  width: 20%;
+  height: 94vh;
+  float: right;
+  // border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+}
+// type
+.type-bot{
+  /* position: relative; */
+  padding-left: 30px;
+  padding-right: 26px;
+  display: flex;
+  /* flex-direction: row; */
+  align-items: center;
+  width: 100%;
+
+  
+}
+.icon{
+  width: 172px;
+  height: 61px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+#buzz{
+  background-color: #f86060;
+  border-radius: 3px;
+  width: 43px;
+  height: 20px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  cursor: pointer;
+}
+.icon img{
+  margin-right: 15px;
+}
+#tag{
+  color: #cccccc;
+  width: 24px;
+  height: 24px;
+}
+#picture{
+  width: 24px;
+  height: 24px;
+}
+.send{
+  background-color: #ffffff;
+  border-radius: 7.5px;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  height: 39px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  
+}
+#text{
+  border: none;
+  width: 92%;
+  height: 39px;
+  outline: none;
+  padding-left: 20px;
+}
+.send img{
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 }

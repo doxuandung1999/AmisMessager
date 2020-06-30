@@ -1,55 +1,62 @@
-<div class="head-right">
-    <div class="infor_1">
-        <div id="avatar">
-            <img src="../../../assets/Avatar/2.jpg" alt="">
-        </div>
-        <div id="content" >
-            <p id="name">{{friends.name}}</p>
-            <p id="status" >Hoạt động 12 phút trước</p>
-        </div>
-    </div>
-</div>
-    <div class="contact" >
-        <div class="bubbleWrapper">
-            <div class="inlineContainer">
-                <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
-                <div class="otherBubble other">
-                    No ninjas!
+
+<div class="right">
+    <div class= "text">
+        <div class="head-right">
+            <div class="infor_1">
+                <div id="avatar">
+                    <img src="{{friends.avatar}}" alt="">
                 </div>
-            </div><span class="other">08:41</span>
-        </div>
-        <div class="bubbleWrapper">
-            <div class="inlineContainer own">
-                <img class="inlineIcon" src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
-                <div class="ownBubble own">
-                 The first rule of being a ninja is, 'Do no harm.'
-                </div>
-            </div><span class="own">08:55</span>
-        </div>
-        <div class="bubbleWrapper">
-            <div class="inlineContainer">
-                <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
-                <div class="otherBubble other">
-                    Knowing when to leave requires training.
+                <div id="content" >
+                    <p id="name">{{friends.name}}</p>
+                    <p id="status" >Hoạt động 12 phút trước</p>
                 </div>
             </div>
-        </div><span class="other">10:13</span>
-        <div class="bubbleWrapper">
-            <div class="inlineContainer own">
-                <img class="inlineIcon" src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
-                <div class="ownBubble own">
-                Stunned but impressed. 
-                </div>
-            </div><span class="own">11:07</span>
         </div>
-        <div class="bubbleWrapper">
-            <div class="inlineContainer">
-                <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
-                <div class="otherBubble other">
-                    How about throwing stars?
+            <div class="contact" >
+                <div class="bubbleWrapper">
+                    <div class="inlineContainer">
+                        <img class="inlineIcon" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
+                        <div class="otherBubble other">
+                            
+                        </div>
+                    </div><span class="other">08:41</span>
                 </div>
-            </div><span class="other">11:11</span>
-        </div>
+                <div class="bubbleWrapper">
+                    <div class="inlineContainer own">
+
+                        <img class="inlineIcon" src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
+                        <div class="ownBubble own">
+                         lllllllllllllllllllll
+                        </div>
+                    </div><span class="own">08:55</span>
+                </div>
+               
+            </div>
     </div>
+    <!-- <div class = "type-bot">
+        <div class="icon">
+            <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
+            <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
+            <p id="buzz">Buzz!</p>
+        </div>
+        <div class="send">
+            <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên">
+            <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
+        </div>
+    </div> -->
+
+    
+        <div class="infor">
+            <div class="option">
+                <img src="../../../assets/ICON/IconAppChat/2.svg" alt="">
+                <img (click) = "showInfor()" [src]=" check == false ? '../../../assets/ICON/IconAppChat/5.svg' : '../../../assets/ICON/IconAppChat/6.svg'">
+                <img src="../../../assets/ICON/IconAppChat/4.svg" alt="">
+                
+            </div>
+            <div class="extend" [hidden] = "check" >
+                <app-extend-box></app-extend-box>
+            </div>
+        </div>
+</div>
 
 

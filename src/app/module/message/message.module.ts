@@ -5,6 +5,7 @@ import { RightBoxComponent} from "../../UI/right-box/right-box.component";
 import {ExtendBoxComponent} from "../../UI/extend-box/extend-box.component";
 import {MessageBoxComponent} from "../../UI/message-box/message-box.component";
 import { AppRoutingModule } from './../../app-routing.module';
+import {FormsModule} from '@angular/forms';
 import { from } from 'rxjs';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { from } from 'rxjs';
   imports: [
     CommonModule,
     AppRoutingModule
+    // FormsModule
   ],
   exports: [
     RightBoxComponent,

@@ -5,6 +5,7 @@ import {MessageModule} from '../../module/message/message.module';
   import { from } from 'rxjs';
 import {Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-left-box',
   templateUrl: './left-box.component.html',
@@ -13,7 +14,7 @@ import {Router} from '@angular/router';
 })
 export class LeftBoxComponent implements OnInit {
 
- 
+  searchFriend : string;
   friend : Friend[];
   constructor( private friendService : FriendService , 
       private _router : Router) { 

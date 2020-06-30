@@ -2,27 +2,13 @@
     position: relative;
 }
 .message{
-    width: 80%;
+    width: 100%;
     height: 94vh;
-    border: 1px solid blue;
+    
     position: relative;
     float: left;
 }
-.infor{
-    width: 20%;
-    height: 80vh;    
-    float: right;
-}
-.option{
-    float: right;
-    padding-right: 24px;
-    height: 65px;
-    padding-top: 24px;
-}
-.option img{
-    margin-left: 12px;
-    cursor: pointer;
-}
+
 p{
     padding: 0;
     margin: 0;

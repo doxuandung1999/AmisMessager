@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Friend} from '../model/friend/friend';
 
-@Injectable({
+@Injectable
+({
   providedIn: 'root'
 })
 
@@ -15,7 +16,9 @@ export class FriendService {
       lastMassage : 'mai đá bóng nhá',
       time : '14:30',
       noRep : 0,
-      senderId : 2
+      senderId : 2,
+      number:'0975255650',
+      email :'khiem@gmail.com'
   },
   {   
       id:3,
@@ -25,7 +28,9 @@ export class FriendService {
       lastMassage : 'ngày mai có lịch họp nhé',
       time : '14:30',
       noRep : 2,
-      senderId : 1
+      senderId : 1,
+      number:'0975255650',
+      email :'Minh@gmail.com'
   },
   {   
       id:4,
@@ -35,7 +40,9 @@ export class FriendService {
       lastMassage : 'gửi báo cáo đây',
       time : '14:30',
       noRep : 5,
-      senderId : 4
+      senderId : 4,
+      number:'0975255650',
+      email :'Phi@gmail.com'
 
   },
   {   
@@ -46,19 +53,18 @@ export class FriendService {
       lastMassage : 'nhớ làm bài tập đấy',
       time : '14:30',
       noRep : 0,
-      senderId : 1
+      senderId : 1,
+      number:'0975255650',
+      email :'Duong@gmail.com'
   }
     
   ];
   getFriend() : Friend[]{
     return this.listFriend;
   }
-  // constructor() { }
-  // getFriends() : Friend[] {
-  //   return FRIENDS;
-  // } 
+  
   getFriendId(id : number) : Friend{
-    return this.listFriend.find(e => e.id == id);
+    return this.listFriend.find(e => e.id === id);
   }
  
 }
