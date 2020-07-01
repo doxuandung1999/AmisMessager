@@ -16,15 +16,18 @@ export class MessageBoxComponent implements OnInit {
 
   friends : Friend;
   messages : Message[];
+  messageAdd : Message;
   idAmin = 1;
   friend_1;
   checkMessage = true;
   check = false;
+
   constructor(private friendService : FriendService 
     , private route: ActivatedRoute , private messageService : MessageService) {
       this.route.paramMap.subscribe(x => {
         this.getId();
         this.getMessage();
+        
       });
     
    }
@@ -36,21 +39,35 @@ export class MessageBoxComponent implements OnInit {
   ngOndestroy(){
     this.getId();
     // this.getMessage();
+    
+  
   }
   getId(){
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.friends = this.friendService.getFriendId(id);
+    
   }
 
   getMessage(){
     const id = +this.route.snapshot.paramMap.get('id');
     this.messages= this.messageService.getMessageId(id , this.idAmin);
+  
   }
   
 
   showInfor(){
     this.check = !this.check;
+  }
+  showMessage(event){
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.messageAdd = new Message();
+    this.messageAdd.message = event.target.value;
+    this.messageAdd.senderId = this.idAmin;
+    this.messageAdd.receiveId = id;
+  
+    this.messages.push(this.messageAdd);
+    event.target.value = null;
   }
 
 

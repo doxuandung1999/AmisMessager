@@ -123,11 +123,10 @@ span.other{
   position: relative;
   display: flex;
   flex-direction: row;
-  height: 83%;
+  height: calc(100% -66px);
 }
 .contact{
-  height: 80%;
-  width: 75.2%;
+  height: calc(90% - 66px);
   display: inline-block;
   flex-direction: column;
   position: relative;
@@ -139,9 +138,9 @@ span.other{
 }
 .extend{
   position: absolute;
-  right: 24px;
-  width: 24.8%;
-  height: 100%
+  right: 0px;
+  width: 300px;
+  height: calc( 100% - 66px);
 }
 
 // type
@@ -156,7 +155,7 @@ span.other{
   position: absolute;
   bottom: 0;
   left: 0;
-
+  background-color: #f8f8f8;
   
 }
 .icon{

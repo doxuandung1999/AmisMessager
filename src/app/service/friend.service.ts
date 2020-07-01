@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Friend} from '../model/friend/friend';
 
+
 @Injectable
 ({
   providedIn: 'root'
@@ -64,9 +65,16 @@ export class FriendService {
   getFriend() : Friend[]{
     return this.listFriend;
   }
-  
+ 
   getFriendId(id : number) : Friend{
     return this.listFriend.find(e => e.id === id);
+  }
+  checkRep(id : number , id_2 : number) : boolean{
+    if(this.getFriendId(id).id === id_2){
+      return true;
+    }
+    return false;
+
   }
  
 }

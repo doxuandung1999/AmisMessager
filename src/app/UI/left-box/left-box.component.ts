@@ -4,6 +4,7 @@ import {Friend} from '../../model/friend/friend';
 import {MessageModule} from '../../module/message/message.module';
   import { from } from 'rxjs';
 import {Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -16,9 +17,14 @@ export class LeftBoxComponent implements OnInit {
 
   searchFriend : string;
   friend : Friend[];
+  checkIt : boolean;
   constructor( private friendService : FriendService , 
-      private _router : Router) { 
+      private _router : Router , private _activeRoute : ActivatedRoute) { 
     // this.friend = friendService.getFriends();
+    this._activeRoute.paramMap.subscribe(x => {
+      // this.check();
+    });
+    
   }
 
   ngOnInit(): void {
@@ -28,5 +34,8 @@ export class LeftBoxComponent implements OnInit {
     this._router.navigate(['/message' , id])
 
   }
-  
+  // check(){
+  //   const id = +this._activeRoute.snapshot.paramMap.get('id');
+  //   this.checkIt = this.friendService.checkRep(id,);
+  // }
 }

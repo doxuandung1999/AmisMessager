@@ -24,7 +24,7 @@
 
     </div>
     <div class="text_box">
-        <div class="contact">
+        <div class="contact" [ngStyle] = "{'width' : check ? '100%' : 'calc(100% - 300px)'}">
             <div class="inline" *ngFor="let m of messages">
 
                 <div class="bubbleWrapper" *ngIf="m.senderId != idAmin">
@@ -50,26 +50,25 @@
                     <!-- <span class="own">08:55</span> -->
                 </div>
 
-
-
             </div>
+            
 
         </div>
         <div class="extend" [hidden]="check">
             <app-extend-box></app-extend-box>
         </div>
-        <div class="type-bot">
-            <div class="icon">
-                <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
-                <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
-                <p id="buzz">Buzz!</p>
-            </div>
-            <div class="send">
-                <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên">
-                <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
-            </div>
+    </div>
+   
+    <div class="type-bot" [ngStyle] = "{ 'width' : check ? '100%' : 'calc(100%-300px)'}">
+        <div class="icon">
+            <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
+            <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
+            <p id="buzz">Buzz!</p>
         </div>
-
+        <div class="send">
+            <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên" (keydown.enter) = "showMessage($event)">
+            <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
+        </div>
     </div>
 
 

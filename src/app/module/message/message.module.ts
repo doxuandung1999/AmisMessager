@@ -17,7 +17,7 @@ import { from } from 'rxjs';
   imports: [
     CommonModule,
     AppRoutingModule
-    // FormsModule
+    
   ],
   exports: [
     RightBoxComponent,

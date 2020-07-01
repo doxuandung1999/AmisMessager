@@ -9,8 +9,13 @@ p{
     background-color: #f8f8f8;
     padding: 24px;
     height: 100%;
+    overflow: scroll;
     // width: 24.8%;
     
+}
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 #avatar{
     width: 120px;
