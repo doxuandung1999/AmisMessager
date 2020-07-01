@@ -123,14 +123,31 @@ span.other{
   position: relative;
   display: flex;
   flex-direction: row;
-  height: calc(100% -66px);
+  height: calc(100% - 66px);
+}
+.main-right{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  @media screen and (max-width : 992px) {
+    width: calc(100% - 250px)!important;
+  }
+  @media screen and (max-width : 768px) {
+    width: calc(100% - 200px)!important;
+  }
+  @media screen and (max-width : 576px) {
+    width: calc(100% - 150px)!important;
+  }
+  
 }
 .contact{
-  height: calc(90% - 66px);
+  width: 100%;
+  height: calc(100% - 61px);
   display: inline-block;
   flex-direction: column;
   position: relative;
   overflow-y: scroll;
+  
 }
 .contact::-webkit-scrollbar {
   width: 0px;
@@ -140,30 +157,42 @@ span.other{
   position: absolute;
   right: 0px;
   width: 300px;
-  height: calc( 100% - 66px);
+  height: 100%;
+  @media screen and (max-width : 992px) {
+    width: 250px;
+  }
+  @media screen and (max-width : 768px) {
+    width: 200px;
+  }
+  @media screen and (max-width : 576px) {
+    width: 150px;
+  }
+}
+.container-fluid{
+  padding: 0!important;
 }
 
 // type
 .type-bot{
-  /* position: relative; */
-  padding-left: 30px;
+  width: 100%;
+  padding-left: 20px;
   padding-right: 26px;
   display: flex;
   /* flex-direction: row; */
   align-items: center;
-  width: 75.2%;
   position: absolute;
   bottom: 0;
-  left: 0;
   background-color: #f8f8f8;
   
 }
 .icon{
-  width: 172px;
+  width: 20%;
   height: 61px;
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-right: 3%;
+  
 }
 #buzz{
   background-color: #f86060;
@@ -178,7 +207,7 @@ span.other{
   cursor: pointer;
 }
 .icon img{
-  margin-right: 15px;
+  margin-right: 15%;
 }
 #tag{
   color: #cccccc;
@@ -193,26 +222,36 @@ span.other{
   background-color: #ffffff;
   border-radius: 7.5px;
   border: 1px solid #e0e0e0;
-  width: 100%;
+  width: 80%;
   height: 39px;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: center;
   position: relative;
+  justify-content: center;
   
 }
 #text{
   border: none;
-  width: 92%;
+  width: 100%;
   height: 39px;
   outline: none;
   padding-left: 20px;
+  overflow: hidden;
+}
+#smile{
+  width: 50px;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 .send img{
   width: 24px;
   height: 24px;
   position: absolute;
   right: 10px;
-  cursor: pointer;
+  cursor: pointer
 }

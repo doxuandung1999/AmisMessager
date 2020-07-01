@@ -1,4 +1,4 @@
-<div class="right">
+<div class="right container-fluid">
 
     <div class="head-right">
 
@@ -15,62 +15,68 @@
             <img (click)="showInfor()"
                 [src]=" check == false ? '../../../assets/ICON/IconAppChat/5.svg' : '../../../assets/ICON/IconAppChat/6.svg'">
             <img src="../../../assets/ICON/IconAppChat/4.svg" alt="">
-            
-
-
 
         </div>
 
 
     </div>
     <div class="text_box">
-        <div class="contact" [ngStyle] = "{'width' : check ? '100%' : 'calc(100% - 300px)'}">
-            <div class="inline" *ngFor="let m of messages">
+        <div class="main-right" [ngStyle]="{'width' : check ? '100%' : 'calc(100% - 300px)'}">
+            <div class="contact">
+                <div class="inline" *ngFor="let m of messages">
 
-                <div class="bubbleWrapper" *ngIf="m.senderId != idAmin">
-                    <div class="inlineContainer">
-                        <img class="inlineIcon" src="{{friends.avatar}}">
-                        <div class="otherBubble other">
-                            {{m.message}}
+                    <div class="bubbleWrapper" *ngIf="m.senderId != idAmin">
+                        <div class="inlineContainer">
+                            <img class="inlineIcon" src="{{friends.avatar}}">
+                            <div class="otherBubble other">
+                                {{m.message}}
+                            </div>
                         </div>
+                        <!-- <span class="other">08:41</span> -->
                     </div>
-                    <!-- <span class="other">08:41</span> -->
-                </div>
 
 
-                <div class="bubbleWrapper" *ngIf="m.senderId == idAmin">
-                    <div class="inlineContainer own">
+                    <div class="bubbleWrapper" *ngIf="m.senderId == idAmin">
+                        <div class="inlineContainer own">
 
-                        <img class="inlineIcon"
-                            src="https://www.pinclipart.com/picdir/middle/205-2059398_blinkk-en-mac-app-store-ninja-icon-transparent.png">
-                        <div class="ownBubble own">
-                            {{m.message}}
+                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
+                            <div class="ownBubble own">
+                                {{m.message}}
+                            </div>
                         </div>
+                        <!-- <span class="own">08:55</span> -->
                     </div>
-                    <!-- <span class="own">08:55</span> -->
-                </div>
 
+                </div>
             </div>
-            
+
+            <div class="type-bot">
+                <div class="icon">
+                  
+                     <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
+                        <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
+                        <p id="buzz">Buzz!</p> 
+                
+
+                </div>
+                <div class="send">
+                    <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
+                        (keydown.enter)="showMessage($event)">
+                    <div id="smile">
+                        <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
+                    </div>
+
+                </div>
+            </div>
 
         </div>
+
         <div class="extend" [hidden]="check">
             <app-extend-box></app-extend-box>
         </div>
-    </div>
-   
-    <div class="type-bot" [ngStyle] = "{ 'width' : check ? '100%' : 'calc(100%-300px)'}">
-        <div class="icon">
-            <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
-            <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
-            <p id="buzz">Buzz!</p>
-        </div>
-        <div class="send">
-            <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên" (keydown.enter) = "showMessage($event)">
-            <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
-        </div>
-    </div>
 
+
+    </div>
 
 
 </div>

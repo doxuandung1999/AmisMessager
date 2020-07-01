@@ -12,11 +12,14 @@ import {FriendService} from "../app/service/friend.service";
 import { FriendFilterPipe } from './pipe/friend-filter.pipe';
 import {FormsModule} from '@angular/forms';
 import {MessageService} from '../app/service/message.service';
+import { SiginComponent } from './UI/sigin/sigin.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderBoxComponent
+    SiginComponent
+   
     
   ],
   imports: [

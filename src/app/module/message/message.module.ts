@@ -4,25 +4,27 @@ import { CommonModule } from '@angular/common';
 import { RightBoxComponent} from "../../UI/right-box/right-box.component";
 import {ExtendBoxComponent} from "../../UI/extend-box/extend-box.component";
 import {MessageBoxComponent} from "../../UI/message-box/message-box.component";
-import { AppRoutingModule } from './../../app-routing.module';
+import {BoxComponent} from "../../UI/box/box.component";
+
+import {MessageRoutingModule} from "./message.routing.module";
+import {HeaderBoxComponent} from "../../UI/header-box/header-box.component";
+import {listModule} from "../share/list.module";
 import {FormsModule} from '@angular/forms';
 import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
     RightBoxComponent,
+    HeaderBoxComponent,
     ExtendBoxComponent,
-    MessageBoxComponent
+    MessageBoxComponent,
+    BoxComponent
   ],
   imports: [
     CommonModule,
-    AppRoutingModule
-    
-  ],
-  exports: [
-    RightBoxComponent,
-    ExtendBoxComponent,
-    MessageBoxComponent
+    MessageRoutingModule,
+    listModule
+
   ]
 })
 export class MessageModule { }

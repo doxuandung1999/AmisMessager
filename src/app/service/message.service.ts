@@ -76,8 +76,8 @@ export class MessageService {
   getMessage() : Message[]{
     return this.listMessage;
   }
-  getMessageId(id : number , idadmin : number) : Message[] {
-    return this.listMessage.filter(e => (e.senderId === id && e.receiveId === idadmin) ||  e.receiveId === id && e.senderId === idadmin);
+  getMessageId(id : number) : Message[] {
+    return this.listMessage.filter(e => (e.senderId === id) ||  e.receiveId === id);
   }
  
 
