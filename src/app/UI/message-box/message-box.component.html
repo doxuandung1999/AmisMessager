@@ -22,10 +22,10 @@
     </div>
     <div class="text_box">
         <div class="main-right" [ngStyle]="{'width' : check ? '100%' : 'calc(100% - 300px)'}">
-            <div class="contact">
+            <div class="contact" >
                 <div class="inline" *ngFor="let m of messages">
 
-                    <div class="bubbleWrapper" *ngIf="m.senderId != idAmin">
+                    <div class="bubbleWrapper" *ngIf="m.senderId != idAmin && m.type == 'text'">
                         <div class="inlineContainer">
                             <img class="inlineIcon" src="{{friends.avatar}}">
                             <div class="otherBubble other">
@@ -36,7 +36,7 @@
                     </div>
 
 
-                    <div class="bubbleWrapper" *ngIf="m.senderId == idAmin">
+                    <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && m.type == 'text'" >
                         <div class="inlineContainer own">
 
                             <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
@@ -46,16 +46,39 @@
                         </div>
                         <!-- <span class="own">08:55</span> -->
                     </div>
+                    <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && m.type == 'img'" >
+                        <div class="inlineContainer own">
+
+                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
+                            <div class=" own">
+                                <img src={{m.src}} >
+                            </div>
+                        </div>
+                        <!-- <span class="own">08:55</span> -->
+                    </div>
+                    <!-- <div class="imgMessage" *ngIf = "m.type == 'img'"  >
+                        
+                    </div> -->
+                   
 
                 </div>
             </div>
 
             <div class="type-bot">
                 <div class="icon">
-                  
-                     <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
+                    
+                    <label class="upFile">
+                        <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
+                        <input #fileInput type="file" (change)="processFile(fileInput)">
+                    </label>
+                     
+                     <label class="upPicture">
                         <img id="picture" src="../../../assets/ICON/IconAppChat/9.svg" alt="">
-                        <p id="buzz">Buzz!</p> 
+                        <input #imageInput type="file" accept="image/*" (change)="processImg(imageInput)">
+                        
+                     </label>
+                        
+                    <p id="buzz">Buzz!</p> 
                 
 
                 </div>

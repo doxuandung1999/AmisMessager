@@ -11,15 +11,9 @@ import {SiginComponent} from './UI/sigin/sigin.component';
 
 
 const routes: Routes = [
-  // {path : '**' , component : BoxComponent},{}
-  {path : 'signIn' , component : SiginComponent},
   
-  // {path : 'home' , loadChildren: () => import ('./module/message/message.module').then(x => x.MessageModule)}
-  // {path : '' , redirectTo : '/sigIn' , pathMatch : 'full'}
-
-  // {path : 'signIn' , component : SiginComponent},
-  // {path : 'message/:id' , component : MessageBoxComponent},
-  // {path : '**' , component : BoxComponent}
+  {path : 'signin' , component : SiginComponent}
+  
 ];
 
 @NgModule({

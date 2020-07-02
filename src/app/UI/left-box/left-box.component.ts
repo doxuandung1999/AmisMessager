@@ -34,6 +34,22 @@ export class LeftBoxComponent implements OnInit {
     this._router.navigate(['/message' , id])
 
   }
+  clickRep(id : number){
+    this.friend.forEach(f => {
+      if (f.id === id) {
+        f.noRep = 0;
+        
+      }
+    })    
+  }
+  clickPass(id : number){
+    this.friend.forEach(f => {
+      if (f.id === id) {
+        return true;
+      }
+      return  false;
+    })
+  }
   // check(){
   //   const id = +this._activeRoute.snapshot.paramMap.get('id');
   //   this.checkIt = this.friendService.checkRep(id,);

@@ -10,64 +10,65 @@ export class MessageService {
       senderId : 2,
       receiveId : 1,
       message : 'hello', 
-      time : '07:09'
+      time : '07:09',
+      type : 'text'
     },
     {
       idMessage : 1,
       senderId : 2,
       receiveId : 1,
       message : 'hello', 
-      time : '07:09'
+      time : '07:09',
+      type : 'text'
     },
     {
       idMessage : 1,
       senderId : 2,
       receiveId : 1,
       message : 'hello', 
-      time : '07:09'
+      time : '07:09',
+      type : 'text'
     },
     {
       idMessage : 1,
       senderId : 2,
       receiveId : 1,
       message : 'hello', 
-      time : '07:09'
+      time : '07:09',
+      type : 'text'
     },
     {
       idMessage : 1,
       senderId : 2,
       receiveId : 1,
       message : 'hello', 
-      time : '07:09'
+      time : '07:09',
+      type : 'text'
     },
     
-    {
-      idMessage : 1,
-      senderId : 2,
-      receiveId : 1,
-      message : 'hello', 
-      time : '07:09'
-    },
     {
       idMessage : 2,
       senderId : 1,
       receiveId : 2,
       message : 'good morning sdfsdf adasdas asdasd sds asdas asda asdas asda asda sdfs sdfsdf sdfsd sdfs sdf d asdas dasdasd asdasd asdasd asdasd ', 
-      time : '07:19'
+      time : '07:19',
+      type : 'text'
     },
     {
       idMessage : 3,
       senderId : 1,
       receiveId : 3,
       message : 'hei', 
-      time : '07:09'
+      time : '07:09',
+      type : 'text'
     },
     {
       idMessage : 4,
       senderId : 3,
       receiveId : 1,
       message : 'hi', 
-      time : '07:09'
+      time : '07:09',
+      type : 'text'
     }
 
   ]

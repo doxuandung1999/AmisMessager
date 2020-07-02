@@ -93,6 +93,22 @@ p{
   
   
 }
+.own img{
+  max-width: 300px;
+  max-height: 300px;
+  margin: 8px;
+  border-radius: 12px;
+  @media screen and (max-width : 992px) {
+    max-width: 250px;
+  }
+  @media screen and (max-width : 768px) {
+    max-width: 200px;
+  }
+  @media screen and (max-width : 576px) {
+    max-width: 150px;
+  }
+  
+}
 .message-left{
   position: absolute;
   left: 0;
@@ -130,13 +146,13 @@ span.other{
   flex-direction: column;
   position: relative;
   @media screen and (max-width : 992px) {
-    width: calc(100% - 250px)!important;
+    min-width: calc(100% - 250px)!important;
   }
   @media screen and (max-width : 768px) {
-    width: calc(100% - 200px)!important;
+    min-width: calc(100% - 200px)!important;
   }
   @media screen and (max-width : 576px) {
-    width: calc(100% - 150px)!important;
+    min-width: calc(100% - 150px)!important;
   }
   
 }
@@ -198,7 +214,7 @@ span.other{
   background-color: #f86060;
   border-radius: 3px;
   width: 43px;
-  height: 20px;
+  height: 24px;
   overflow: hidden;
   text-align: center;
   font-size: 13px;
@@ -206,13 +222,12 @@ span.other{
   color: #ffffff;
   cursor: pointer;
 }
-.icon img{
-  margin-right: 15%;
-}
+
 #tag{
   color: #cccccc;
   width: 24px;
   height: 24px;
+  margin-right: 15%;
 }
 #picture{
   width: 24px;
@@ -254,4 +269,11 @@ span.other{
   position: absolute;
   right: 10px;
   cursor: pointer
+}
+.upPicture input{
+  display: none;
+}
+.upPicture{
+  margin-right: 15%;
+  cursor: pointer;
 }

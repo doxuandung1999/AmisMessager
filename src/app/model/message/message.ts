@@ -4,4 +4,7 @@ export class Message{
     receiveId : number;
     message : string; 
     time : string;
+    type : string;
+    src ?: string; 
+    
 }
