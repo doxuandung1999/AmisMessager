@@ -8,11 +8,13 @@ import {BoxComponent} from './UI/box/box.component';
 import { LeftBoxComponent } from './UI/left-box/left-box.component';
 import { RightBoxComponent } from './UI/right-box/right-box.component';
 import {SiginComponent} from './UI/sigin/sigin.component';
+import {SignupComponent} from './UI/signup/signup.component';
 
 
 const routes: Routes = [
   
-  {path : 'signin' , component : SiginComponent}
+  {path : 'signIn' , component : SiginComponent},
+  {path : 'singUp' , component : SignupComponent}
   
 ];
 

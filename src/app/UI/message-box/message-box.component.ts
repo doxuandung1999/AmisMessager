@@ -79,8 +79,8 @@ export class MessageBoxComponent implements OnInit {
 
   // up file
   selectedFile : ImageSnippet;
-  processImg(imageImput : any){
-    const file : File = imageImput.files[0];
+  processImg(fileInput : any){
+    const file : File = fileInput.files[0];
     console.log(file)
     const render = new FileReader();
 
@@ -105,7 +105,41 @@ export class MessageBoxComponent implements OnInit {
   selectedFile_1 : fileSnippet;
   processFile(fileInput : any){
     const file : File = fileInput.files[0];
+   
+    const render = new FileReader();
 
+    render.addEventListener('load', (event : any) => {
+      this.selectedFile = new fileSnippet(event.target.name , file);
+      const id = +this.route.snapshot.paramMap.get('id');
+      this.messageAdd = new Message();
+      this.messageAdd.src = this.selectedFile.src;
+      this.messageAdd.senderId = this.idAmin;
+      this.messageAdd.receiveId = id;
+      this.messageAdd.type = 'pdf';
+
+      this.messages.push(this.messageAdd);
+     
+
+    });
+    
+      render.readAsDataURL(file);
+  }
+
+  // extend
+  checkFile = false;
+  checkImg = false;
+  
+  arrFileShared = [
+    {id:1 , pdf : 'Nội dung hội nghị.pdf'},
+    {id:2 , pdf : 'Test 2.pdf'},
+    {id:3 , pdf : 'Test 3.pdf'},
+    {id:4 , pdf : 'test 4.pdf'}
+  ]
+  showFile(){
+    this.checkFile = !this.checkFile;
+  }
+  showImg(){
+    this.checkImg = !this.checkImg;
   }
 
 

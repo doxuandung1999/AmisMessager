@@ -13,12 +13,14 @@ import { FriendFilterPipe } from './pipe/friend-filter.pipe';
 import {FormsModule} from '@angular/forms';
 import {MessageService} from '../app/service/message.service';
 import { SiginComponent } from './UI/sigin/sigin.component';
+import { SignupComponent } from './UI/signup/signup.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SiginComponent
+    SiginComponent,
+    SignupComponent
    
     
   ],

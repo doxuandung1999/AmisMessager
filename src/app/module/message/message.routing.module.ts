@@ -8,7 +8,7 @@ import {BoxComponent} from '../../UI/box/box.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'message/3', pathMatch: "full" },
+  { path: '', redirectTo: 'message/2', pathMatch: "full" },
   {path : '' , component : BoxComponent ,
     children : [
       {
