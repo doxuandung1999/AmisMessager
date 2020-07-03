@@ -16,11 +16,15 @@ import { SiginComponent } from './UI/sigin/sigin.component';
 import { SignupComponent } from './UI/signup/signup.component';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     SiginComponent,
     SignupComponent
+  
+   
    
     
   ],

@@ -22,7 +22,7 @@
     </div>
     <div class="text_box">
         <div class="main-right" [ngStyle]="{'width' : check ? '100%' : 'calc(100% - 300px)'}">
-            <div class="contact">
+            <div class="contact" #scrollMe>
                 <div class="inline" *ngFor="let m of messages">
 
                     <div class="bubbleWrapper" *ngIf="m.senderId != idAmin && m.type == 'text'">
@@ -51,7 +51,7 @@
 
                             <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class=" own">
-                                <img id="img-message-1" src={{m.src}}>
+                                <img id="img-message-send" src={{m.src}}>
                             </div>
                         </div>
                         <!-- <span class="own">08:55</span> -->
@@ -102,42 +102,8 @@
         </div>
 
         <div class="extend" [hidden]="check">
-            <!-- <app-extend-box></app-extend-box> -->
-            <div class="infor-right">
-                <div class="infor-acc">
-                    <img id="avatar-extend" src="{{friends.avatar}}" alt="">
-                    <div id="infor-text">
-                        <p id="name-extend">{{friends.name}}</p>
-                        <p id="phone-extend">{{friends.number}}</p>
-                        <p id="email-extend">{{friends.email}}</p>
-                    </div>
-                </div>
-                <div class="file-shared">
-                    <div class="title">
-                        <p id="name-file">TỆP ĐÃ CHIA SẺ</p>
-                        <img id="icon-extend" (click)="showFile()"
-                            [src]="checkFile == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg'">
-                    </div>
-                    <div id="list-file" [hidden]="checkFile">
-                        <div id="file" *ngFor="let file of arrFileShared">
-                            <img id="icon-pdf" src="../../../assets/ICON/IconAppChat/pdf-icon.svg">
-                            <p id="name-pdf">{{file.pdf}}</p>
-                        </div>
-                    </div>
-                    <div class="title-img">
-                        <p id="name-file">ẢNH ĐÃ CHIA SẺ</p>
-                        <img id="icon-extend" (click)="showImg()"
-                            [src]="checkImg == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg' ">
-                    </div>
-                    <div id="list-img" [hidden]="checkImg">
-                        <div id="img" *ngFor="let imgs of messages">
-                            <img *ngIf="imgs.type == 'img'" src="{{imgs.src}}" alt="">
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
+            <app-extend-box [message] = "messages"></app-extend-box>
+           
         </div>
 
 

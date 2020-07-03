@@ -25,8 +25,8 @@
                 [src]="checkImg == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg' ">
         </div>
         <div id="list-img" [hidden]="checkImg">
-            <div id="img" *ngFor="let imgs of arrImgShared">
-                <img src="{{imgs.img}}" alt="">
+            <div id="img" *ngFor="let imgs of message" >
+                <img *ngIf = "imgs.type == 'img'" src="{{imgs.src}}" alt="">
             </div>
         </div>
 

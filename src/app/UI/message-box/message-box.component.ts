@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input, ViewChild , ElementRef  } from '@angular/core';
 import {FriendService} from "../../service/friend.service";
 import {Friend} from "../../model/friend/friend";
 import { RouterModule, Routes} from '@angular/router';
@@ -17,6 +17,7 @@ class fileSnippet{
   templateUrl: './message-box.component.html',
   styleUrls: ['./message-box.component.scss']
 })
+
 
 export class MessageBoxComponent implements OnInit {
 
@@ -39,7 +40,10 @@ export class MessageBoxComponent implements OnInit {
       this.getId();
       this.getMessage();
       
+      
     });
+    this.scrollBottom();
+    
   
   }
   ngOndestroy(){
@@ -103,44 +107,40 @@ export class MessageBoxComponent implements OnInit {
   }
 
   selectedFile_1 : fileSnippet;
-  processFile(fileInput : any){
-    const file : File = fileInput.files[0];
+  // processFile(fileInput : any){
+  //   const file : File = fileInput.files[0];
    
-    const render = new FileReader();
+  //   const render = new FileReader();
 
-    render.addEventListener('load', (event : any) => {
-      this.selectedFile = new fileSnippet(event.target.name , file);
-      const id = +this.route.snapshot.paramMap.get('id');
-      this.messageAdd = new Message();
-      this.messageAdd.src = this.selectedFile.src;
-      this.messageAdd.senderId = this.idAmin;
-      this.messageAdd.receiveId = id;
-      this.messageAdd.type = 'pdf';
+  //   render.addEventListener('load', (event : any) => {
+  //     this.selectedFile = new fileSnippet(event.target.name , file);
+  //     const id = +this.route.snapshot.paramMap.get('id');
+  //     this.messageAdd = new Message();
+  //     this.messageAdd.src = this.selectedFile.src;
+  //     this.messageAdd.senderId = this.idAmin;
+  //     this.messageAdd.receiveId = id;
+  //     this.messageAdd.type = 'pdf';
 
-      this.messages.push(this.messageAdd);
+  //     this.messages.push(this.messageAdd);
      
 
-    });
+  //   });
     
-      render.readAsDataURL(file);
-  }
+  //     render.readAsDataURL(file);
+  // }
 
-  // extend
-  checkFile = false;
-  checkImg = false;
-  
-  arrFileShared = [
-    {id:1 , pdf : 'Nội dung hội nghị.pdf'},
-    {id:2 , pdf : 'Test 2.pdf'},
-    {id:3 , pdf : 'Test 3.pdf'},
-    {id:4 , pdf : 'test 4.pdf'}
-  ]
-  showFile(){
-    this.checkFile = !this.checkFile;
+  // thanh cuộn 
+  ngAfterViewChecked() {        
+    this.scrollBottom();        
+} 
+  @ViewChild('scrollMe') private scroll : ElementRef;
+  scrollBottom(){
+    this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
   }
-  showImg(){
-    this.checkImg = !this.checkImg;
-  }
+ 
+
+
+ 
 
 
 }

@@ -138,15 +138,17 @@ p{
     flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
+    float: left;
+    position: relative;
 }
 #img{
     border-radius: 3px;
     overflow: hidden;
-    margin-right: 5px;
     margin-top: 5px;
     
 }
 #img img{
+    margin-right: 5px;
     width: 64px;
     height: 64px;
     @media screen and (max-width : 992px) {

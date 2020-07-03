@@ -120,7 +120,7 @@ p{
   align-self: flex-end;
  
 }
-#img-message-1{
+#img-message-send{
   margin-right: 8px;
 }
 .other {
@@ -165,7 +165,7 @@ span.other{
   display: inline-block;
   flex-direction: column;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   
 }
 // .contact::-webkit-scrollbar {
@@ -325,177 +325,5 @@ span.other{
 }
 
 // extend
-p{
-  padding: 0;
-  margin: 0;
-}
-.infor-right{
-  /* position: relative; */
-  display: flex;
-  flex-direction: column;
-  background-color: #f8f8f8;
-  padding: 24px;
-  height: 100%;
-  overflow: scroll;
-  // width: 24.8%;
-  
-}
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; /* make scrollbar transparent */
-}
-#avatar-extend{
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  color: rgba(54,166,255,.53);
-}
-.infor-acc{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-}
-#infor-text{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 15px;
-}
-#name-extend{
-  font-size: 16px;
-  font-weight: 700;
-  color: #212121;
-  @media screen and (max-width : 992px) {
-      font-size: 14px;
-    }
-    @media screen and (max-width : 768px) {
-      font-size: 13px;
-    }
-    @media screen and (max-width : 576px) {
-      font-size: 12px;
-    }
-}
-#phone-extend, #email-extend{
-  font-size: 13px;
-  letter-spacing: -.13px;
-  color: #666666;
-  @media screen and (max-width : 992px) {
-      font-size: 11px;
-    }
-    @media screen and (max-width : 768px) {
-      font-size: 11px;
-    }
-    @media screen and (max-width : 576px) {
-      font-size: 11px;
-    }
-}
-.file-shared{
-  position: relative;
-  margin-top: 20px;
-  width: 100%;
-
-}
-.title{
-  position: relative;
-  width: 100%;
-}
-#name-file{
-  float: left;
-  font-size: 13px;
-  letter-spacing: -.13px;
-  color: #666666;
-  @media screen and (max-width : 992px) {
-      font-size: 12px;
-    }
-    @media screen and (max-width : 768px) {
-      font-size: 11px;
-    }
-    @media screen and (max-width : 576px) {
-      font-size: 11px;
-    }
-}
-#icon-extend{
-  float: right;
-  cursor: pointer;
-  // width: 130px;
-}
-#list-file{
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  height: 80px;
-  top: 10px;
-}
-#file{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  margin-top: 5px;
-  float: left;
-  height: 28px;
-}
-#icon-pdf{
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-}
-#name-pdf{
-  font-size: 13px;
-  color: rgb(29, 29, 211);
-  @media screen and (max-width : 992px) {
-      font-size: 12px;
-    }
-    @media screen and (max-width : 768px) {
-      font-size: 11px;
-    }
-    @media screen and (max-width : 576px) {
-      font-size: 11px;
-    }
-}
-.title-img{
-  width: 100%;
-  margin-top: 20px;
-  height: 15px;
-}
-#list-img{
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-top: 20px;
-  
-}
-#img{
-  border-radius: 3px;
-  overflow: hidden;
-  margin-right: 5px;
-  margin-top: 5px;
-  // position: absolute;
-  // left: 0;
-}
-#img img{
-  width: 64px;
-  height: 64px;
-  // margin-right: 15px;
-  // position: absolute;
-  // left: 0;
-  @media screen and (max-width : 992px) {
-      width: 58px;
-      height: 58px;
-    }
-    @media screen and (max-width : 768px) {
-      width: 50px;
-      height: 50px;
-    }
-    @media screen and (max-width : 576px) {
-      width: 45px;
-      height: 45px;
-    }
-}
 
 
