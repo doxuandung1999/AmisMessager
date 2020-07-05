@@ -12,7 +12,7 @@
     <!-- (click) = "onClick(friends.id) -->
     <div class="list_friend" >
         <!-- [class.show]="friends.id == 2" -->
-        <div id="friend" *ngFor="let friends of friend | friendFilter : searchFriend" (click) = "clickRep(friends.id)"   routerLink = '/message/{{friends.id}}' >
+        <div id="friend" *ngFor="let friends of friend | friendFilter : searchFriend" (click) = "clickRep(friends.id)" [ngStyle] = "{'background-color' : focus == friends.id ? 'rgba(255, 255, 255, 0.15)' : '#0a1d3b'}"  routerLink = '/message/{{friends.id}}' >
             
                 <div id="avatar">
                     <img id="img_1" src="{{friends.avatar}}" alt="">
@@ -20,7 +20,8 @@
                 </div>
                 <div class="content">
                     <p id="name" [ngStyle] = "{'color' : friends.noRep != 0 ? '#ffffff' : '#8e97a5'}"> {{friends.name}}</p>
-                    <p id="message" [ngStyle] = "{'color' : friends.noRep != 0 ? '#ffffff' : '#8e97a5'}">{{friends.lastMassage}}</p>
+                    <p id="message" *ngIf = "friends.senderId != 1" [ngStyle] = "{'color' : friends.noRep != 0 ? '#ffffff' : '#8e97a5'}">{{friends.lastMassage}}</p>
+                    <p id="message" *ngIf = "friends.senderId == 1" [ngStyle] = "{'color' : friends.noRep != 0 ? '#ffffff' : '#8e97a5'}">Bạn: {{friends.lastMassage}}</p>
                 </div>
     
                 <div class="detail">

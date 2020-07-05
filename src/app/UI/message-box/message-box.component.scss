@@ -108,6 +108,25 @@ p{
     max-width: 150px;
   }
   
+  
+}
+.other img{
+  max-width: 300px;
+  max-height: 300px;
+  margin-left: 8px;
+  cursor: pointer;
+  // margin: 8px 0px 8px 8px;
+  border-radius: 12px;
+  @media screen and (max-width : 992px) {
+    max-width: 250px;
+  }
+  @media screen and (max-width : 768px) {
+    max-width: 200px;
+  }
+  @media screen and (max-width : 576px) {
+    max-width: 150px;
+  }
+  
 }
 .message-left{
   position: absolute;
@@ -118,13 +137,20 @@ p{
 }
 .own {
   align-self: flex-end;
+  a{
+    margin-right: 8px;
+  }
  
 }
 #img-message-send{
   margin-right: 8px;
+  cursor: pointer;
 }
 .other {
   align-self: flex-start;
+  a{
+    margin-left: 8px;
+  }
  
 }
 span.own,
@@ -162,10 +188,12 @@ span.other{
 .contact{
   width: 100%;
   height: calc(100% - 61px);
+  
   display: inline-block;
   flex-direction: column;
   position: relative;
   overflow-y: auto;
+  margin-bottom: 5px;
   
 }
 // .contact::-webkit-scrollbar {
@@ -222,6 +250,7 @@ span.other{
   position: absolute;
   bottom: 0;
   background-color: #f8f8f8;
+ 
   
 }
 .icon{
@@ -249,10 +278,12 @@ span.other{
     height: 24px;
   }
   @media screen and (max-width : 768px) {
-    display: none;
+    width: 35px;
+    height: 24px;
   }
   @media screen and (max-width : 576px) {
-    display: none;
+    width: 30px;
+    height: 24px;
   }
 }
 
@@ -266,15 +297,6 @@ span.other{
 #picture{
   width: 24px;
   height: 24px;
-  
-  // @media screen and (max-width : 768px) {
-  //   width: 16px;
-  // height: 16px;
-  // }
-  // @media screen and (max-width : 576px) {
-  //   width: 16px;
-  // height: 166px;
-  // }
 }
 .send{
   background-color: #ffffff;
@@ -297,6 +319,7 @@ span.other{
   outline: none;
   padding-left: 20px;
   overflow: hidden;
+  font-family: 'Roboto';
 }
 #smile{
   width: 50px;
@@ -315,6 +338,15 @@ span.other{
 }
 #picture{
   margin-right: 15%;
+  @media screen and (max-width : 992px) {
+    margin-right: 5%;
+  }
+  @media screen and (max-width : 768px) {
+    margin-right: 5%;
+  }
+  @media screen and (max-width : 576px) {
+    margin-right: 5%;
+  }
 }
 .upFile input{
   display: none;
@@ -322,8 +354,44 @@ span.other{
 .upFile{
   margin-right: 15%;
   cursor: pointer;
+  @media screen and (max-width : 992px) {
+    margin-right: 5%;
+  }
+  @media screen and (max-width : 768px) {
+    margin-right: 5%;
+  }
+  @media screen and (max-width : 576px) {
+    margin-right: 5%;
+  }
 }
 
-// extend
+// zoom-imgg
+// zoom img
+.zoom-img-click {
+  position: fixed;
+  top: 0;
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background-color: #0d0d0d8f;
+  z-index: 100000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  img {
+      max-width: 80%;
+      max-height: 80%;
+      position: relative;
+  }
+  img.icon-clock {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      top: 4%;
+      right: 4%;
+      cursor: pointer;
+  }
+}
 
 

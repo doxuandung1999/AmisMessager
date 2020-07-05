@@ -17,33 +17,27 @@ export class MessageService {
       idMessage : 1,
       senderId : 2,
       receiveId : 1,
-      message : 'hello', 
       time : '07:09',
-      type : 'text'
+      type : 'img',
+      src : '../../assets/File/ronaldo juv.jpg'
     },
     {
       idMessage : 1,
       senderId : 2,
       receiveId : 1,
-      message : 'hello', 
       time : '07:09',
-      type : 'text'
+      type : 'pdf',
+      message : 'review.pdf',
+      src : '../../assets/File/review.pdf'
     },
     {
       idMessage : 1,
-      senderId : 2,
-      receiveId : 1,
-      message : 'hello', 
+      senderId : 1,
+      receiveId : 2,
       time : '07:09',
-      type : 'text'
-    },
-    {
-      idMessage : 1,
-      senderId : 2,
-      receiveId : 1,
-      message : 'hello', 
-      time : '07:09',
-      type : 'text'
+      type : 'word',
+      message : 'TestDocs.docx',
+      src : '../../assets/File/TestDocs.docx'
     },
     
     {
@@ -69,7 +63,42 @@ export class MessageService {
       message : 'hi', 
       time : '07:09',
       type : 'text'
+    },
+    {
+      idMessage : 4,
+      senderId : 1,
+      receiveId : 4,
+      message : 'asd sa sd', 
+      time : '07:09',
+      type : 'text'
+    },
+    {
+      idMessage : 4,
+      senderId : 4,
+      receiveId : 1,
+      message : 'fgfdg dsfgdf', 
+      time : '07:09',
+      type : 'text'
+    },
+    {
+      idMessage : 4,
+      senderId : 5,
+      receiveId : 1,
+      message : 'fdsfs fdd er sd', 
+      time : '07:09',
+      type : 'text'
+    },
+    {
+      idMessage : 4,
+      senderId : 1,
+      receiveId : 5,
+      message : 'asd opik sd', 
+      time : '07:09',
+      type : 'text'
     }
+
+    
+
 
   ]
 

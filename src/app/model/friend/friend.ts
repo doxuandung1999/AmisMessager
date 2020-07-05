@@ -7,6 +7,7 @@ export class Friend{
     status : boolean;
     lastMassage : string;
     time : string;
+    timeActive : string;
     noRep : number;
     senderId : number;
     number : string;

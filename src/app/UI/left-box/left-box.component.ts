@@ -18,6 +18,7 @@ export class LeftBoxComponent implements OnInit {
   searchFriend : string;
   friend : Friend[];
   checkIt : boolean;
+  focus : number;
   constructor( private friendService : FriendService , 
       private _router : Router , private _activeRoute : ActivatedRoute) { 
     // this.friend = friendService.getFriends();
@@ -40,7 +41,8 @@ export class LeftBoxComponent implements OnInit {
         f.noRep = 0;
         
       }
-    })    
+    });
+    this.focus = id;
   }
   clickPass(id : number){
     this.friend.forEach(f => {

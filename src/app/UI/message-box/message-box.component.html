@@ -7,7 +7,7 @@
         </div>
         <div id="content">
             <p id="name">{{friends.name}}</p>
-            <p id="status">Hoạt động 12 phút trước</p>
+            <p id="status">{{friends.timeActive}}</p>
         </div>
 
         <div class="option">
@@ -34,12 +34,33 @@
                         </div>
                         <!-- <span class="other">08:41</span> -->
                     </div>
+                    <div class="bubbleWrapper" *ngIf="m.senderId != idAmin && m.type == 'img'">
+                        <div class="inlineContainer">
+                            <img class="inlineIcon" src="{{friends.avatar}}">
+                            <div class=" other">
+                                <img src={{m.src}} (click) = "getClickImg(m.src)">
+                            </div>
+                        </div>
+                        <!-- <span class="other">08:41</span> -->
+                    </div>
+                    <div class="bubbleWrapper" *ngIf="m.senderId != idAmin && (m.type == 'pdf' || m.type =='word' || m.type == 'excel' || m.type == 'pp')">
+                        <div class="inlineContainer">
 
+                            <img class="inlineIcon" src="{{friends.avatar}}">
+                            <div class=" other">
+                                <!-- <img id="img-message-send" src={{m.src}}> -->
+                                <a href="{{m.src}}" (click) = "downloadFile(m.src,m.message)">{{m.message}}</a>
+                            </div>
+                        </div>
+                        <!-- <span class="own">08:55</span> -->
+                    </div>
+                
 
+                
                     <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && m.type == 'text'">
                         <div class="inlineContainer own">
 
-                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
+                            <img class="inlineIcon" src="{{users[0].avatar}}">
                             <div class="ownBubble own">
                                 {{m.message}}
                             </div>
@@ -49,29 +70,32 @@
                     <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && m.type == 'img'">
                         <div class="inlineContainer own">
 
-                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
+                            <img class="inlineIcon" src="{{users[0].avatar}}">
                             <div class=" own">
-                                <img id="img-message-send" src={{m.src}}>
+                                <img id="img-message-send" src={{m.src}} (click) = "getClickImg(m.src)">
+                                <!-- <a href="">{{m.src}}</a> -->
                             </div>
                         </div>
                         <!-- <span class="own">08:55</span> -->
                     </div>
-                    <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && m.type == 'pdf'">
+                    <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && (m.type == 'word' || m.type =='pdf' || m.type == 'excel'|| m.type == 'pp')">
                         <div class="inlineContainer own">
 
-                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
+                            <img class="inlineIcon" src="{{users[0].avatar}}">
                             <div class=" own">
-                                <p>{{m.src}}</p>
+                                <!-- <img id="img-message-send" src={{m.src}}> -->
+                                <a href="{{m.src}}" (click) = "downloadFile(m.src,m.message)">{{m.message}}</a>
                             </div>
                         </div>
-
+                        <!-- <span class="own">08:55</span> -->
                     </div>
+                    
                     <!-- <div class="imgMessage" *ngIf = "m.type == 'img'"  >
                         
                     </div> -->
-
-
                 </div>
+
+                
             </div>
 
             <div class="type-bot">
@@ -79,7 +103,11 @@
 
                     <label class="upFile">
                         <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
-                        <input #fileInput type="file" accept="image/*,application/pdf" (change)="processImg(fileInput)">
+                        <input #fileInput type="file" accept="image/*,application/pdf , 
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+                        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,
+                        application/vnd.openxmlformats-officedocument.presentationml.presentation" 
+                        (change)="processImg(fileInput)">
                     </label>
 
 
@@ -108,6 +136,13 @@
 
 
     </div>
+
+
+</div>
+<div  *ngIf="checkZoom" class="zoom-img-click">
+    
+    <img src="../../../assets/ICON/IconboxChat/3.svg" alt="" class="icon-clock" (click) = "UnZoom()">
+    <img src= {{imgsrc}} alt="">
 
 
 </div>

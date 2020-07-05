@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/model/user/user';
+import { Store } from '@ngrx/store';
+
+import { Router } from '@angular/router';
+import { UserState, getLogin } from 'src/app/reducer';
 
 @Component({
   selector: 'app-header-box',
@@ -6,8 +11,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-box.component.scss']
 })
 export class HeaderBoxComponent implements OnInit {
-
-  constructor() { }
+  users : User[];
+  constructor( private _store:Store<UserState>,private router:Router) {
+    
+    this._store.select(getLogin).subscribe(item=>{
+      this.users = item;
+    });
+   }
 
   ngOnInit(): void {
   }

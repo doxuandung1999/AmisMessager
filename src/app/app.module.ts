@@ -10,10 +10,13 @@ import {listModule} from "./module/share/list.module";
 import { from } from 'rxjs';
 import {FriendService} from "../app/service/friend.service";
 import { FriendFilterPipe } from './pipe/friend-filter.pipe';
-import {FormsModule} from '@angular/forms';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {MessageService} from '../app/service/message.service';
 import { SiginComponent } from './UI/sigin/sigin.component';
 import { SignupComponent } from './UI/signup/signup.component';
+import {reducers} from './reducer';
+import {StoreModule} from "@ngrx/store";
+import { UserService } from './service/user.service';
 
 
 
@@ -23,19 +26,19 @@ import { SignupComponent } from './UI/signup/signup.component';
     AppComponent,
     SiginComponent,
     SignupComponent
-  
-   
-   
-    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     listModule,
-    MessageModule
+    MessageModule,
+    StoreModule.forRoot(reducers),
+    FormsModule,
+    ReactiveFormsModule
    
   ],
-  providers: [FriendService , MessageService],
+  providers: [FriendService , MessageService , UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

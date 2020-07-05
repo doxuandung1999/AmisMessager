@@ -9,8 +9,6 @@ import {Friend} from '../model/friend/friend';
 
 export class FriendService {
   private listFriend : Friend[] = [
-  
-  
     {   
       id:2,
       name : 'Đào Đức Khiêm',
@@ -21,7 +19,8 @@ export class FriendService {
       noRep : 0,
       senderId : 2,
       number:'0975255650',
-      email :'khiem@gmail.com'
+      email :'khiem@gmail.com',
+      timeActive : 'Đang hoạt động'
   },
   {   
       id:3,
@@ -32,8 +31,9 @@ export class FriendService {
       time : '14:30',
       noRep : 2,
       senderId : 1,
-      number:'0975255650',
-      email :'Minh@gmail.com'
+      number:'0912223450',
+      email :'Minh@gmail.com',
+      timeActive : 'Hoạt động 1 giờ truóc'
   },
   {   
       id:4,
@@ -44,8 +44,9 @@ export class FriendService {
       time : '14:30',
       noRep : 5,
       senderId : 4,
-      number:'0975255650',
-      email :'Phi@gmail.com'
+      number:'0973266950',
+      email :'Phi@gmail.com',
+      timeActive : 'Đang hoạt động'
 
   },
   {   
@@ -57,8 +58,9 @@ export class FriendService {
       time : '14:30',
       noRep : 0,
       senderId : 1,
-      number:'0975255650',
-      email :'Duong@gmail.com'
+      number:'0915379413',
+      email :'Duong@gmail.com',
+      timeActive : 'Hoạt động 15 phút truóc'
   }
     
   ];
