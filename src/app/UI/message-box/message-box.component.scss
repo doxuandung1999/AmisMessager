@@ -4,7 +4,7 @@ p{
 }
 .head-right{
     width: 100%;
-    
+    height: 7.5%;
     padding: 24px 24px 5px 24px;
     position: relative;
     display: flex;
@@ -168,7 +168,7 @@ span.other{
   position: relative;
   display: flex;
   flex-direction: row;
-  height: calc(100% - 66px);
+  height: 92.5%;
 }
 .main-right{
   display: flex;
@@ -302,7 +302,7 @@ span.other{
   background-color: #ffffff;
   border-radius: 7.5px;
   border: 1px solid #e0e0e0;
-  width: 80%;
+  width: 90%;
   height: 39px;
   overflow: hidden;
   display: flex;
@@ -393,5 +393,12 @@ span.other{
       cursor: pointer;
   }
 }
-
+.main a{
+  color: white!important;
+  text-decoration: white!important;
+  text-decoration:underline!important ;
+}
+.other a{
+  text-decoration:underline!important ;
+}
 

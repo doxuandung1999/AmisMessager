@@ -47,7 +47,7 @@
                         <div class="inlineContainer">
 
                             <img class="inlineIcon" src="{{friends.avatar}}">
-                            <div class=" other">
+                            <div class="otherBubble other">
                                 <!-- <img id="img-message-send" src={{m.src}}> -->
                                 <a href="{{m.src}}" (click) = "downloadFile(m.src,m.message)">{{m.message}}</a>
                             </div>
@@ -82,7 +82,7 @@
                         <div class="inlineContainer own">
 
                             <img class="inlineIcon" src="{{users[0].avatar}}">
-                            <div class=" own">
+                            <div class="ownBubble own main" >
                                 <!-- <img id="img-message-send" src={{m.src}}> -->
                                 <a href="{{m.src}}" (click) = "downloadFile(m.src,m.message)">{{m.message}}</a>
                             </div>

@@ -37,6 +37,7 @@ export class MessageBoxComponent implements OnInit {
   imgsrc : string;
   checkZoom = false;
   users : User[];
+  checkFocus = false;
   
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
@@ -72,6 +73,7 @@ export class MessageBoxComponent implements OnInit {
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.friends = this.friendService.getFriendId(id);
+    
 
   }
 
@@ -101,8 +103,8 @@ export class MessageBoxComponent implements OnInit {
   selectedFile: fileSnippet;
   processImg(fileInput: any) {
     const file: File = fileInput.files[0];
-    console.log(file.name);
-    console.log(file.type);
+    // console.log(file.name);
+    // console.log(file.type);
     const render = new FileReader();
 
     render.addEventListener('load', (event: any) => {
