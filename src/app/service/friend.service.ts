@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import {Friend} from '../model/friend/friend';
 
 
@@ -15,7 +15,7 @@ export class FriendService {
       avatar : '../../../assets/Avatar/2.jpg',
       status : true,
       lastMassage : 'mai đá bóng nhá',
-      time : '14:30',
+      time : "13:00",
       noRep : 0,
       senderId : 2,
       number:'0975255650',
@@ -78,5 +78,12 @@ export class FriendService {
     return false;
 
   }
+  @Output() userId = new EventEmitter<number>();
+  changeUser(id){
+    this.userId.emit(id);
+  }
+
+  
+  
  
 }

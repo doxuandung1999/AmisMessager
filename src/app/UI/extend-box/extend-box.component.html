@@ -13,7 +13,7 @@
             <img id="icon" (click)="showFile()"
                 [src]="checkFile == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg'">
         </div>
-        <div id="list-file" [hidden]="checkFile" #scrollMe [ngStyle] = "{'max-height' : checkImg == true ? '150px' : '70px'}">
+        <div id="list-file" [hidden]="checkFile" #scrollMe [ngStyle] = "{'max-height' : checkImg == true ? '200px' : '150px'}">
             <div id="file" *ngFor="let file of message">
                     <!-- <img *ngIf = "file.type == 'pdf' || file.type == 'word' || file.type == 'excel' || file.type == 'pp'" id="icon-pdf" src="{{file.fileIcon}}"> -->
                     <img *ngIf = "file.type == 'pdf'" id="icon-pdf" src="../../../assets/ICON/IconAppChat/pdf-icon.svg">
@@ -29,7 +29,7 @@
             <img id="icon" (click)="showImg()"
                 [src]="checkImg == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg' ">
         </div>
-        <div id="list-img" #scrollMe_2 [hidden]="checkImg" [ngStyle] = "{'height' : checkFile == true ? '140px' : '70px'}">
+        <div id="list-img" #scrollMe_2 [hidden]="checkImg" [ngStyle] = "{'max-height' : checkFile == true ? '200px' : '150px'}">
             <div id="img" *ngFor="let imgs of message" >
                 <img *ngIf = "imgs.type == 'img'" src="{{imgs.src}}" (click) = "getClickImg(imgs.src)" alt="">
             </div>

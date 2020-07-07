@@ -100,7 +100,7 @@ p{
     flex-direction: column;
     align-items: center;
     position: relative;
-    max-height: 80px;
+    max-height: 150px;
     // top: 10px;
     margin-top: 15px;
 }
@@ -145,7 +145,7 @@ p{
     float: left;
     position: relative;
     overflow-y: auto;
-    height: 70px;
+    max-height: 150px;
     // max-height: 140px;
 }
 #img{
@@ -157,8 +157,8 @@ p{
 }
 #img img{
     margin-right: 5px;
-    width: 64px;
-    height: 64px;
+    width: 75px;
+    height: 75px;
     @media screen and (max-width : 992px) {
         width: 58px;
         height: 58px;

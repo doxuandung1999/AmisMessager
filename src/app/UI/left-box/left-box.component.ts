@@ -20,6 +20,7 @@ export class LeftBoxComponent implements OnInit {
   friend : Friend[];
   checkIt : boolean;
   focus : number;
+  checkFocus : boolean;
   constructor( private friendService : FriendService , 
       private _router : Router , private _activeRoute : ActivatedRoute,
       private dataService : DataTransferService) { 
@@ -33,6 +34,7 @@ export class LeftBoxComponent implements OnInit {
   ngOnInit(): void {
     this.friend = this.friendService.getFriend();
     // this.getId();
+    this.getFocus();
   }
   onClick(id : number){
     this._router.navigate(['/message' , id])
@@ -59,6 +61,11 @@ export class LeftBoxComponent implements OnInit {
         return true;
       }
       return  false;
+    })
+  }
+  getFocus(){
+    this.friendService.userId.subscribe(data => {
+      this.checkFocus = true;
     })
   }
   // check(){

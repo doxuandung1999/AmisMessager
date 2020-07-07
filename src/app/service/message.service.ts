@@ -44,7 +44,7 @@ export class MessageService {
       idMessage : 2,
       senderId : 1,
       receiveId : 2,
-      message : 'good morning sdfsdf adasdas asdasd sds asdas asda asdas asda asda sdfs sdfsdf sdfsd sdfs sdf d asdas dasdasd asdasd asdasd asdasd ', 
+      message : 'good morning sdfsdf adasdas asdasd sds asdas asda asdas asda asda sdfs sdfsdf  ', 
       time : '07:19',
       type : 'text'
     },

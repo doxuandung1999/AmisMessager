@@ -124,8 +124,8 @@ export class MessageBoxComponent implements OnInit {
   selectedFile: fileSnippet;
   processImg(fileInput: any) {
     const file: File = fileInput.files[0];
-    console.log(file.name);
-    console.log(file.type);
+    // console.log(file.name);
+    // console.log(file.type);
     const render = new FileReader();
 
     render.addEventListener('load', (event: any) => {
