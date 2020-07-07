@@ -8,10 +8,15 @@ import {BoxComponent} from '../../UI/box/box.component';
 
 
 const routes: Routes = [
+
+  
   {path : '' , component : BoxComponent ,
     children : [
       {
         path : 'message/:id' , component : MessageBoxComponent
+      },
+      {
+        path: '', redirectTo: 'message/2', pathMatch: 'full'
       }
 
     ]

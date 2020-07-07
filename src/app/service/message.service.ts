@@ -109,6 +109,8 @@ export class MessageService {
   getMessageId(id : number) : Message[] {
     return this.listMessage.filter(e => (e.senderId === id) ||  e.receiveId === id);
   }
+
+  
  
 
   

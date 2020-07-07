@@ -8,6 +8,8 @@ import { Message } from '../../model/message/message';
 import { User } from 'src/app/model/user/user';
 import { Store } from '@ngrx/store';
 import { UserState, getLogin } from 'src/app/reducer';
+import { DataTransferService } from '../../service/dataTransferService';
+
 
 
 // class ImageSnippet{
@@ -34,16 +36,18 @@ export class MessageBoxComponent implements OnInit {
   friend_1;
   checkMessage = true;
   check = false;
-  imgsrc : string;
+  imgsrc: string;
   checkZoom = false;
-  users : User[];
-  
+  users: User[];
+  userId : number;
+
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
-    private _store:Store<UserState>,private router:Router) {
-    
+    private _store: Store<UserState>, private router: Router,
+    private dataService: DataTransferService) {
+
     // login
-    this._store.select(getLogin).subscribe(item=>{
+    this._store.select(getLogin).subscribe(item => {
       this.users = item;
       // this.idAmin = this.users[0].id;
     });
@@ -54,6 +58,7 @@ export class MessageBoxComponent implements OnInit {
     this.route.paramMap.subscribe(x => {
       this.getId();
       this.getMessage();
+      this.getTime();
 
 
 
@@ -65,36 +70,54 @@ export class MessageBoxComponent implements OnInit {
   ngOndestroy() {
     this.getId();
     // this.getMessage();
+    // this.showMessage(event);
 
 
   }
+  // lấy id trên thanh url
   getId() {
 
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.friends = this.friendService.getFriendId(id);
+    // const id = +this.route.snapshot.paramMap.get('id');
+    this.dataService.userID.subscribe(data => {
+      this.friends = this.friendService.getFriendId(data);
+    })
+    // this.friends = this.friendService.getFriendId(id);
+
 
   }
 
+  // lấy message trong từng cuộc hội thoại
   getMessage() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.messages = this.messageService.getMessageId(id);
+    // const id = +this.route.snapshot.paramMap.get('id');
+    // this.messages = this.messageService.getMessageId(id);
+    this.dataService.userID.subscribe(data => {
+      this.messages = this.messageService.getMessageId(data);
+    })
 
   }
 
-
+  // thay đổi biến check để ẩn hiện phần extend component
   showInfor() {
     this.check = !this.check;
   }
-  showMessage(event) {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.messageAdd = new Message();
-    this.messageAdd.message = event.target.value;
-    this.messageAdd.senderId = this.idAmin;
-    this.messageAdd.receiveId = id;
-    this.messageAdd.type = 'text';
 
-    this.messages.push(this.messageAdd);
-    event.target.value = null;
+  // thêm tin nhắn dạng text vào mảng message
+  showMessage(event) {
+    // const id = +this.route.snapshot.paramMap.get('id');
+   
+    this.dataService.userID.subscribe(data => {
+      this.userId = data;
+    })
+    this.messageAdd = new Message();
+      this.messageAdd.message = event.target.value;
+      this.messageAdd.senderId = this.idAmin;
+      this.messageAdd.receiveId = this.userId;
+      this.messageAdd.type = 'text';
+      this.messages.push(this.messageAdd);
+      event.target.value = null;
+    // this.messages.push(this.messageAdd);
+    //   event.target.value = null;
+
   }
 
   // up file
@@ -107,52 +130,60 @@ export class MessageBoxComponent implements OnInit {
 
     render.addEventListener('load', (event: any) => {
       this.selectedFile = new fileSnippet(event.target.result, file);
-      const id = +this.route.snapshot.paramMap.get('id');
+      // const id = +this.route.snapshot.paramMap.get('id');
+      this.dataService.userID.subscribe(data => {
+        this.userId = data;
+      })
       this.messageAdd = new Message();
+      // thêm file dạng img vào mảng messages 
       if (file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
+        this.messageAdd.receiveId = this.userId;
         this.messageAdd.type = 'img';
         this.messages.push(this.messageAdd);
       }
+      // thêm file dang pdf
       else if (file.type == 'application/pdf') {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
+        this.messageAdd.receiveId = this.userId;
         this.messageAdd.type = 'pdf';
-       
+
         this.messages.push(this.messageAdd);
       }
+      // thêm file dạng word
       else if (
         file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
+        this.messageAdd.receiveId = this.userId;
         this.messageAdd.type = 'word';
-        
+
         this.messages.push(this.messageAdd);
       }
+      // thêm file dạng excel
       else if (
         file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
+        this.messageAdd.receiveId = this.userId;
         this.messageAdd.type = 'excel';
-        
+
         this.messages.push(this.messageAdd);
       }
+      // them file dạng powerpoint
       else if (
         file.type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
+        this.messageAdd.receiveId = this.userId;
         this.messageAdd.type = 'pp';
-       
+
         this.messages.push(this.messageAdd);
       }
 
@@ -173,7 +204,7 @@ export class MessageBoxComponent implements OnInit {
 
 
 
-  // thanh cuộn 
+  //cho thanh cuộn xuống bottom
   ngAfterViewChecked() {
     this.scrollBottom();
   }
@@ -184,16 +215,25 @@ export class MessageBoxComponent implements OnInit {
   }
 
   // zoom - img
-  getClickImg(src){
+  getClickImg(src) {
     this.checkZoom = true;
     this.imgsrc = src;
   }
-
-  UnZoom(){
+  // bỏ zoom ảnh
+  UnZoom() {
     this.checkZoom = false;
   }
+  // xét thời gian
 
-  
+  getTime() {
+    let date = new Date('2020/07/03 12:40:43');
+    let date2 = new Date();
+    console.log(date);
+    // console.log(Math.floor((date2 - date) / (1000 * 60 * 60 * 24));
+    console.log(Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())) / (1000 * 60 * 60 * 24)));
+
+  }
+
 
 
 

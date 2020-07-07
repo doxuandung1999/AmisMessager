@@ -1,6 +1,7 @@
 <div class="right container-fluid">
 
     <div class="head-right">
+        <!-- phần hiện người đang trò chuyện và trạng thái -->
 
         <div id="avatar">
             <img src="{{friends.avatar}}" alt="">
@@ -12,6 +13,8 @@
 
         <div class="option">
             <img src="../../../assets/ICON/IconAppChat/2.svg" alt="">
+            <!-- thay đổi icon hiện thông tin về cuộc trò chuyện  -->
+
             <img (click)="showInfor()"
                 [src]=" check == false ? '../../../assets/ICON/IconAppChat/5.svg' : '../../../assets/ICON/IconAppChat/6.svg'">
             <img src="../../../assets/ICON/IconAppChat/4.svg" alt="">
@@ -21,10 +24,12 @@
 
     </div>
     <div class="text_box">
+        <!-- responsive chiều rộng khi ẩn , hiện phần hiển thị thông tin người và cuộc trò chuyện -->
         <div class="main-right" [ngStyle]="{'width' : check ? '100%' : 'calc(100% - 300px)'}">
+            <!-- # scrollMe làm cho tanh scroll tự động cuộn xuống -->
             <div class="contact" #scrollMe>
                 <div class="inline" *ngFor="let m of messages">
-
+                    <!-- so sánh id để xác định bên hiện message -->
                     <div class="bubbleWrapper" *ngIf="m.senderId != idAmin && m.type == 'text'">
                         <div class="inlineContainer">
                             <img class="inlineIcon" src="{{friends.avatar}}">
@@ -34,6 +39,7 @@
                         </div>
                         <!-- <span class="other">08:41</span> -->
                     </div>
+                     <!-- gửi ảnh -->
                     <div class="bubbleWrapper" *ngIf="m.senderId != idAmin && m.type == 'img'">
                         <div class="inlineContainer">
                             <img class="inlineIcon" src="{{friends.avatar}}">
@@ -43,12 +49,14 @@
                         </div>
                         <!-- <span class="other">08:41</span> -->
                     </div>
+                    <!-- hiện các loại file -->
                     <div class="bubbleWrapper" *ngIf="m.senderId != idAmin && (m.type == 'pdf' || m.type =='word' || m.type == 'excel' || m.type == 'pp')">
                         <div class="inlineContainer">
 
                             <img class="inlineIcon" src="{{friends.avatar}}">
                             <div class=" other">
                                 <!-- <img id="img-message-send" src={{m.src}}> -->
+                                <!-- click vào file để download -->
                                 <a href="{{m.src}}" (click) = "downloadFile(m.src,m.message)">{{m.message}}</a>
                             </div>
                         </div>
@@ -56,11 +64,12 @@
                     </div>
                 
 
-                
+                    <!-- khi tin nhắn là do user admin gửi -->
                     <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && m.type == 'text'">
                         <div class="inlineContainer own">
 
-                            <img class="inlineIcon" src="{{users[0].avatar}}">
+                            <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
+                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class="ownBubble own">
                                 {{m.message}}
                             </div>
@@ -70,7 +79,8 @@
                     <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && m.type == 'img'">
                         <div class="inlineContainer own">
 
-                            <img class="inlineIcon" src="{{users[0].avatar}}">
+                            <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
+                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class=" own">
                                 <img id="img-message-send" src={{m.src}} (click) = "getClickImg(m.src)">
                                 <!-- <a href="">{{m.src}}</a> -->
@@ -81,7 +91,8 @@
                     <div class="bubbleWrapper" *ngIf="m.senderId == idAmin && (m.type == 'word' || m.type =='pdf' || m.type == 'excel'|| m.type == 'pp')">
                         <div class="inlineContainer own">
 
-                            <img class="inlineIcon" src="{{users[0].avatar}}">
+                            <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
+                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class=" own">
                                 <!-- <img id="img-message-send" src={{m.src}}> -->
                                 <a href="{{m.src}}" (click) = "downloadFile(m.src,m.message)">{{m.message}}</a>
@@ -90,9 +101,7 @@
                         <!-- <span class="own">08:55</span> -->
                     </div>
                     
-                    <!-- <div class="imgMessage" *ngIf = "m.type == 'img'"  >
-                        
-                    </div> -->
+                   
                 </div>
 
                 
@@ -102,6 +111,7 @@
                 <div class="icon">
 
                     <label class="upFile">
+                        <!-- các loại file có thể được chọn để gửi tin nhắn -->
                         <img id="tag" src="../../../assets/ICON/IconAppChat/10.svg" alt="">
                         <input #fileInput type="file" accept="image/*,application/pdf , 
                         application/vnd.openxmlformats-officedocument.wordprocessingml.document,
@@ -118,6 +128,7 @@
 
                 </div>
                 <div class="send">
+                    <!-- nhận dữ liệu ở input khi nhấn enter -->
                     <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
                         (keydown.enter)="showMessage($event)">
                     <div id="smile">
@@ -130,6 +141,7 @@
         </div>
 
         <div class="extend" [hidden]="check">
+            <!-- input mảng message sang component con extend component để lấy các file đã gửi -->
             <app-extend-box [message] = "messages"></app-extend-box>
            
         </div>
@@ -139,6 +151,8 @@
 
 
 </div>
+
+<!-- click vào để zoom ảnh -->
 <div  *ngIf="checkZoom" class="zoom-img-click">
     
     <img src="../../../assets/ICON/IconboxChat/3.svg" alt="" class="icon-clock" (click) = "UnZoom()">

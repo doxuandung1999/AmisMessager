@@ -5,6 +5,7 @@ import {MessageModule} from '../../module/message/message.module';
   import { from } from 'rxjs';
 import {Router} from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
+import {DataTransferService} from '../../service/dataTransferService';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class LeftBoxComponent implements OnInit {
   checkIt : boolean;
   focus : number;
   constructor( private friendService : FriendService , 
-      private _router : Router , private _activeRoute : ActivatedRoute) { 
+      private _router : Router , private _activeRoute : ActivatedRoute,
+      private dataService : DataTransferService) { 
     // this.friend = friendService.getFriends();
     this._activeRoute.paramMap.subscribe(x => {
       // this.check();
@@ -30,11 +32,17 @@ export class LeftBoxComponent implements OnInit {
 
   ngOnInit(): void {
     this.friend = this.friendService.getFriend();
+    // this.getId();
   }
   onClick(id : number){
     this._router.navigate(['/message' , id])
 
   }
+  // lấy id
+  // getId(){
+  //   const id = +this._activeRoute.snapshot.paramMap.get('id');
+  //   console.log(id);
+  // }
   clickRep(id : number){
     this.friend.forEach(f => {
       if (f.id === id) {
@@ -42,6 +50,7 @@ export class LeftBoxComponent implements OnInit {
         
       }
     });
+    this.dataService.changeUser(id);
     this.focus = id;
   }
   clickPass(id : number){

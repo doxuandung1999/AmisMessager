@@ -3,6 +3,7 @@ import {Friend} from "../../model/friend/friend";
 import {FriendService} from "../../service/friend.service";
 import {ActivatedRoute} from "@angular/router";
 import {Message} from "../../model/message/message";
+import {DataTransferService} from '../../service/dataTransferService';
 
 declare var require: any
 const FileSaver = require('file-saver');
@@ -21,14 +22,18 @@ export class ExtendBoxComponent implements OnInit {
    @Input() message : Message[];
 
   constructor( private friendService : FriendService , 
-    private route : ActivatedRoute) { 
+    private route : ActivatedRoute,
+    private dataService : DataTransferService) { 
       this.route.paramMap.subscribe(x => {
         this.getId();
       });
     }
   getId(){
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.friends = this.friendService.getFriendId(id);
+    // const id = +this.route.snapshot.paramMap.get('id');
+    this.dataService.userID.subscribe(data => {
+      this.friends = this.friendService.getFriendId(data);
+    })
+    
   }
   ngOndestroy(){
     this.getId();
