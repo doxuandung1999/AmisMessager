@@ -1,4 +1,4 @@
-import { Component, OnInit , Input , ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit , Input , ElementRef, ViewChild, HostListener} from '@angular/core';
 import {Friend} from "../../model/friend/friend";
 import {FriendService} from "../../service/friend.service";
 import {ActivatedRoute} from "@angular/router";
@@ -19,6 +19,7 @@ export class ExtendBoxComponent implements OnInit {
   friends : Friend;
   imgsrc : string;
   checkZoom = false;
+  // lấy mảng message tử component cha
    @Input() message : Message[];
 
   constructor( private friendService : FriendService , 
@@ -28,11 +29,9 @@ export class ExtendBoxComponent implements OnInit {
         this.getId();
       });
     }
+    // lấy id trên thanh URL
   getId(){
     const id = +this.route.snapshot.paramMap.get('id');
-    // this.dataService.userID.subscribe(data => {
-      
-    // })
     this.friends = this.friendService.getFriendId(id);
     
   }
@@ -42,6 +41,7 @@ export class ExtendBoxComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  // ẩn hiện phần xem các file trong đoạn hội thoại
   showFile(){
     this.checkFile = !this.checkFile;
   }
@@ -54,13 +54,11 @@ export class ExtendBoxComponent implements OnInit {
     this.checkZoom = true;
     this.imgsrc = src;
   }
-
+  // bỏ zoom img khi click
   UnZoom(){
     this.checkZoom = false;
   }
-  zoom(){
-    this.checkZoom = true;
-  }
+  
   // download file
   downloadFile(src : string , name:string){
     FileSaver.saveAs(src , name);
@@ -82,6 +80,12 @@ export class ExtendBoxComponent implements OnInit {
       // debugger;
       this.scroll_2.nativeElement.scrollTop = this.scroll_2.nativeElement.scrollHeight;
     }
+  
+     // nhấn esc để thay đổi biến checkZoom thành false để thoát zoom ảnh
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.checkZoom = false;
+  }
+
   
 
 }

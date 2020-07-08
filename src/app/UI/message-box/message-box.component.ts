@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { FriendService } from "../../service/friend.service";
 import { Friend } from "../../model/friend/friend";
 import { RouterModule, Routes, Router } from '@angular/router';
@@ -210,6 +210,7 @@ export class MessageBoxComponent implements OnInit {
   UnZoom() {
     this.checkZoom = false;
   }
+  
   // xét thời gian
 
   getTime() {
@@ -222,8 +223,10 @@ export class MessageBoxComponent implements OnInit {
   }
 
 
-
-
+  // nhấn esc để thay đổi biến checkZoom thành false để thoát zoom ảnh
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.checkZoom = false;
+  }
 
 
 

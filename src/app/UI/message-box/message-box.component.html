@@ -44,6 +44,7 @@
                         <div class="inlineContainer">
                             <img class="inlineIcon" src="{{friends.avatar}}">
                             <div class=" other">
+                                <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh -->
                                 <img src={{m.src}} (click) = "getClickImg(m.src)">
                             </div>
                         </div>
@@ -82,6 +83,7 @@
                             <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
                             <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class=" own">
+                                <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh -->
                                 <img id="img-message-send" src={{m.src}} (click) = "getClickImg(m.src)">
                                 <!-- <a href="">{{m.src}}</a> -->
                             </div>
@@ -153,9 +155,10 @@
 </div>
 
 <!-- click vào để zoom ảnh -->
-<div  *ngIf="checkZoom" class="zoom-img-click" (click) = "UnZoom()">
+<!-- xác định ảnh dựa vào imgsrc được xác định nhờ function getClickImg ở trên -->
+<div  *ngIf="checkZoom" class="zoom-img-click" (click) = "UnZoom()" >
     
-    <img src= {{imgsrc}} alt="">
+    <img src= {{imgsrc}} alt="" >
 
 
 </div>

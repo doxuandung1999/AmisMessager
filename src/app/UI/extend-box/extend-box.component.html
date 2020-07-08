@@ -8,9 +8,9 @@
         </div>
     </div>
     <div class="file-shared">
-        <div class="title">
+        <div class="title" (click)="showFile()">
             <p id="name-file">TỆP ĐÃ CHIA SẺ</p>
-            <img id="icon" (click)="showFile()"
+            <img id="icon" 
                 [src]="checkFile == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg'">
         </div>
         <div id="list-file" [hidden]="checkFile" #scrollMe [ngStyle] = "{'max-height' : checkImg == true ? '200px' : '150px'}">
@@ -24,9 +24,9 @@
                 
             </div>
         </div>
-        <div class="title-img">
+        <div class="title-img" (click)="showImg()">
             <p id="name-file">ẢNH ĐÃ CHIA SẺ</p>
-            <img id="icon" (click)="showImg()"
+            <img id="icon" 
                 [src]="checkImg == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg' ">
         </div>
         <div id="list-img" #scrollMe_2 [hidden]="checkImg" [ngStyle] = "{'max-height' : checkFile == true ? '200px' : '150px'}">
@@ -44,7 +44,7 @@
 <div  *ngIf="checkZoom" class="zoom-img-click" (click) = "UnZoom()"> 
     
         <!-- <img src="../../../assets/ICON/IconboxChat/3.svg" alt="" class="icon-clock" (click) = "UnZoom()"> -->
-        <img src= {{imgsrc}} alt="" >
+        <img src= {{imgsrc}} alt="">
     
     
 </div>
