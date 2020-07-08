@@ -93,7 +93,7 @@
 
                             <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
                             <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
-                            <div class=" own">
+                            <div class="ownBubble own">
                                 <!-- <img id="img-message-send" src={{m.src}}> -->
                                 <a href="{{m.src}}" (click) = "downloadFile(m.src,m.message)">{{m.message}}</a>
                             </div>
@@ -153,9 +153,8 @@
 </div>
 
 <!-- click vào để zoom ảnh -->
-<div  *ngIf="checkZoom" class="zoom-img-click">
+<div  *ngIf="checkZoom" class="zoom-img-click" (click) = "UnZoom()">
     
-    <img src="../../../assets/ICON/IconboxChat/3.svg" alt="" class="icon-clock" (click) = "UnZoom()">
     <img src= {{imgsrc}} alt="">
 
 

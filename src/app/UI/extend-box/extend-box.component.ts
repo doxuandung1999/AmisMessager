@@ -29,16 +29,18 @@ export class ExtendBoxComponent implements OnInit {
       });
     }
   getId(){
-    // const id = +this.route.snapshot.paramMap.get('id');
-    this.dataService.userID.subscribe(data => {
-      this.friends = this.friendService.getFriendId(data);
-    })
+    const id = +this.route.snapshot.paramMap.get('id');
+    // this.dataService.userID.subscribe(data => {
+      
+    // })
+    this.friends = this.friendService.getFriendId(id);
     
   }
   ngOndestroy(){
-    this.getId();
+    
   }
   ngOnInit(): void {
+    
   }
   showFile(){
     this.checkFile = !this.checkFile;
@@ -55,6 +57,9 @@ export class ExtendBoxComponent implements OnInit {
 
   UnZoom(){
     this.checkZoom = false;
+  }
+  zoom(){
+    this.checkZoom = true;
   }
   // download file
   downloadFile(src : string , name:string){

@@ -30,18 +30,21 @@
                 [src]="checkImg == false ? '../../../assets/ICON/IconAppChat/13.svg' : '../../../assets/ICON/IconAppChat/19.svg' ">
         </div>
         <div id="list-img" #scrollMe_2 [hidden]="checkImg" [ngStyle] = "{'max-height' : checkFile == true ? '200px' : '150px'}">
-            <div id="img" *ngFor="let imgs of message" >
-                <img *ngIf = "imgs.type == 'img'" src="{{imgs.src}}" (click) = "getClickImg(imgs.src)" alt="">
+            <div *ngFor="let imgs of message" >
+                <div id="img" *ngIf = "imgs.type == 'img'">
+                    <img  src="{{imgs.src}}" (click) = "getClickImg(imgs.src)" alt="">
+                </div>
+                
             </div>
         </div>
 
     </div>
    
 </div>
-<div  *ngIf="checkZoom" class="zoom-img-click">
+<div  *ngIf="checkZoom" class="zoom-img-click" (click) = "UnZoom()"> 
     
-        <img src="../../../assets/ICON/IconboxChat/3.svg" alt="" class="icon-clock" (click) = "UnZoom()">
-        <img src= {{imgsrc}} alt="">
+        <!-- <img src="../../../assets/ICON/IconboxChat/3.svg" alt="" class="icon-clock" (click) = "UnZoom()"> -->
+        <img src= {{imgsrc}} alt="" >
     
     
 </div>

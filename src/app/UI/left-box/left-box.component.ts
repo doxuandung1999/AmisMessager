@@ -36,15 +36,8 @@ export class LeftBoxComponent implements OnInit {
     // this.getId();
     this.getFocus();
   }
-  onClick(id : number){
-    this._router.navigate(['/message' , id])
-
-  }
-  // lấy id
-  // getId(){
-  //   const id = +this._activeRoute.snapshot.paramMap.get('id');
-  //   console.log(id);
-  // }
+  
+  // thay đổi thành đã seen 
   clickRep(id : number){
     this.friend.forEach(f => {
       if (f.id === id) {
@@ -52,24 +45,13 @@ export class LeftBoxComponent implements OnInit {
         
       }
     });
-    this.dataService.changeUser(id);
-    this.focus = id;
   }
-  clickPass(id : number){
-    this.friend.forEach(f => {
-      if (f.id === id) {
-        return true;
-      }
-      return  false;
-    })
-  }
+  
+  // bắt sự kiện thay đổi id từ bên message để thực hiện focus vào cuộc trò chuyện
   getFocus(){
-    this.friendService.userId.subscribe(data => {
-      this.checkFocus = true;
+    this.dataService.userID.subscribe(data =>{
+      this.focus = data;
     })
   }
-  // check(){
-  //   const id = +this._activeRoute.snapshot.paramMap.get('id');
-  //   this.checkIt = this.friendService.checkRep(id,);
-  // }
+  
 }

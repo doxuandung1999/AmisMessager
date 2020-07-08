@@ -39,7 +39,7 @@ export class MessageBoxComponent implements OnInit {
   imgsrc: string;
   checkZoom = false;
   users: User[];
-  userId : number;
+  userId: number;
 
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
@@ -60,8 +60,6 @@ export class MessageBoxComponent implements OnInit {
       this.getMessage();
       this.getTime();
 
-
-
     });
 
 
@@ -69,30 +67,24 @@ export class MessageBoxComponent implements OnInit {
   }
   ngOndestroy() {
     this.getId();
-    // this.getMessage();
-    // this.showMessage(event);
 
 
   }
   // lấy id trên thanh url
   getId() {
 
-    // const id = +this.route.snapshot.paramMap.get('id');
-    this.dataService.userID.subscribe(data => {
-      this.friends = this.friendService.getFriendId(data);
-    })
-    // this.friends = this.friendService.getFriendId(id);
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.friends = this.friendService.getFriendId(id);
+    this.dataService.changeUser(id);
 
 
   }
 
   // lấy message trong từng cuộc hội thoại
   getMessage() {
-    // const id = +this.route.snapshot.paramMap.get('id');
-    // this.messages = this.messageService.getMessageId(id);
-    this.dataService.userID.subscribe(data => {
-      this.messages = this.messageService.getMessageId(data);
-    })
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.messages = this.messageService.getMessageId(id);
+    
 
   }
 
@@ -103,18 +95,14 @@ export class MessageBoxComponent implements OnInit {
 
   // thêm tin nhắn dạng text vào mảng message
   showMessage(event) {
-    // const id = +this.route.snapshot.paramMap.get('id');
-   
-    this.dataService.userID.subscribe(data => {
-      this.userId = data;
-    })
+    const id = +this.route.snapshot.paramMap.get('id');
     this.messageAdd = new Message();
-      this.messageAdd.message = event.target.value;
-      this.messageAdd.senderId = this.idAmin;
-      this.messageAdd.receiveId = this.userId;
-      this.messageAdd.type = 'text';
-      this.messages.push(this.messageAdd);
-      event.target.value = null;
+    this.messageAdd.message = event.target.value;
+    this.messageAdd.senderId = this.idAmin;
+    this.messageAdd.receiveId = id;
+    this.messageAdd.type = 'text';
+    this.messages.push(this.messageAdd);
+    event.target.value = null;
     // this.messages.push(this.messageAdd);
     //   event.target.value = null;
 
@@ -130,25 +118,24 @@ export class MessageBoxComponent implements OnInit {
 
     render.addEventListener('load', (event: any) => {
       this.selectedFile = new fileSnippet(event.target.result, file);
-      // const id = +this.route.snapshot.paramMap.get('id');
-      this.dataService.userID.subscribe(data => {
-        this.userId = data;
-      })
+      const id = +this.route.snapshot.paramMap.get('id');
+
       this.messageAdd = new Message();
       // thêm file dạng img vào mảng messages 
       if (file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = this.userId;
+        this.messageAdd.receiveId = id;
         this.messageAdd.type = 'img';
         this.messages.push(this.messageAdd);
+        
       }
       // thêm file dang pdf
       else if (file.type == 'application/pdf') {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = this.userId;
+        this.messageAdd.receiveId = id;
         this.messageAdd.type = 'pdf';
 
         this.messages.push(this.messageAdd);
@@ -159,7 +146,7 @@ export class MessageBoxComponent implements OnInit {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = this.userId;
+        this.messageAdd.receiveId = id;
         this.messageAdd.type = 'word';
 
         this.messages.push(this.messageAdd);
@@ -170,7 +157,7 @@ export class MessageBoxComponent implements OnInit {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = this.userId;
+        this.messageAdd.receiveId = id;
         this.messageAdd.type = 'excel';
 
         this.messages.push(this.messageAdd);
@@ -181,7 +168,7 @@ export class MessageBoxComponent implements OnInit {
         this.messageAdd.src = this.selectedFile.src;
         this.messageAdd.message = file.name;
         this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = this.userId;
+        this.messageAdd.receiveId = id;
         this.messageAdd.type = 'pp';
 
         this.messages.push(this.messageAdd);

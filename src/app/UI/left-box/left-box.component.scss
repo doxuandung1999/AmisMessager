@@ -70,16 +70,6 @@ p {
     padding-right: 24px;
     flex-direction: row;
    
-    
-    // @media screen and (max-width : 992px) and (min-width : 576px){
-    //     width: 50px;
-    //     height: 32px;
-    //     padding-left: 0px;
-    //     padding-right: 0px;
-    //     margin-left: 15px;
-      
-        
-    // }
     @media screen and (max-width : 768px){
         justify-content: center;
      
@@ -100,17 +90,14 @@ p {
 }
 
 #friend{
-    /* width: 100%; */
     outline: none;
     height: 60px;
-    /* border: 1px solid red; */
     position: relative;
     margin-top: 10px;
     padding-left: 24px;
     padding-right : 24px;
     display: flex;
     flex-direction: row;
-    // justify-content: space-between;
     cursor: pointer;
     @media screen and (max-width : 992px){
         align-items: center;
@@ -274,4 +261,13 @@ p {
     width: 100%;
     height: 80%;
     overflow-y: auto;
+}
+// highlight phần list friend
+#highlight{
+    background-color: #2196f3;
+    width: 4px;
+    height: 60px;
+    position: absolute;
+    left: 0;
+   
 }
