@@ -18,6 +18,7 @@ export class UserService {
   ];
   constructor() { }
 
+  // lấy user với password để đăng nhập
   getUser(email , password) : User{
     return this.listUser.find(u => u.email === email && u.password === password);
   }

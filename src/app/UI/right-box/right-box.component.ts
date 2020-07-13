@@ -11,8 +11,5 @@ export class RightBoxComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  showInfor(){
-    this.check = !this.check;
-  }
-
+  
 }

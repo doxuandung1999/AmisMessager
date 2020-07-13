@@ -6,6 +6,7 @@ import {Friend} from '../model/friend/friend';
 })
 export class FriendFilterPipe implements PipeTransform {
 
+  // viết pipe để lấy các friend theo ký tự search đc
   transform(friends: Friend[], searchFriend : string): Friend[] {
     if(!friends || !searchFriend){
       return friends;

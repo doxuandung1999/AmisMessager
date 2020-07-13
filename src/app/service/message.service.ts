@@ -103,9 +103,11 @@ export class MessageService {
   ]
 
   constructor() { }
+  // lấy tất cả tin nhắn
   getMessage() : Message[]{
     return this.listMessage;
   }
+  // láy tin nhắn theo id người nhận và người gửi để xác định tin nhắn thuộc cuộc hội thoại của ai
   getMessageId(id : number) : Message[] {
     return this.listMessage.filter(e => (e.senderId === id) ||  e.receiveId === id);
   }

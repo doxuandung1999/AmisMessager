@@ -13,7 +13,7 @@ import { UserState, getLogin } from 'src/app/reducer';
 export class HeaderBoxComponent implements OnInit {
   users : User[];
   constructor( private _store:Store<UserState>,private router:Router) {
-    
+    // lấy sự kiện get login và lấy user login
     this._store.select(getLogin).subscribe(item=>{
       this.users = item;
     });

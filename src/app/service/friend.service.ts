@@ -64,24 +64,17 @@ export class FriendService {
   }
     
   ];
+  // lấy tất cả friend
   getFriend() : Friend[]{
     return this.listFriend;
   }
- 
+ // lấy friend theo id
   getFriendId(id : number) : Friend{
     return this.listFriend.find(e => e.id === id);
   }
-  checkRep(id : number , id_2 : number) : boolean{
-    if(this.getFriendId(id).id === id_2){
-      return true;
-    }
-    return false;
-
-  }
-  @Output() userId = new EventEmitter<number>();
-  changeUser(id){
-    this.userId.emit(id);
-  }
+  // 
+  
+  
 
   
   
