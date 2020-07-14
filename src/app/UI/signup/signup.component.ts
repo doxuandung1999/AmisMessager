@@ -18,6 +18,8 @@ export class SignupComponent implements OnInit {
   form: FormGroup;
     loading = false;
     submitted = false;
+    checkError = false;
+    test : string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -41,13 +43,13 @@ export class SignupComponent implements OnInit {
 
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
-    error: string;
+    
     onSubmit() {
-        console.log("register");
+        
 
         this.submitted = true;
 
-        // reset alerts on submit
+        // reset khi ấn password
         this.alertService.clear();
 
         // dừng nếu form ko hợp lệ
@@ -56,10 +58,11 @@ export class SignupComponent implements OnInit {
         }
 
         this.loading = true;
-        // this.http.post(`${environment.apiUrl}/api/Users/register`, this.form.value)
+       
         console.log(this.form.value);
+        // gọi đến service register
         this.accountService.register(this.form.value)
-        
+            // pipe lấy đối tượng đầu tiên
             .pipe(first())
             .pipe(delay(500))
             .subscribe(
@@ -70,9 +73,15 @@ export class SignupComponent implements OnInit {
                 },
                 error => {
                     
-                    this.alertService.error(error);
+                    this.alertService.error(error.error.message);
                     this.loading = false;
+                  this.test = error.error.message;
+                  if(this.test != null){
+                      this.checkError = true;
+                  }
+                  
                     
                 });
+                
     }
 }

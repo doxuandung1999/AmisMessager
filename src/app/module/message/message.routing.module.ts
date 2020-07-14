@@ -14,10 +14,8 @@ const routes: Routes = [
     children : [
       {
         path : 'message/:id' , component : MessageBoxComponent
-      },
-      {
-        path: '', redirectTo: 'message/2', pathMatch: 'full'
       }
+      
 
     ]
 

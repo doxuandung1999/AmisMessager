@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService } from '@app/service/accountService';
-import { AlertService } from '@app/service/alter-accountService';
-import { first } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first, delay } from 'rxjs/operators';
+import {AccountService} from "../../service/accountService";
+import { AlertService } from 'src/app/service/alter-accountService';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class SiginComponent implements OnInit {
             Password: ['', Validators.required]
         });
 
-        // get return url from route parameters or default to '/'
+        // return ra đường dẫn mặc định
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/message/2';
     }
 
@@ -42,26 +42,27 @@ export class SiginComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        // reset alerts on submit
+        // reset lại thông báo khi ấn submit
         this.alertService.clear();
 
-        // stop here if form is invalid
+        // dùng nếu form ko hợp lệ
         if (this.form.invalid) {
             return;
         }
 
         this.loading = true;
-        console.log(this.form.value);
-        this.accountService.login(this.form.controls.UserEmail.value, this.form.controls.Password.value)
+        this.accountService.login(this.form.value)
+        // pipe lấy đối tượng đầu tiên
             .pipe(first())
+            .pipe(delay(500))
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.alertService.error(error.error.message);
+                    this.alertService.error(error);
                     this.loading = false;
                 });
+        
     }
-
 }
