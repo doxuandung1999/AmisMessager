@@ -6,8 +6,8 @@ import { ActivatedRoute } from "@angular/router";
 import { MessageService } from '../../service/message.service';
 import { Message } from '../../model/message/message';
 import { User } from 'src/app/model/user/user';
-import { Store } from '@ngrx/store';
-import { UserState, getLogin } from 'src/app/reducer';
+// import { Store } from '@ngrx/store';
+// import { UserState, getLogin } from 'src/app/reducer';
 import { DataTransferService } from '../../service/dataTransferService';
 
 
@@ -43,14 +43,14 @@ export class MessageBoxComponent implements OnInit {
 
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
-    private _store: Store<UserState>, private router: Router,
+     private router: Router,
     private dataService: DataTransferService) {
 
     // login
-    this._store.select(getLogin).subscribe(item => {
-      this.users = item;
-      // this.idAmin = this.users[0].id;
-    });
+    // this._store.select(getLogin).subscribe(item => {
+    //   this.users = item;
+    //   // this.idAmin = this.users[0].id;
+    // });
 
   }
 

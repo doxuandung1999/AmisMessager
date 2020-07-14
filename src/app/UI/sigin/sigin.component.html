@@ -5,17 +5,23 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" [formGroup] = "loginForm" (ngSubmit)="onSubmit()">
+                        <form id="login-form" class="form" method="post" [formGroup]="form" (ngSubmit)="onSubmit()" >
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group">
-                                <label for="username" class="text-info">Email:</label><br>
-                                <input type="text" name="email" id="username" class="form-control"
-                                formControlName = "email">
+                                <label for="UserEmail" class="text-info">Email:</label><br>
+                                <input type="text" name="UserEmail" id="username" class="form-control" 
+                                formControlName = "UserEmail" [ngClass]="{ 'is-invalid': submitted && f.UserEmail.errors }">
+                                <div *ngIf="submitted && f.UserEmail.errors" class="invalid-feedback">
+                                    <div *ngIf="f.UserEmail.errors.required">Username is required</div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" name="password" id="password" class="form-control"
-                                formControlName = "password">
+                                <input type="password" name="Password" id="password" class="form-control"
+                                formControlName = "Password" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
+                                <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Password.errors.required">Password is required</div>
+                                </div>
                             </div>
                             
                             <div class="form-group">
@@ -23,7 +29,7 @@
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                             </div>
                             <div id="register-link" class="text-right">
-                                <a routerLink = '/signup'class="text-info">Register here</a>
+                                <a routerLink = '/signUp'class="text-info">Register here</a>
                             </div>
                         </form>
                     </div>

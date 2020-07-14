@@ -14,10 +14,10 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {MessageService} from '../app/service/message.service';
 import { SiginComponent } from './UI/sigin/sigin.component';
 import { SignupComponent } from './UI/signup/signup.component';
-import {reducers} from './reducer';
-import {StoreModule} from "@ngrx/store";
-import { UserService } from './service/user.service';
 
+
+import { UserService } from './service/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -33,9 +33,10 @@ import { UserService } from './service/user.service';
     AppRoutingModule,
     listModule,
     MessageModule,
-    StoreModule.forRoot(reducers),
+    // StoreModule.forRoot(reducers),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
    
   ],
   providers: [FriendService , MessageService , UserService],

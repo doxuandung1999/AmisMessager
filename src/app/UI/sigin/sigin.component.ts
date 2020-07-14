@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { UserState } from 'src/app/reducer';
-import { Router } from '@angular/router';
-import {UserService} from '../../service/user.service';
-import { User } from 'src/app/model/user/user';
-import * as userLogins from '../../action/userAction';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AccountService } from '@app/service/accountService';
+import { AlertService } from '@app/service/alter-accountService';
+import { first } from 'rxjs/operators';
 
 
 @Component({
@@ -15,36 +13,55 @@ import * as userLogins from '../../action/userAction';
 })
 export class SiginComponent implements OnInit {
 
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-  });
+    form: FormGroup;
+    loading = false;
+    submitted = false;
+    returnUrl: string;
 
-  checkLogin = false;
-  users : User;
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+        private accountService: AccountService,
+        private alertService: AlertService
+    ) { }
 
+    ngOnInit() {
+        this.form = this.formBuilder.group({
+            UserEmail: ['', Validators.required],
+            Password: ['', Validators.required]
+        });
 
-  constructor(private _store:Store<UserState>,private router:Router , private userService : UserService) { }
-  onSubmit(){
-    this.users = this.userService.getUser(this.loginForm.value['email'], this.loginForm.value['password']);
-    if(this.users){
-      this.checkLogin = true;
-      this._store.dispatch(new userLogins.CheckLoginAction({
-        id : this.users.id,
-        email : this.users.email,
-        password : this.users.password,
-        userName : this.users.userName,
-        avatar : this.users.avatar
-
-      }) );
-    }
-    if(this.checkLogin){
-      this.router.navigate(['/message/2']);
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/message/2';
     }
 
-  }
+    // convenience getter for easy access to form fields
+    get f() { return this.form.controls; }
 
-  ngOnInit(): void {
-  }
+    onSubmit() {
+        this.submitted = true;
+
+        // reset alerts on submit
+        this.alertService.clear();
+
+        // stop here if form is invalid
+        if (this.form.invalid) {
+            return;
+        }
+
+        this.loading = true;
+        console.log(this.form.value);
+        this.accountService.login(this.form.controls.UserEmail.value, this.form.controls.Password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.alertService.error(error.error.message);
+                    this.loading = false;
+                });
+    }
 
 }

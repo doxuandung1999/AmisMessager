@@ -7,13 +7,32 @@ body {
   #login .container #login-row #login-column #login-box {
     margin-top: 20px;
     max-width: 600px;
-    height: 600px;
+    height: auto;
     border: 1px solid #9C9C9C;
     background-color: #EAEAEA;
+    position: relative!important;
   }
   #login .container #login-row #login-column #login-box #login-form {
     padding: 20px;
   }
-  #login .container #login-row #login-column #login-box #login-form #register-link {
+ .container #login-row #login-column #login-box {
     margin-top: -85px;
   }
+  .bot{
+    margin-top: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    #register-link{
+      position: absolute;
+      right: 0;
+    }
+
+  }
+  
+  .form{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  

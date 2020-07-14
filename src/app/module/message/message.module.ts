@@ -11,7 +11,7 @@ import {HeaderBoxComponent} from "../../UI/header-box/header-box.component";
 import {listModule} from "../share/list.module";
 import {ExtendBoxComponent} from "../../UI/extend-box/extend-box.component";
 // import {reducers} from './reducer';
-import {StoreModule} from "@ngrx/store";
+// import {StoreModule} from "@ngrx/store";
 import { UserService } from '../../service/user.service';
 
 import {FormsModule} from '@angular/forms';
