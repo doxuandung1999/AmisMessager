@@ -3,6 +3,7 @@ import { User } from 'src/app/model/user/user';
 // import { Store } from '@ngrx/store';
 
 import { Router } from '@angular/router';
+import {AccountService} from "../../service/accountService";
 // import { UserState, getLogin } from 'src/app/reducer';
 
 @Component({
@@ -12,7 +13,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderBoxComponent implements OnInit {
   users : User[];
-  constructor( private router:Router) {
+  username : string;
+  constructor( private router:Router , private accountService : AccountService) {
     // lấy sự kiện get login và lấy user login
     // this._store.select(getLogin).subscribe(item=>{
     //   this.users = item;
@@ -20,6 +22,12 @@ export class HeaderBoxComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.username = this.accountService.userValue.name;
+  }
+  logout(){
+   
+      this.accountService.logout();
+  
   }
 
 }

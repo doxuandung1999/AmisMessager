@@ -10,7 +10,7 @@ export class UserService {
       id: 1,
       email: 'dungrma99@gmail.com',
       password: 'dung99',
-      userName: 'Đỗ Xuân Dũng',
+      name: 'Đỗ Xuân Dũng',
       avatar: '../../assets/Avatar/5.jpg'
     }
     

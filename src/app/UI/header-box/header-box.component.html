@@ -8,7 +8,20 @@
     </div>
     <div class="avatar-class" >
         <!-- <img id="avatar" src="{{users[0].avatar}}" alt=""> -->
-        <img id="avatar" src="../../../assets/Avatar/5.jpg" alt="">
+        <!-- <img id="avatar" src="../../../assets/Avatar/5.jpg" alt="">
+        
+        <ngx-avatar></ngx-avatar> -->
+        <div class="dropdown dropleft" id="avatar">
+            <div id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <!-- <img *ngIf="user.imageUrl" src="user.imageUrl" alt="message-icon"> -->
+                <ngx-avatar  size="34" name="{{username}}"></ngx-avatar>
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li id="logout" class="dropdown-item"> Profile </li>
+                <li id="logout" class="dropdown-item" (click)="logout()">Logout</li>
+            </ul>
+        </div>
     </div>
 
 </div>

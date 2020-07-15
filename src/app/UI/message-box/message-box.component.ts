@@ -9,6 +9,9 @@ import { User } from 'src/app/model/user/user';
 // import { Store } from '@ngrx/store';
 // import { UserState, getLogin } from 'src/app/reducer';
 import { DataTransferService } from '../../service/dataTransferService';
+import {AccountService} from "../../service/accountService";
+import {StringeeService} from "../../service/stringee.service";
+import { from } from 'rxjs';
 
 
 
@@ -40,17 +43,15 @@ export class MessageBoxComponent implements OnInit {
   checkZoom = false;
   users: User[];
   userId: number;
+ 
 
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
      private router: Router,
-    private dataService: DataTransferService) {
-
-    // login
-    // this._store.select(getLogin).subscribe(item => {
-    //   this.users = item;
-    //   // this.idAmin = this.users[0].id;
-    // });
+    private dataService: DataTransferService,
+    private accountService : AccountService,
+    private stringeeService : StringeeService 
+    ) {
 
   }
 
@@ -62,7 +63,9 @@ export class MessageBoxComponent implements OnInit {
 
     });
 
-
+    console.log(this.accountService.userValue.name);
+    // this.stringeeClient.connect();
+    this.stringeeService.connect();
 
   }
   ngOndestroy() {
@@ -70,6 +73,17 @@ export class MessageBoxComponent implements OnInit {
 
 
   }
+  // kết nối stringee
+  // Init
+  
+  
+
+
+
+
+
+
+
   // lấy id trên thanh url
   getId() {
 
@@ -227,7 +241,6 @@ export class MessageBoxComponent implements OnInit {
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     this.checkZoom = false;
   }
-
 
 
 

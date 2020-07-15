@@ -42,7 +42,16 @@
 #avatar{
     margin-right: 26px;
     width: 34px;
-    line-height: 56px;
-    border-radius: 50%;
+   
+    ul{
+        padding: 0;
+        #logout{
+            cursor: pointer;
+        }
+        #logout:hover{
+            background-color:#666666;
+            color: white;
+        }
+    }
     
 }

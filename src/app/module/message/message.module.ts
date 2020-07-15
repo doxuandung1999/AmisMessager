@@ -10,9 +10,8 @@ import {MessageRoutingModule} from "./message.routing.module";
 import {HeaderBoxComponent} from "../../UI/header-box/header-box.component";
 import {listModule} from "../share/list.module";
 import {ExtendBoxComponent} from "../../UI/extend-box/extend-box.component";
-// import {reducers} from './reducer';
-// import {StoreModule} from "@ngrx/store";
 import { UserService } from '../../service/user.service';
+import { AvatarModule } from 'ngx-avatar';
 
 import {FormsModule} from '@angular/forms';
 import { from } from 'rxjs';
@@ -29,8 +28,8 @@ import { from } from 'rxjs';
   imports: [
     CommonModule,
     MessageRoutingModule,
-    listModule
-
+    listModule,
+    AvatarModule,
   ]
 })
 export class MessageModule { }

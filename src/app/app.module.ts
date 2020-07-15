@@ -14,6 +14,7 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {MessageService} from '../app/service/message.service';
 import { SiginComponent } from './UI/sigin/sigin.component';
 import { SignupComponent } from './UI/signup/signup.component';
+import {StringeeService} from "./service/stringee.service";
 
 
 import { UserService } from './service/user.service';
@@ -39,7 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
    
   ],
-  providers: [FriendService , MessageService , UserService],
+  providers: [FriendService , MessageService , UserService,StringeeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

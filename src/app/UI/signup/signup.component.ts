@@ -54,6 +54,7 @@ export class SignupComponent implements OnInit {
 
         // dừng nếu form ko hợp lệ
         if (this.form.invalid) {
+            this.checkError = false;
             return;
         }
 

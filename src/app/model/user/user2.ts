@@ -1,9 +1,9 @@
 export class User2{
-    id : string;
+    Id : string;
     email : string;
     password : string;
-    userName : string;
+    name : string;
     avatar ?: string;
-    token : string;
+    token ?: string;
       
   }

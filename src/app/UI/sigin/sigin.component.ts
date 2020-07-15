@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first, delay } from 'rxjs/operators';
 import {AccountService} from "../../service/accountService";
 import { AlertService } from 'src/app/service/alter-accountService';
+import { User } from '@app/model/user/user';
 
 
 @Component({
@@ -17,6 +18,9 @@ export class SiginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    messageError : string;
+    checkError = false;
+    
 
     constructor(
         private formBuilder: FormBuilder,
@@ -34,6 +38,7 @@ export class SiginComponent implements OnInit {
 
         // return ra đường dẫn mặc định
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/message/2';
+       
     }
 
     // convenience getter for easy access to form fields
@@ -47,8 +52,14 @@ export class SiginComponent implements OnInit {
 
         // dùng nếu form ko hợp lệ
         if (this.form.invalid) {
+            this.checkError = false;
             return;
         }
+      
+       
+    
+      //  console.log(JSON.parse(localStorage.get("user")).name);
+     
 
         this.loading = true;
         this.accountService.login(this.form.value)
@@ -57,12 +68,22 @@ export class SiginComponent implements OnInit {
             .pipe(delay(500))
             .subscribe(
                 data => {
+                    // chạy đến route mặc định
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
+                    this.messageError = error.error.message;
+                    if(this.messageError != null){
+                        this.checkError = true;
+                    }
+                    
+                    
                 });
+               
+                
         
     }
+   
 }
