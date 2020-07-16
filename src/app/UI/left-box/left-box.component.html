@@ -11,8 +11,10 @@
             <img id="icon_add" src="../../../assets/ICON/IconboxChat/23.svg" alt="">
         </div>
     </div>
-    <!-- (click) = "onClick(friends.id) -->
-    <div class="list_friend">
+   
+
+    <!-- hiện danh sách Conversation -->
+    <div class="list_friend" *ngIf = "checkChangeList == 1">
         <!-- [class.show]="friends.id == 2" -->
         <!-- dùng filter pipe để định dạng search friend , 
         clickRep để lấy id friend và chuyển số tin nhắn chưa đọc của friend đó thành 0
@@ -57,7 +59,63 @@
              
             <div id="avatar">
           
-                <ngx-avatar  size="34" name="{{conv.userName}}"></ngx-avatar>
+                <ngx-avatar id="img_1" size="34" name="{{conv.userName}}"></ngx-avatar>
+              
+            </div>
+            <div class="content">
+                <!-- so sánh để highlight friend khi chưa rep -->
+                <p id="name"> {{conv.userEmail}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- hiện danh sách người dùng -->
+    <div class="list_friend" *ngIf = "checkChangeList == 2">
+        <!-- [class.show]="friends.id == 2" -->
+        <!-- dùng filter pipe để định dạng search friend , 
+        clickRep để lấy id friend và chuyển số tin nhắn chưa đọc của friend đó thành 0
+        ngstyle lấy id từ việc emiter để focus vào friend -->
+
+        <!-- <div id="friend" *ngFor="let friends of friend | friendFilter : searchFriend" (click)="clickRep(friends.id)"
+            [ngStyle]="{'background-color' : focus === friends.id ? 'rgba(255, 255, 255, 0.15)' : '#0a1d3b'}"
+            routerLink='/message/{{friends.id}}'>
+             hiện thanh highlight 
+            <div id="highlight" *ngIf="focus === friends.id">
+            </div>
+            <div id="avatar">
+                <img id="img_1" src="{{friends.avatar}}" alt="">
+                 so sánh để hiện trạng thái hoạt động người dùng 
+                <img id="img_2" *ngIf="friends.status" src="../../../assets/ICON/IconAppChat/green_sphere.svg" alt="">
+            </div>
+            <div class="content">
+                so sánh để highlight friend khi chưa rep 
+                <p id="name" [ngStyle]="{'color' : friends.noRep != 0 ? '#ffffff' : '#8e97a5'}"> {{friends.name}}</p>
+                 so sánh để highlight và cho biết tin nhắn cuối cùng là của ai gửi 
+                <p id="message" *ngIf="friends.senderId != 1"
+                    [ngStyle]="{'color' : friends.noRep != 0 ? '#ffffff' : '#8e97a5'}">{{friends.lastMassage}}</p>
+                <p id="message" *ngIf="friends.senderId == 1"
+                    [ngStyle]="{'color' : friends.noRep != 0 ? '#ffffff' : '#8e97a5'}">Bạn: {{friends.lastMassage}}</p>
+            </div>
+
+            <div class="detail">
+                <div id="time">
+                    <p>{{friends.time}}</p>
+                </div>
+                khi noRep = 0 thì bỏ hiện tin nhắn chưa rep
+                <div id="count-message" *ngIf="friends.noRep != 0">
+                    <p>{{friends.noRep}}</p>
+                </div>
+            </div>
+
+
+        </div> -->
+
+
+        <div id="friend" *ngFor="let conv of users | friendFilter : searchFriend"  routerLink='/message/{{conv.userId}}' (click)="changeUser(conv.userId)" >
+             
+            <div id="avatar">
+          
+                <ngx-avatar id="img_1" size="34" name="{{conv.userName}}"></ngx-avatar>
               
             </div>
             <div class="content">
@@ -68,5 +126,10 @@
 
 
 
+    </div>
+
+    <div class="bot-left">
+        <button id="left-button" (click) = "listConv()" [ngStyle] = "{'background-color' : checkChangeList == 1 ? '#2196f3' : 'rgba(255, 255, 255, .2)'}">Cuộc trò chuyện</button>
+        <button id="right-button" (click) = "listFriend()" [ngStyle] = "{'background-color' : checkChangeList == 2 ? '#2196f3' : 'rgba(255, 255, 255, .2)'}">Danh bạ</button>
     </div>
 </div>

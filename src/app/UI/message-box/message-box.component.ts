@@ -11,6 +11,7 @@ import { User2 } from 'src/app/model/user/user2';
 import { DataTransferService } from '../../service/dataTransferService';
 import {AccountService} from "../../service/accountService";
 import {StringeeService} from "../../service/stringee.service";
+import {TransferIdUserService} from "../../service/transferIdUser.service";
 import { from } from 'rxjs';
 
 
@@ -45,6 +46,7 @@ export class MessageBoxComponent implements OnInit {
   userId: number;
   Access_Token : string;
   user : User2;
+  IdUser : string // lấy id user cần tạo conv
 
  
 
@@ -68,6 +70,7 @@ export class MessageBoxComponent implements OnInit {
   
      
     console.log(this.accountService.userValue.name);
+    console.log(this.IdUser);
     // this.stringeeClient.connect();
     
     this.stringeeService.test();
@@ -75,25 +78,21 @@ export class MessageBoxComponent implements OnInit {
 
   }
   ngOndestroy() {
-    this.getId();
+    // this.getId();
   }
-  // kết nối stringee
-  // Init
-  
-  
 
-
-
-
-
-
-
-  // lấy id trên thanh url
+  // lấy id 
   getId() {
 
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.friends = this.friendService.getFriendId(id);
-    this.dataService.changeUser(id);
+    // const id = +this.route.snapshot.paramMap.get('userId');
+    // console.log(id);
+    // this.friends = this.friendService.getFriendId(id);
+    // this.dataService.changeUser(id);
+    this.dataService.userID.subscribe(data => {
+      this.IdUser = data;
+     
+    })
+
 
 
   }

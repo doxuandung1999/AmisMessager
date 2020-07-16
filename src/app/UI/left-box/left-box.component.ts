@@ -9,6 +9,7 @@ import { DataTransferService } from '../../service/dataTransferService';
 import { User2 } from '@app/model/user/user2';
 import { AccountService } from "../../service/accountService";
 import { first } from 'rxjs/operators';
+import {TransferIdUserService} from "../../service/transferIdUser.service";
 
 
 @Component({
@@ -25,10 +26,13 @@ export class LeftBoxComponent implements OnInit {
   focus: number;
   checkFocus: boolean;
   users = null;
+  checkChangeList = 1;
+
   constructor(private friendService: FriendService,
     private _router: Router, private _activeRoute: ActivatedRoute,
     private dataService: DataTransferService,
-    private accountService: AccountService) {
+    private accountService: AccountService,
+    private transferIdUser : TransferIdUserService) {
     // this.friend = friendService.getFriends();
     this._activeRoute.paramMap.subscribe(x => {
       // this.check();
@@ -43,6 +47,11 @@ export class LeftBoxComponent implements OnInit {
     this.accountService.getAll()
       .pipe(first())
       .subscribe(users => this.users = users);
+
+  }
+
+  changeUser(id : string){
+    this.transferIdUser.changeIdUser(id);
 
   }
 
@@ -61,6 +70,14 @@ export class LeftBoxComponent implements OnInit {
     this.dataService.userID.subscribe(data => {
       this.focus = data;
     })
+  }
+
+  // thay đổi list conversation
+  listConv (){
+    this.checkChangeList = 1;
+  }
+  listFriend(){
+    this.checkChangeList = 2;
   }
 
 }
