@@ -5,5 +5,6 @@ export class User2{
     name : string;
     avatar ?: string;
     token ?: string;
+    phone : string;
       
   }

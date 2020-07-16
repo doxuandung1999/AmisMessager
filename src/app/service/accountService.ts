@@ -22,6 +22,7 @@ export class AccountService {
     
     }
 
+    // lấy thông tin User
     public get userValue(): User2 {
         return this.userSubject.value;
     }

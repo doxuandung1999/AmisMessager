@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
     submitted = false;
     checkError = false;
     test : string;
+    checkConfirm = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -36,9 +37,12 @@ export class SignupComponent implements OnInit {
             UserName: ['', Validators.required],
             PhoneNumber: ['', Validators.required],
             Password: ['', [Validators.required, Validators.minLength(6)]],
-            PasswordConfirms:['', [Validators.required, Validators.minLength(6)]]
+            PasswordConfirms:['', [Validators.required, Validators.minLength(6)] ]
             
         });
+        if(this.f.PasswordConfirms.value == null){
+            this.checkConfirm = false;
+        }
     }
 
     // convenience getter for easy access to form fields
@@ -57,6 +61,18 @@ export class SignupComponent implements OnInit {
             this.checkError = false;
             return;
         }
+        // if(this.f.Password.value != this.f.PasswordConfirms.value){
+        //     this.checkConfirm = true;
+        //     return;   
+        // }
+        if(this.test == null && this.f.Password.value != this.f.PasswordConfirms.value ){
+            this.checkConfirm = true;
+            return;
+          }
+       
+        
+      
+        // console.log(this.f.Password.value);
 
         this.loading = true;
        
@@ -68,21 +84,23 @@ export class SignupComponent implements OnInit {
             .pipe(delay(500))
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', { keepAfterRouteChange: true });
+                    // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
                     
                     this.router.navigate(['/signIn'], { relativeTo: this.route });
                 },
                 error => {
                     
-                    this.alertService.error(error.error.message);
+                    // this.alertService.error(error.error.message);
                     this.loading = false;
                   this.test = error.error.message;
                   if(this.test != null){
                       this.checkError = true;
+                    //   this.checkConfirm = false;
                   }
-                  
-                    
+                            
                 });
+
+               
                 
     }
 }

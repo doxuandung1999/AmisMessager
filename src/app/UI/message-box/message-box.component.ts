@@ -5,7 +5,7 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
 import { MessageService } from '../../service/message.service';
 import { Message } from '../../model/message/message';
-import { User } from 'src/app/model/user/user';
+import { User2 } from 'src/app/model/user/user2';
 // import { Store } from '@ngrx/store';
 // import { UserState, getLogin } from 'src/app/reducer';
 import { DataTransferService } from '../../service/dataTransferService';
@@ -41,8 +41,11 @@ export class MessageBoxComponent implements OnInit {
   check = false;
   imgsrc: string;
   checkZoom = false;
-  users: User[];
+  users: User2[];
   userId: number;
+  Access_Token : string;
+  user : User2;
+
  
 
   constructor(private friendService: FriendService
@@ -62,10 +65,13 @@ export class MessageBoxComponent implements OnInit {
       this.getTime();
 
     });
-
+  
+     
     console.log(this.accountService.userValue.name);
     // this.stringeeClient.connect();
-    this.stringeeService.connect();
+    this.stringeeService.connect(this.accountService.userValue.token);
+    this.stringeeService.test();
+    this.stringeeService.creatAConversation(this.user);
 
   }
   ngOndestroy() {
