@@ -5,6 +5,7 @@ import { LeftBoxComponent} from "../../UI/left-box/left-box.component";
 import {FormsModule} from '@angular/forms';
 import {FriendFilterPipe} from '../../pipe/friend-filter.pipe';
 import { MessageRoutingModule } from '../message/message.routing.module';
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MessageRoutingModule } from '../message/message.routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    MessageRoutingModule
+    MessageRoutingModule,
+    AvatarModule
   ],
   exports: [
     LeftBoxComponent

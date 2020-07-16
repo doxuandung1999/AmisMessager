@@ -69,15 +69,13 @@ export class MessageBoxComponent implements OnInit {
      
     console.log(this.accountService.userValue.name);
     // this.stringeeClient.connect();
-    this.stringeeService.connect(this.accountService.userValue.token);
+    
     this.stringeeService.test();
-    this.stringeeService.creatAConversation(this.user);
+    // this.stringeeService.creatAConversation(this.user);
 
   }
   ngOndestroy() {
     this.getId();
-
-
   }
   // kết nối stringee
   // Init

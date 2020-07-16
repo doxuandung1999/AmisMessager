@@ -50,8 +50,9 @@ export class AccountService {
         return this.http.post(`${environment.apiUrl}/api/Users/register`, user);
     }
 
+    // lấy tất cả user
     getAll() {
-        return this.http.get<User2[]>(`${environment.apiUrl}/api/users`);
+        return this.http.get<User2[]>(`${environment.apiUrl}/api/Users/getall`);
     }
 
     getById(id: string) {

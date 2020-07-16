@@ -5,6 +5,7 @@ import { first, delay } from 'rxjs/operators';
 import {AccountService} from "../../service/accountService";
 import { AlertService } from 'src/app/service/alter-accountService';
 import { User } from '@app/model/user/user';
+import {StringeeService} from "../../service/stringee.service";
 
 
 @Component({
@@ -27,7 +28,8 @@ export class SiginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private stringeeService : StringeeService
     ) { }
 
     ngOnInit() {
@@ -70,6 +72,7 @@ export class SiginComponent implements OnInit {
                 data => {
                     // chạy đến route mặc định
                     this.router.navigate([this.returnUrl]);
+                    this.stringeeService.connect(this.accountService.userValue.token);
                 },
                 error => {
                     this.alertService.error(error);

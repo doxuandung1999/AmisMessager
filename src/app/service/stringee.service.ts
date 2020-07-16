@@ -93,10 +93,9 @@ export class StringeeService {
         };
         this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
             console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
-
-
           });
     }
+    
 
 
 
