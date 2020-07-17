@@ -72,7 +72,9 @@ export class SiginComponent implements OnInit {
                 data => {
                     // chạy đến route mặc định
                     this.router.navigate([this.returnUrl]);
-                    this.stringeeService.connect(this.accountService.userValue.token);
+                    // this.stringeeService.connect(this.accountService.userValue.token);
+                    this.stringeeService.listenConnect(this.accountService.userValue.token);
+                  
                 },
                 error => {
                     this.alertService.error(error);

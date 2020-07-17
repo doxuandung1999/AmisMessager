@@ -14,7 +14,11 @@ export class StringeeService {
     constructor(private accountService: AccountService) {
 
     }
-    connect(Access_token: string) {
+    Connect(Access_token: string){
+        this.stringeeClient.connect(Access_token);
+        console.log("sucess");
+    }
+    listenConnect(Access_token: string  ) {
         let seft = this;
         this.stringeeClient.on('connect', function (res) {
             // this.renderLastConversationsAndMessages();
@@ -34,16 +38,16 @@ export class StringeeService {
                         email: useremail
                   
                     }
-                    seft.updateUserInfo(updateUserData)
+                    seft.updateUserInfo(updateUserData);
                 }
-            })
+            })     
+            // seft.getLastMessage();
         });
-        // get jwt cho stringee
-        this.stringeeClient.connect(Access_token);
     }
 
     // Hàm cập nhật thông tin một user , up date lên stringee
     updateUserInfo(data) {
+        
         this.stringeeChat.updateUserInfo(data, function (res) {
             console.log(res)
         });
@@ -84,16 +88,24 @@ export class StringeeService {
     }
 
     // tạo cuộc trò chuyện 
-    creatAConversation(user : User2){
-        var userIds = [user.Id];
+    creatAConversation(id){
+        var userIds = [id];
         var options = {
         //   name: "Your conversation name",
-          isDistinct: false,
+          isDistinct: true,
           isGroup: false
         };
         this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
             console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
           });
+
+    }
+
+    // lấy các cuộc trò chuyện
+    getLastMessage(callback: any){
+        var count = 25;
+        var isAscending = false;
+        this.stringeeChat.getLastConversations(count, isAscending, callback);
     }
     
 

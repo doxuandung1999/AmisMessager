@@ -11,6 +11,7 @@ import {User2} from "../model/user/user2";
 @Injectable({ providedIn: 'root' })
 export class AccountService {
     private userSubject: BehaviorSubject<User2>;
+    private userSubject_2 : BehaviorSubject<User2>;
     public user: Observable<User2>;
 
     constructor(
@@ -18,6 +19,7 @@ export class AccountService {
         private http: HttpClient
     ) {
         this.userSubject = new BehaviorSubject<User2>(JSON.parse(localStorage.getItem('user')));
+        this.userSubject_2 = new BehaviorSubject<User2>(JSON.parse(localStorage.getItem('user')));
         this.user = this.userSubject.asObservable();
     
     }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {StringeeService} from "../../service/stringee.service";
+import {AccountService} from "../../service/accountService";
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-box',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoxComponent implements OnInit {
 
-  constructor() { }
+  constructor(private stringeeService : StringeeService ,
+    
+              private accountService : AccountService) { }
 
   ngOnInit(): void {
+    this.stringeeService.Connect(this.accountService.userValue.token);
+    
   }
+
 
 }

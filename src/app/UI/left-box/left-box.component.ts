@@ -8,8 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { DataTransferService } from '../../service/dataTransferService';
 import { User2 } from '@app/model/user/user2';
 import { AccountService } from "../../service/accountService";
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import {TransferIdUserService} from "../../service/transferIdUser.service";
+import {StringeeService} from "../../service/stringee.service";
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -27,12 +29,16 @@ export class LeftBoxComponent implements OnInit {
   checkFocus: boolean;
   users = null;
   checkChangeList = 1;
+  convasation : any;
+  userLogin : any;
+  
 
   constructor(private friendService: FriendService,
     private _router: Router, private _activeRoute: ActivatedRoute,
     private dataService: DataTransferService,
     private accountService: AccountService,
-    private transferIdUser : TransferIdUserService) {
+    private transferIdUser : TransferIdUserService,
+    private stringeeService : StringeeService) {
     // this.friend = friendService.getFriends();
     this._activeRoute.paramMap.subscribe(x => {
       // this.check();
@@ -41,18 +47,57 @@ export class LeftBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+   
     // this.getId();
     this.getFocus();
-    this.accountService.getAll()
-      .pipe(first())
-      .subscribe(users => this.users = users);
+    // lấy danh sách user
+    this.getUser();
+   
+    this.getEmailLogin();
 
   }
 
-  changeUser(id : string){
-    this.transferIdUser.changeIdUser(id);
 
+  getUser() {
+    // Lấy danh sách user từ backend
+    this.accountService.getAll()
+      .pipe(
+        map(data => data.filter(data => data.email != this.userLogin))
+      ).subscribe( 
+        data => { this.users = data }
+      )
+  }
+
+  //lấy danh sách user
+  // getUser(){
+  //   this.accountService.getAll()
+  //   .pipe(first())
+  //   .subscribe(users => this.users = users);
+
+  
+  // }
+
+
+  // lấy email người đăng nhập
+  getEmailLogin(){
+    this.userLogin = this.accountService.userValue.email;
+    // console.log(this.accountService.userValue.Id);
+    console.log(this.userLogin);
+    
+  }
+
+  // tạo cuộc trò chuyện
+  changeIdUser(user){
+    console.log(user.userId);
+    this.stringeeService.creatAConversation(user.userId);
+  }
+  // lấy danh sách conversation
+  getMessage() {
+    this.stringeeService.getLastMessage( (status, code, message, convs) => {
+      // self.convasation = convs;
+      this.convasation = convs;
+       console.log(convs);
+    });
   }
 
   // thay đổi thành đã seen 

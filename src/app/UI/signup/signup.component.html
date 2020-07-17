@@ -14,7 +14,8 @@
                                     formControlName="UserEmail"
                                     [ngClass]="{ 'is-invalid': submitted && f.UserEmail.errors }">
                                 <div *ngIf="submitted && f.UserEmail.errors" class="invalid-feedback">
-                                    <div *ngIf="f.UserEmail.errors.required">Email is required</div>
+                                    <div *ngIf="f.UserEmail.errors.required">Email là bắt buộc</div>
+                                    <div *ngIf="f.UserEmail.errors.pattern">Email không hợp lệ</div>
                                 </div>
                                 <div *ngIf="checkError && submitted" id="error" >
                                     {{test}}
@@ -27,7 +28,7 @@
                                     formControlName="UserName"
                                     [ngClass]="{ 'is-invalid': submitted && f.UserName.errors }">
                                 <div *ngIf="submitted && f.UserName.errors" class="invalid-feedback">
-                                    <div *ngIf="f.UserName.errors.required">UserName is required</div>
+                                    <div *ngIf="f.UserName.errors.required">UserName là bắt buộc</div>
                                 </div>
                             </div>
                             <div class="form-group-3">
@@ -36,7 +37,7 @@
                                     formControlName="PhoneNumber"
                                     [ngClass]="{ 'is-invalid': submitted && f.PhoneNumber.errors }">
                                 <div *ngIf="submitted && f.PhoneNumber.errors" class="invalid-feedback">
-                                    <div *ngIf="f.PhoneNumber.errors.required">Phone Number is required</div>
+                                    <div *ngIf="f.PhoneNumber.errors.required">Phone Number là bắt buộc</div>
                                 </div>
                             </div>
                             <div class="form-group-4">
@@ -45,8 +46,8 @@
                                     formControlName="Password"
                                     [ngClass]="{ 'is-invalid': submitted && f.Password.errors }">
                                 <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
-                                    <div *ngIf="f.Password.errors.required">Password is required</div>
-                                    <div *ngIf="f.Password.errors.minlength">Password must be at least 6 characters
+                                    <div *ngIf="f.Password.errors.required">Password là bắt buộc</div>
+                                    <div *ngIf="f.Password.errors.minlength">Password phải có ít nhất 6 ký tự
                                     </div>
                                 </div>
                             </div>
@@ -56,12 +57,12 @@
                                     class="form-control" formControlName="PasswordConfirms"
                                     [ngClass]="{ 'is-invalid': submitted && f.PasswordConfirms.errors }">
                                 <div *ngIf="submitted && f.PasswordConfirms.errors" class="invalid-feedback">
-                                    <div *ngIf="f.PasswordConfirms.errors.required">Confirm Password is required</div>
-                                    <div *ngIf="f.PasswordConfirms.errors.minlength">Confirm Password must be at least 6 characters
+                                    <div *ngIf="f.PasswordConfirms.errors.required">Confirm Password là bắt buộc</div>
+                                    <div *ngIf="f.PasswordConfirms.errors.minlength">Confirm Password phải có ít nhất 6 ký tự
                                     </div>
                                 </div>
                                 <div *ngIf = "checkConfirm && checkError == false"  id="error">
-                                    Confirm Password sai
+                                    Confirm Password không giống với Password
                                 </div>
                             </div>
                             <div class="form-group-6 bot">

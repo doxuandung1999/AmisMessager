@@ -9,9 +9,9 @@ import { User2 } from 'src/app/model/user/user2';
 // import { Store } from '@ngrx/store';
 // import { UserState, getLogin } from 'src/app/reducer';
 import { DataTransferService } from '../../service/dataTransferService';
-import {AccountService} from "../../service/accountService";
-import {StringeeService} from "../../service/stringee.service";
-import {TransferIdUserService} from "../../service/transferIdUser.service";
+import { AccountService } from "../../service/accountService";
+import { StringeeService } from "../../service/stringee.service";
+import { TransferIdUserService } from "../../service/transferIdUser.service";
 import { from } from 'rxjs';
 
 
@@ -44,37 +44,38 @@ export class MessageBoxComponent implements OnInit {
   checkZoom = false;
   users: User2[];
   userId: number;
-  Access_Token : string;
-  user : User2;
-  IdUser : string // lấy id user cần tạo conv
+  Access_Token: string;
+  user: User2;
+  idUser: string // lấy id user cần tạo conv
 
- 
+
 
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
-     private router: Router,
+    private router: Router,
     private dataService: DataTransferService,
-    private accountService : AccountService,
-    private stringeeService : StringeeService 
-    ) {
+    private accountService: AccountService,
+    private stringeeService: StringeeService
+  ) {
 
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(x => {
       this.getId();
-      this.getMessage();
+      // this.getMessage();
       this.getTime();
 
     });
-  
-     
+
+
     console.log(this.accountService.userValue.name);
-    console.log(this.IdUser);
+    // console.log(this.idUser);
     // this.stringeeClient.connect();
-    
+
     this.stringeeService.test();
     // this.stringeeService.creatAConversation(this.user);
+
 
   }
   ngOndestroy() {
@@ -84,26 +85,25 @@ export class MessageBoxComponent implements OnInit {
   // lấy id 
   getId() {
 
-    // const id = +this.route.snapshot.paramMap.get('userId');
-    // console.log(id);
-    // this.friends = this.friendService.getFriendId(id);
     // this.dataService.changeUser(id);
     this.dataService.userID.subscribe(data => {
-      this.IdUser = data;
-     
-    })
+      this.idUser = data;
 
-
+    });
 
   }
+
+  // lấy danh sách conversation
+  
 
   // lấy message trong từng cuộc hội thoại
-  getMessage() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.messages = this.messageService.getMessageId(id);
-    
+  // getMessage() {
+  //   const id = +this.route.snapshot.paramMap.get('id');
+  //   this.messages = this.messageService.getMessageId(id);
 
-  }
+  // }
+
+
 
   // thay đổi biến check để ẩn hiện phần extend component
   showInfor() {
@@ -145,7 +145,7 @@ export class MessageBoxComponent implements OnInit {
         this.messageAdd.receiveId = id;
         this.messageAdd.type = 'img';
         this.messages.push(this.messageAdd);
-        
+
       }
       // thêm file dang pdf
       else if (file.type == 'application/pdf') {
@@ -227,7 +227,7 @@ export class MessageBoxComponent implements OnInit {
   UnZoom() {
     this.checkZoom = false;
   }
-  
+
   // xét thời gian
 
   getTime() {

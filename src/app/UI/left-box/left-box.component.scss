@@ -92,14 +92,15 @@ p {
 #friend{
     outline: none;
     height: 60px;
-    position: relative;
+   
     margin-top: 10px;
-    padding-left: 24px;
+    // padding-left: 24px;
     padding-right : 24px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: center;
     cursor: pointer;
     @media screen and (max-width : 992px){
         align-items: center;
@@ -113,6 +114,59 @@ p {
         align-items: center;
         justify-content: center;
     }
+    
+       
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        #img_1{
+            // background-color: #fd612c;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            overflow: hidden;
+            margin-top: 12px;
+            @media screen and (max-width : 992px) {
+                width: 30px;
+                height: 30px;
+                margin-top: 8px;
+              }
+              @media screen and (max-width : 768px) {
+                width: 40px;
+                height: 40px;
+                margin-top: unset;
+              }
+              @media screen and (max-width : 576px) {
+                width: 40px;
+                height: 40px;
+                margin-top: unset;
+              }
+            
+        }
+        .content{
+            padding: 0px 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            width: 80%;
+            // @media screen and (max-width : 992px) and (min-width : 576px){
+            //     display: none;
+            // }
+            @media screen and (max-width : 768px){
+                display: none;
+            }
+            @media screen and (max-width : 576px){
+                display: none;
+            }
+        }
+
+    
+    
+  
    
 }
 #friend:hover{
@@ -130,30 +184,7 @@ p {
         
     }
 }
-#img_1{
-    // background-color: #fd612c;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    overflow: hidden;
-    margin-top: 12px;
-    @media screen and (max-width : 992px) {
-        width: 30px;
-        height: 30px;
-        margin-top: 8px;
-      }
-      @media screen and (max-width : 768px) {
-        width: 40px;
-        height: 40px;
-        margin-top: unset;
-      }
-      @media screen and (max-width : 576px) {
-        width: 40px;
-        height: 40px;
-        margin-top: unset;
-      }
-    
-}
+
 
 #img_2{
     background-color: #48bb56;
@@ -197,24 +228,7 @@ p {
 .content p{
     overflow: hidden;
 }
-.content{
-    padding: 0px 15px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    width: 80%;
-    // @media screen and (max-width : 992px) and (min-width : 576px){
-    //     display: none;
-    // }
-    @media screen and (max-width : 768px){
-        display: none;
-    }
-    @media screen and (max-width : 576px){
-        display: none;
-    }
-}
+
 .content p{
     overflow: hidden;
 }
