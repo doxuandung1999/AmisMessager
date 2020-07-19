@@ -12,6 +12,7 @@ import { first, map } from 'rxjs/operators';
 import {TransferIdUserService} from "../../service/transferIdUser.service";
 import {StringeeService} from "../../service/stringee.service";
 import { filter } from 'rxjs/operators';
+import {ConvidTransferService} from "../../service/convidTransfer.service";
 
 
 @Component({
@@ -31,6 +32,7 @@ export class LeftBoxComponent implements OnInit {
   checkChangeList = 1;
   convasation : any;
   userLogin : any;
+  convId : string;
   
 
   constructor(private friendService: FriendService,
@@ -38,7 +40,8 @@ export class LeftBoxComponent implements OnInit {
     private dataService: DataTransferService,
     private accountService: AccountService,
     private transferIdUser : TransferIdUserService,
-    private stringeeService : StringeeService) {
+    private stringeeService : StringeeService,
+    private convidTransferService : ConvidTransferService ) {
     // this.friend = friendService.getFriends();
     this._activeRoute.paramMap.subscribe(x => {
       // this.check();
@@ -47,7 +50,12 @@ export class LeftBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
+    this._activeRoute.paramMap.subscribe(x => {
+      
+      
+    });
+
+  
     // this.getId();
     this.getFocus();
     // lấy danh sách user
@@ -56,26 +64,30 @@ export class LeftBoxComponent implements OnInit {
     this.getEmailLogin();
 
   }
-
-
-  getUser() {
-    // Lấy danh sách user từ backend
-    this.accountService.getAll()
-      .pipe(
-        map(data => data.filter(data => data.email != this.userLogin))
-      ).subscribe( 
-        data => { this.users = data }
-      )
+  ngOndestroy() {
+    // this.getId();
+    // this.getMessage();
   }
 
-  //lấy danh sách user
-  // getUser(){
+
+  // getUser() {
+  //   // Lấy danh sách user từ backend
   //   this.accountService.getAll()
-  //   .pipe(first())
-  //   .subscribe(users => this.users = users);
+  //     .pipe(
+  //       map(data => data.filter(data => data.email != this.userLogin))
+  //     ).subscribe( 
+  //       data => { this.users = data }
+  //     )
+  // }
+
+  //lấy danh sách user
+  getUser(){
+    this.accountService.getAll()
+    .pipe(first())
+    .subscribe(users => this.users = users);
 
   
-  // }
+  }
 
 
   // lấy email người đăng nhập
@@ -86,19 +98,27 @@ export class LeftBoxComponent implements OnInit {
     
   }
 
-  // tạo cuộc trò chuyện
+  // tạo cuộc trò chuyện khi click vào list user
   changeIdUser(user){
     console.log(user.userId);
     this.stringeeService.creatAConversation(user.userId);
   }
   // lấy danh sách conversation
-  getMessage() {
-    this.stringeeService.getLastMessage( (status, code, message, convs) => {
+  getConv() {
+    this.stringeeService.getLastConversation( (status, code, message, convs) => {
       // self.convasation = convs;
       this.convasation = convs;
        console.log(convs);
     });
   }
+
+  // chuyền sự kiện thay đổi conv id, id của người đăng nhập
+  changeConvid(convid , userid){
+    this.convidTransferService.changeConvid(convid);
+    this.transferIdUser.changeIdUser(userid);
+  }
+
+
 
   // thay đổi thành đã seen 
   clickRep(id: number) {

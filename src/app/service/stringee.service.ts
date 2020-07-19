@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
 import { AccountService } from "./accountService";
-import {User2} from "../model/user/user2";
+import { User2 } from "../model/user/user2";
 
 import { Alert, AlertType } from '../model/alter-account';
 
@@ -14,11 +14,12 @@ export class StringeeService {
     constructor(private accountService: AccountService) {
 
     }
-    Connect(Access_token: string){
+    Connect(Access_token: string) {
         this.stringeeClient.connect(Access_token);
         console.log("sucess");
     }
-    listenConnect(Access_token: string  ) {
+    // lắng nghe sự kiện connect
+    listenConnect(Access_token: string) {
         let seft = this;
         this.stringeeClient.on('connect', function (res) {
             // this.renderLastConversationsAndMessages();
@@ -36,22 +37,21 @@ export class StringeeService {
                         display_name: username,
                         avatar_url: "",
                         email: useremail
-                  
+
                     }
                     seft.updateUserInfo(updateUserData);
                 }
-            })     
+            })
             // seft.getLastMessage();
         });
     }
 
     // Hàm cập nhật thông tin một user , up date lên stringee
     updateUserInfo(data) {
-        
+
         this.stringeeChat.updateUserInfo(data, function (res) {
             console.log(res)
         });
-
     }
     // Hàm giải mã token
     decodeToken(token) {
@@ -74,40 +74,85 @@ export class StringeeService {
         return decodedToken.userName;
     }
     //hàm lấy email hiện tại của người dùng đăngg nhập
-    getCurrentUserEmailFromAccessToken(token){
+    getCurrentUserEmailFromAccessToken(token) {
         let decodedToken = this.decodeToken(token);
         return decodedToken.userEmail;
     }
     // hàm lấy phone của người dùng đăng nhập
-    getCurrentPhoneNumberFromAccessToken(token){
+    getCurrentPhoneNumberFromAccessToken(token) {
         let decodedToken = this.decodeToken(token);
         return decodedToken.phoneNumber;
     }
-    test(){
+    test() {
         console.log(this.getCurrentUserEmailFromAccessToken(this.accountService.userValue.token));
     }
 
     // tạo cuộc trò chuyện 
-    creatAConversation(id){
+    creatAConversation(id) {
         var userIds = [id];
         var options = {
-        //   name: "Your conversation name",
-          isDistinct: true,
-          isGroup: false
+            //   name: "Your conversation name",
+            isDistinct: true,
+            isGroup: false
         };
         this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
             console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
-          });
+        });
 
     }
 
     // lấy các cuộc trò chuyện
-    getLastMessage(callback: any){
+    // renderLastConversationsAndMessages() {
+    //     var count = 50;
+    //     var isAscending = false;
+
+    //     this.stringeeChat.getLastConversations(count, isAscending, function (status, code, message, convs) {
+            
+    //     });
+    // }
+
+
+    getLastConversation(callback: any) {
+        let seft = this;
+        // this.stringeeClient.on('connect', function (res) {
+        //     var count = 25;
+        //     var isAscending = false;
+        //     seft.stringeeChat.getLastConversations(count, isAscending, callback);
+        // });
         var count = 25;
-        var isAscending = false;
-        this.stringeeChat.getLastConversations(count, isAscending, callback);
+            var isAscending = false;
+            seft.stringeeChat.getLastConversations(count, isAscending, callback);
+       
     }
-    
+
+    // gửi tin nhắn dạng text
+    sendTextMessage(convId, message) {
+        var txtMsg = {
+            type: 1,
+            convId: convId,
+            message: {
+                content: message,
+                metadata: {
+                    key: 'value'
+                }
+            }
+        };
+
+        this.stringeeChat.sendMessage(txtMsg, function (status, code, message, msg) {
+            console.log(status + code + message + "msg result " + JSON.stringify(msg));
+        });
+
+    }
+
+    // lấy tin nhắn của 1 cuộc trò chuyện
+    getLastMessage(convid , call:any){
+        var convId = convid;
+        var count = 50;
+        var isAscending = true;
+        this.stringeeChat.getLastMessages(convId, count, isAscending, call);
+
+    }
+
 
 
 

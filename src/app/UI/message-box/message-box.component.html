@@ -6,7 +6,7 @@
         <div id="avatar">
             <!-- <img src="{{friends.avatar}}" alt=""> -->
             
-           ng {{idUser}}
+           <!-- ng {{idUser}} -->
         </div>
         <div id="content">
             <!-- <p id="name">{{friends.name}}</p>
@@ -113,82 +113,82 @@
 
 
             <!-- ========================================================================================================== -->
-            <!-- # scrollMe làm cho tanh scroll tự động cuộn xuống -->
+            <!-- # scrollMe làm cho thanh scroll tự động cuộn xuống -->
             <div class="contact" #scrollMe>
-                <div class="inline" >
+                <div class="inline" *ngFor = "let message of messages">
                     <!-- so sánh id để xác định bên hiện message -->
-                    <div class="bubbleWrapper" >
+                    <div class="bubbleWrapper" *ngIf = "message.sender != idUser" >
                         <div class="inlineContainer">
                             <img class="inlineIcon" src="">
                             <div class="otherBubble other">
-                             
+                             {{message.content.content}}
                             </div>
                         </div>
                         <!-- <span class="other">08:41</span> -->
                     </div>
                     <!-- gửi ảnh -->
-                    <div class="bubbleWrapper" >
+                    <!-- <div class="bubbleWrapper" >
                         <div class="inlineContainer">
                             <img class="inlineIcon" src="">
                             <div class=" other">
-                                <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh -->
+                                 click vào ảnh để lấy checkZoom và lấy src của ảnh 
                                 <img src= "">
                             </div>
                         </div>
-                        <!-- <span class="other">08:41</span> -->
-                    </div>
+                         <span class="other">08:41</span> 
+                    </div> -->
                     <!-- hiện các loại file -->
-                    <div class="bubbleWrapper">
+                    <!-- <div class="bubbleWrapper">
                         <div class="inlineContainer">
 
                             <img class="inlineIcon" src="">
                             <div class="otherBubble other">
-                                <!-- <img id="img-message-send" src={{m.src}}> -->
-                                <!-- click vào file để download -->
+                                 <img id="img-message-send" src={{m.src}}> 
+                                 click vào file để download 
                                 <a href=""></a>
                             </div>
                         </div>
-                        <!-- <span class="own">08:55</span> -->
-                    </div>
+                         <span class="own">08:55</span> 
+                    </div> -->
 
 
                     <!-- khi tin nhắn là do user admin gửi -->
-                    <div class="bubbleWrapper" >
+                    <div class="bubbleWrapper" *ngIf = "message.sender == idUser">
                         <div class="inlineContainer own">
 
                             <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
                             <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class="ownBubble own">
-                               
+                               {{message.content.content}}
                             </div>
                         </div>
                         <!-- <span class="own">08:55</span> -->
                     </div>
-                    <div class="bubbleWrapper" >
+                    <!-- <div class="bubbleWrapper" >
                         <div class="inlineContainer own">
 
-                            <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
+                             <img class="inlineIcon" src="{{users[0].avatar}}"> 
                             <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class=" own">
-                                <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh -->
+                                 click vào ảnh để lấy checkZoom và lấy src của ảnh 
                                 <img id="img-message-send" src="">
-                                <!-- <a href="">{{m.src}}</a> -->
+                                 <a href="">{{m.src}}</a> 
                             </div>
                         </div>
-                        <!-- <span class="own">08:55</span> -->
-                    </div>
-                    <div class="bubbleWrapper">
+                         <span class="own">08:55</span> 
+                    </div> -->
+                    <!-- <div class="bubbleWrapper">
                         <div class="inlineContainer own">
 
-                            <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
+                             <img class="inlineIcon" src="{{users[0].avatar}}"> 
                             <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
                             <div class="ownBubble own">
-                                <!-- <img id="img-message-send" src={{m.src}}> -->
+                                 <img id="img-message-send" src={{m.src}}> 
                                 <a href="" ></a>
                             </div>
                         </div>
-                        <!-- <span class="own">08:55</span> -->
-                    </div>
+                         <span class="own">08:55</span> 
+                    </div> -->
 
 
                 </div>
@@ -224,7 +224,7 @@
                 <div class="send">
                     <!-- nhận dữ liệu ở input khi nhấn enter -->
                     <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
-                        (keydown.enter)="showMessage($event)">
+                        (keydown.enter)="sendMessage($event)">
                     <div id="smile">
                         <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
                     </div>

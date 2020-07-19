@@ -39,7 +39,7 @@ export class SiginComponent implements OnInit {
         });
 
         // return ra đường dẫn mặc định
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/message/2';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
        
     }
 
@@ -72,8 +72,8 @@ export class SiginComponent implements OnInit {
                 data => {
                     // chạy đến route mặc định
                     this.router.navigate([this.returnUrl]);
-                    // this.stringeeService.connect(this.accountService.userValue.token);
-                    this.stringeeService.listenConnect(this.accountService.userValue.token);
+                    // this.stringeeService.Connect(this.accountService.userValue.token);
+                    // this.stringeeService.listenConnect(this.accountService.userValue.token);
                   
                 },
                 error => {

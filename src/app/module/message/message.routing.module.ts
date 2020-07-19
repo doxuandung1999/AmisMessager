@@ -8,7 +8,7 @@ import {BoxComponent} from '../../UI/box/box.component';
 const routes: Routes = [
 
   
-  {path : '' , component : BoxComponent,
+  {path : 'home' , component : BoxComponent,
     children : [
       {
         path : 'message/:id' , component : MessageBoxComponent

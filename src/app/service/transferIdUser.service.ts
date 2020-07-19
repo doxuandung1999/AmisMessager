@@ -7,9 +7,9 @@ export class TransferIdUserService {
 
   constructor() { }
   
-  @Output() userID = new EventEmitter<string>();
+  @Output() userID = new EventEmitter<any>();
   // bắt sự kiện thay đổi id
-  changeIdUser(id : string){
+  changeIdUser(id){
     this.userID.emit(id);
   }
 }

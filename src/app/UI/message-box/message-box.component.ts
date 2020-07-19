@@ -13,6 +13,8 @@ import { AccountService } from "../../service/accountService";
 import { StringeeService } from "../../service/stringee.service";
 import { TransferIdUserService } from "../../service/transferIdUser.service";
 import { from } from 'rxjs';
+import {ConvidTransferService} from "../../service/convidTransfer.service";
+
 
 
 
@@ -34,7 +36,7 @@ const FileSaver = require('file-saver');
 export class MessageBoxComponent implements OnInit {
 
   friends: Friend;
-  messages: Message[];
+ 
   messageAdd: Message;
   idAmin = 1;
   friend_1;
@@ -46,7 +48,9 @@ export class MessageBoxComponent implements OnInit {
   userId: number;
   Access_Token: string;
   user: User2;
-  idUser: string // lấy id user cần tạo conv
+  idUser: any // lấy id user người đang đăng nhập
+  idtest : any; // id conv
+  messages : any // mảng chứa tin nhắn trong 1 conversation
 
 
 
@@ -55,26 +59,31 @@ export class MessageBoxComponent implements OnInit {
     private router: Router,
     private dataService: DataTransferService,
     private accountService: AccountService,
-    private stringeeService: StringeeService
+    private stringeeService: StringeeService,
+    private convidTransferService : ConvidTransferService,
+    private transferIdUserService : TransferIdUserService
   ) {
 
+    
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(x => {
-      this.getId();
-      // this.getMessage();
       this.getTime();
-
+      this.getIdConv();
+      this.getLastMessage();
+      this.getidUser();
+     
     });
+   
 
 
     console.log(this.accountService.userValue.name);
-    // console.log(this.idUser);
     // this.stringeeClient.connect();
 
     this.stringeeService.test();
     // this.stringeeService.creatAConversation(this.user);
+    // console.log(this.route.snapshot.paramMap.get('id'));
 
 
   }
@@ -82,26 +91,16 @@ export class MessageBoxComponent implements OnInit {
     // this.getId();
   }
 
-  // lấy id 
-  getId() {
 
-    // this.dataService.changeUser(id);
-    this.dataService.userID.subscribe(data => {
-      this.idUser = data;
-
-    });
-
+  // lấy id conv
+  getIdConv(){
+    this.convidTransferService.convid.subscribe(data => {this.idtest = data});
   }
-
-  // lấy danh sách conversation
-  
-
-  // lấy message trong từng cuộc hội thoại
-  // getMessage() {
-  //   const id = +this.route.snapshot.paramMap.get('id');
-  //   this.messages = this.messageService.getMessageId(id);
-
-  // }
+  // lấy id user đang nhập
+  getidUser(){
+    this.idUser  = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
+    // console.log(this.idUser);
+  }
 
 
 
@@ -110,18 +109,21 @@ export class MessageBoxComponent implements OnInit {
     this.check = !this.check;
   }
 
-  // thêm tin nhắn dạng text vào mảng message
-  showMessage(event) {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.messageAdd = new Message();
-    this.messageAdd.message = event.target.value;
-    this.messageAdd.senderId = this.idAmin;
-    this.messageAdd.receiveId = id;
-    this.messageAdd.type = 'text';
-    this.messages.push(this.messageAdd);
+  // gửi tin nhắn dạng text vào mảng message
+  sendMessage(event) {
+    // this.idtest = +this.route.snapshot.paramMap.get('id');
+    var message = event.target.value;
+    this.stringeeService.sendTextMessage(this.idtest,message);
     event.target.value = null;
-    // this.messages.push(this.messageAdd);
-    //   event.target.value = null;
+
+  }
+
+  // lấy các message cuối cùng
+  getLastMessage(){
+    this.stringeeService.getLastMessage(this.idtest,(status, code, message, msgs) => {
+      this.messages = msgs;
+      console.log(msgs);
+    });
 
   }
 

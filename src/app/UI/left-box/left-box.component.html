@@ -55,7 +55,7 @@
         </div> -->
 
 
-        <div id="friend" *ngFor="let conv of convasation"  routerLink='/message/{{conv.id}}'>
+        <div id="friend" *ngFor="let conv of convasation"  routerLink='/home/message/{{conv.id}}' (click) = "changeConvid(conv.id,conv.creator)">
             
                 <div id="avatar">
                     <ngx-avatar id="img_1" size="34" *ngIf = "conv.participants[0].name != null"  name="{{conv.participants[0].name}}"></ngx-avatar>
@@ -115,7 +115,7 @@
         </div> -->
 
 
-        <div id="friend" *ngFor="let user of users | friendFilter : searchFriend"  routerLink='/message/{{user.userId}}' (click)="changeIdUser(user)" >
+        <div id="friend" *ngFor="let user of users | friendFilter : searchFriend"  routerLink='/home/message/{{user.userId}}' (click)="changeIdUser(user)" >
              
             <div id="avatar" *ngIf="userLogin != user.userEmail" >
           
@@ -133,7 +133,8 @@
     </div>
 
     <div class="bot-left">
-        <button id="left-button" (click) = "listConv()" (click) = "getMessage()" [ngStyle] = "{'background-color' : checkChangeList == 1 ? '#2196f3' : 'rgba(255, 255, 255, .2)'}">Cuộc trò chuyện</button>
+        <!-- (click) = "getMessage()" -->
+        <button id="left-button" (click) = "listConv()" (click) = "getConv()" [ngStyle] = "{'background-color' : checkChangeList == 1 ? '#2196f3' : 'rgba(255, 255, 255, .2)'}">Cuộc trò chuyện</button>
         <button id="right-button" (click) = "listFriend()" [ngStyle] = "{'background-color' : checkChangeList == 2 ? '#2196f3' : 'rgba(255, 255, 255, .2)'}">Danh bạ</button>
     </div>
 </div>
