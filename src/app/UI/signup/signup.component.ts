@@ -89,10 +89,13 @@ export class SignupComponent implements OnInit {
             .subscribe(
                 data => {
                     // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-                    
+                    let self = this;
                     this.router.navigate(['/signIn'], { relativeTo: this.route });
                     this.stringeeService.Connect(data['token']);
-                    this.stringeeService.listenConnect(data['token']);
+                    this.stringeeService.stringeeClient.on('connect', function (res){
+                      self.stringeeService.listentUpdate(data['token']);
+                    });
+                  
                     
                    
                 },

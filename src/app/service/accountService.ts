@@ -57,7 +57,7 @@ export class AccountService {
         return this.http.get<User2[]>(`${environment.apiUrl}/api/Users/getall`);
     }
 
-    getById(id: string) {
+    getById(id: any) {
         return this.http.get<User2>(`${environment.apiUrl}/api/Users/${id}`);
     }
 

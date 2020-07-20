@@ -5,12 +5,13 @@
 
         <div id="avatar">
             <!-- <img src="{{friends.avatar}}" alt=""> -->
+            <ngx-avatar  size="32" name="{{userInfor.userName}}"></ngx-avatar>  
             
            <!-- ng {{idUser}} -->
         </div>
         <div id="content">
-            <!-- <p id="name">{{friends.name}}</p>
-            <p id="status">{{friends.timeActive}}</p> -->
+             <p id="name">{{userInfor.userName}}</p>
+            <p id="status"> Đang hoạt động </p> 
         </div>
 
         <div class="option">
@@ -117,9 +118,10 @@
             <div class="contact" #scrollMe>
                 <div class="inline" *ngFor = "let message of messages">
                     <!-- so sánh id để xác định bên hiện message -->
-                    <div class="bubbleWrapper" *ngIf = "message.sender != idUser" >
+                    <div class="bubbleWrapper" *ngIf = "message.sender != idUser">
                         <div class="inlineContainer">
-                            <img class="inlineIcon" src="">
+                            <!-- <img class="inlineIcon" src=""> -->
+                            <ngx-avatar  size="20" name="{{userInfor.userName}}"></ngx-avatar>  
                             <div class="otherBubble other">
                              {{message.content.content}}
                             </div>
@@ -157,7 +159,8 @@
                         <div class="inlineContainer own">
 
                             <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
-                            <img class="inlineIcon" src="../../../assets/Avatar/5.jpg">
+                            <!-- <img class="inlineIcon" src="../../../assets/Avatar/5.jpg"> -->
+                            <ngx-avatar  size="20" name="{{userName}}"></ngx-avatar>        
                             <div class="ownBubble own">
                                {{message.content.content}}
                             </div>
@@ -224,7 +227,7 @@
                 <div class="send">
                     <!-- nhận dữ liệu ở input khi nhấn enter -->
                     <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
-                        (keydown.enter)="sendMessage($event)">
+                        (keydown.enter)="sendMessage($event)" autocomplete="off">
                     <div id="smile">
                         <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
                     </div>
@@ -236,7 +239,7 @@
 
         <div class="extend" [hidden]="check">
             <!-- input mảng message sang component con extend component để lấy các file đã gửi -->
-            <app-extend-box [message]="messages"></app-extend-box>
+            <app-extend-box [message]="messages" [userInfor] = "userInfor"></app-extend-box>
 
         </div>
 

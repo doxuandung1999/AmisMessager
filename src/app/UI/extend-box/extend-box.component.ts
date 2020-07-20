@@ -4,6 +4,8 @@ import {FriendService} from "../../service/friend.service";
 import {ActivatedRoute} from "@angular/router";
 import {Message} from "../../model/message/message";
 import {DataTransferService} from '../../service/dataTransferService';
+import {TransferIdUserService} from "../../service/transferIdUser.service";
+import {AccountService} from "../../service/accountService";
 
 declare var require: any
 const FileSaver = require('file-saver');
@@ -19,28 +21,39 @@ export class ExtendBoxComponent implements OnInit {
   friends : Friend;
   imgsrc : string;
   checkZoom = false;
+  idUserInfor : any ; // lấy id user phía bên kia
+  // userInfor = null; // user phía bên nhận
+
   // lấy mảng message tử component cha
    @Input() message : Message[];
+   @Input() userInfor = null;
 
   constructor( private friendService : FriendService , 
     private route : ActivatedRoute,
-    private dataService : DataTransferService) { 
-      this.route.paramMap.subscribe(x => {
-        this.getId();
-      });
+    private dataService : DataTransferService,
+    private transferIdUserService : TransferIdUserService,
+    private accountService : AccountService) { 
+      
     }
-    // lấy id trên thanh URL
-  getId(){
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.friends = this.friendService.getFriendId(id);
-    
-  }
+
   ngOndestroy(){
     
   }
   ngOnInit(): void {
+    this.route.paramMap.subscribe(x => {
+      
+      // this.getidUserInfor();
+      // this.getUserInfor();
+    });
     
   }
+
+  getConv(){
+    const idUrl = this.route.snapshot.paramMap.get('id');
+    
+  }
+
+
   // ẩn hiện phần xem các file trong đoạn hội thoại
   showFile(){
     this.checkFile = !this.checkFile;
@@ -65,7 +78,6 @@ export class ExtendBoxComponent implements OnInit {
   }
 
   // thanh cuộn
-    // thanh cuộn 
     ngAfterViewChecked() {
       this.scrollBottom();
       this.scrollBottom_2();

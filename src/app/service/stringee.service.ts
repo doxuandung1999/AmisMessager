@@ -19,32 +19,60 @@ export class StringeeService {
         console.log("sucess");
     }
     // lắng nghe sự kiện connect
-    listenConnect(Access_token: string) {
-        let seft = this;
-        this.stringeeClient.on('connect', function (res) {
-            // this.renderLastConversationsAndMessages();
-            // this.realTimeUpdate();
+    listentUpdate(Access_token: string) {
+        
+        // this.stringeeClient.on('connect', function (res) {
+        //     // this.renderLastConversationsAndMessages();
+        //     // this.initEvents();
+        //     let userId = seft.getCurrentUserIdFromAccessToken(Access_token);
+        //     seft.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
+        //         let user = users[0];
+        //         if (!user) {
+        //             let username = seft.getCurrentUsernameFromAccessToken(Access_token);
+        //             // let avatar = this.getCurrentUserAvatarFromAccessToken(Access_token);
+        //             let useremail = seft.getCurrentUserEmailFromAccessToken(Access_token);
+        //             let phone = seft.getCurrentPhoneNumberFromAccessToken(Access_token);
+        //             let updateUserData = {
+        //                 display_name: username,
+        //                 avatar_url: "",
+        //                 email: useremail
+
+        //             }
+        //             seft.updateUserInfo(updateUserData);
+        //         }
+        //     })
+        //     // seft.getLastMessage();
+        // });
             // this.initEvents();
-            let userId = seft.getCurrentUserIdFromAccessToken(Access_token);
-            seft.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
+            let self = this;
+            let userId = this.getCurrentUserIdFromAccessToken(Access_token);
+            this.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
                 let user = users[0];
                 if (!user) {
-                    let username = seft.getCurrentUsernameFromAccessToken(Access_token);
+                    let username = self.getCurrentUsernameFromAccessToken(Access_token);
                     // let avatar = this.getCurrentUserAvatarFromAccessToken(Access_token);
-                    let useremail = seft.getCurrentUserEmailFromAccessToken(Access_token);
-                    let phone = seft.getCurrentPhoneNumberFromAccessToken(Access_token);
+                    let useremail = self.getCurrentUserEmailFromAccessToken(Access_token);
+                    let phone = self.getCurrentPhoneNumberFromAccessToken(Access_token);
                     let updateUserData = {
                         display_name: username,
                         avatar_url: "",
                         email: useremail
 
                     }
-                    seft.updateUserInfo(updateUserData);
+                    self.updateUserInfo(updateUserData);
                 }
             })
             // seft.getLastMessage();
+    }
+
+    // lắng nghe on connect
+    updateConnect(callback: any) {
+        let seft = this;
+        this.stringeeClient.on('connect', function (res) {
+            seft.getLastConversation(callback);
         });
     }
+
 
     // Hàm cập nhật thông tin một user , up date lên stringee
     updateUserInfo(data) {
@@ -107,7 +135,7 @@ export class StringeeService {
     //     var isAscending = false;
 
     //     this.stringeeChat.getLastConversations(count, isAscending, function (status, code, message, convs) {
-            
+
     //     });
     // }
 
@@ -120,9 +148,9 @@ export class StringeeService {
         //     seft.stringeeChat.getLastConversations(count, isAscending, callback);
         // });
         var count = 25;
-            var isAscending = false;
-            seft.stringeeChat.getLastConversations(count, isAscending, callback);
-       
+        var isAscending = false;
+        seft.stringeeChat.getLastConversations(count, isAscending, callback);
+
     }
 
     // gửi tin nhắn dạng text
@@ -145,13 +173,24 @@ export class StringeeService {
     }
 
     // lấy tin nhắn của 1 cuộc trò chuyện
-    getLastMessage(convid , call:any){
+    getLastMessage(convid, call: any) {
         var convId = convid;
         var count = 50;
         var isAscending = true;
+
         this.stringeeChat.getLastMessages(convId, count, isAscending, call);
 
     }
+
+    // hàm đánh dấu là conv đã đọc
+    markConversationAsRead(convid) {
+        var convId = convid;
+       this.stringeeChat.markConversationAsRead(convId , function(res){
+        // this.setTotalUnReadConvs();
+       });
+
+    }
+
 
 
 

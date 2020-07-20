@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, ViewChildren, QueryList } from '@angular/core';
 import { FriendService } from "../../service/friend.service";
 import { Friend } from "../../model/friend/friend";
 import { RouterModule, Routes, Router } from '@angular/router';
@@ -12,8 +12,9 @@ import { DataTransferService } from '../../service/dataTransferService';
 import { AccountService } from "../../service/accountService";
 import { StringeeService } from "../../service/stringee.service";
 import { TransferIdUserService } from "../../service/transferIdUser.service";
-import { from } from 'rxjs';
+
 import {ConvidTransferService} from "../../service/convidTransfer.service";
+import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
 
 
 
@@ -49,10 +50,12 @@ export class MessageBoxComponent implements OnInit {
   Access_Token: string;
   user: User2;
   idUser: any // lấy id user người đang đăng nhập
-  idtest : any; // id conv
+  // idtest : any; // id conv
   messages : any // mảng chứa tin nhắn trong 1 conversation
-
-
+  userName : any; // tên người đăng nhập
+  userInfor = null;
+  idUserInfor : any;
+  idUrl : any;
 
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
@@ -69,11 +72,18 @@ export class MessageBoxComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(x => {
-      this.getTime();
-      this.getIdConv();
+      // this.getIdConv();
       this.getLastMessage();
       this.getidUser();
-     
+      this.getNameUser();
+      this.getidUserInfor();
+      this.getUserInfor();
+      this.postIdConvs();
+      this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
+        this.getLastMessage();
+      });
+
+
     });
    
 
@@ -82,8 +92,6 @@ export class MessageBoxComponent implements OnInit {
     // this.stringeeClient.connect();
 
     this.stringeeService.test();
-    // this.stringeeService.creatAConversation(this.user);
-    // console.log(this.route.snapshot.paramMap.get('id'));
 
 
   }
@@ -91,18 +99,33 @@ export class MessageBoxComponent implements OnInit {
     // this.getId();
   }
 
-
-  // lấy id conv
-  getIdConv(){
-    this.convidTransferService.convid.subscribe(data => {this.idtest = data});
-  }
   // lấy id user đang nhập
   getidUser(){
     this.idUser  = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
     // console.log(this.idUser);
   }
+  // lấy user name user đăng nhập
+  getNameUser(){
+    this.userName = this.accountService.userValue.name;
+  }
+
+  // lấy id user phía bên kia bắn sang
+  getidUserInfor(){
+    this.transferIdUserService.userID.subscribe(data => {this.idUserInfor = data});
+  }
 
 
+  // lấy thông tin user phía bên kia đang nhắn tin
+  getUserInfor(){
+    this.accountService.getById(this.idUserInfor)
+    .subscribe(users => this.userInfor = users);
+  }
+
+  // truyền id convs sang bên list để thực hiện focus
+  postIdConvs(){
+    const idUrl = this.route.snapshot.paramMap.get('id');
+    this.convidTransferService.changeConvid(idUrl);
+  }
 
   // thay đổi biến check để ẩn hiện phần extend component
   showInfor() {
@@ -111,16 +134,20 @@ export class MessageBoxComponent implements OnInit {
 
   // gửi tin nhắn dạng text vào mảng message
   sendMessage(event) {
-    // this.idtest = +this.route.snapshot.paramMap.get('id');
+    // lấy id covs trên url
+    const idUrl = this.route.snapshot.paramMap.get('id');
     var message = event.target.value;
-    this.stringeeService.sendTextMessage(this.idtest,message);
+    // this.stringeeService.sendTextMessage(this.idtest,message);
+    this.stringeeService.sendTextMessage(idUrl,message);
     event.target.value = null;
+    this.getLastMessage();
 
   }
 
   // lấy các message cuối cùng
   getLastMessage(){
-    this.stringeeService.getLastMessage(this.idtest,(status, code, message, msgs) => {
+    const idUrl = this.route.snapshot.paramMap.get('id');
+    this.stringeeService.getLastMessage(idUrl,(status, code, message, msgs) => {
       this.messages = msgs;
       console.log(msgs);
     });
@@ -211,14 +238,43 @@ export class MessageBoxComponent implements OnInit {
 
 
   //cho thanh cuộn xuống bottom
-  ngAfterViewChecked() {
-    this.scrollBottom();
+  // ngAfterViewChecked() {
+  //   this.scrollBottom();
+  // }
+  // @ViewChild('scrollMe') private scroll: ElementRef;
+  // scrollBottom() {
+  //   // debugger;
+  //   this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+  // }
+
+  @ViewChild('scrollMe', {static: false}) scrollMe: ElementRef;
+  @ViewChildren('item') itemElements: QueryList<any>;
+  
+  private scrollContainer: any;
+  private items = [];
+
+  ngAfterViewInit() {
+    this.scrollContainer = this.scrollMe.nativeElement;  
+    this.itemElements.changes.subscribe(_ => this.onItemElementsChanged());    
+
+    // Add a new item every 2 seconds
+    setInterval(() => {
+      this.items.push({});
+    }, 2000);
   }
-  @ViewChild('scrollMe') private scroll: ElementRef;
-  scrollBottom() {
-    // debugger;
-    this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
+  
+  private onItemElementsChanged(): void {
+    this.scrollToBottom();
   }
+
+  private scrollToBottom(): void {
+    this.scrollContainer.scroll({
+      top: this.scrollContainer.scrollHeight,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
 
   // zoom - img
   getClickImg(src) {
@@ -230,23 +286,11 @@ export class MessageBoxComponent implements OnInit {
     this.checkZoom = false;
   }
 
-  // xét thời gian
-
-  getTime() {
-    let date = new Date('2020/07/03 12:40:43');
-    let date2 = new Date();
-    console.log(date);
-    // console.log(Math.floor((date2 - date) / (1000 * 60 * 60 * 24));
-    console.log(Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) - Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())) / (1000 * 60 * 60 * 24)));
-
-  }
-
 
   // nhấn esc để thay đổi biến checkZoom thành false để thoát zoom ảnh
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
     this.checkZoom = false;
   }
-
 
 
 }

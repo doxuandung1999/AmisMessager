@@ -26,13 +26,16 @@ export class LeftBoxComponent implements OnInit {
   searchFriend: string;
   friend: Friend[];
   checkIt: boolean;
-  focus: number;
+  focus: any // nhận id convs bên message để focus 
   checkFocus: boolean;
   users = null;
   checkChangeList = 1;
   convasation : any;
   userLogin : any;
   convId : string;
+  conv : any;
+  idUser : any;
+  timer : any;
   
 
   constructor(private friendService: FriendService,
@@ -51,11 +54,13 @@ export class LeftBoxComponent implements OnInit {
 
   ngOnInit(): void {
     this._activeRoute.paramMap.subscribe(x => {
-      
+      this.getidUser();
+      this.getConv();
       
     });
 
-  
+   
+
     // this.getId();
     this.getFocus();
     // lấy danh sách user
@@ -69,24 +74,18 @@ export class LeftBoxComponent implements OnInit {
     // this.getMessage();
   }
 
+   // lấy id user đăng nhập
+   getidUser(){
+    this.idUser  = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
+    // console.log(this.idUser);
+  }
 
-  // getUser() {
-  //   // Lấy danh sách user từ backend
-  //   this.accountService.getAll()
-  //     .pipe(
-  //       map(data => data.filter(data => data.email != this.userLogin))
-  //     ).subscribe( 
-  //       data => { this.users = data }
-  //     )
-  // }
 
   //lấy danh sách user
   getUser(){
     this.accountService.getAll()
     .pipe(first())
     .subscribe(users => this.users = users);
-
-  
   }
 
 
@@ -111,13 +110,44 @@ export class LeftBoxComponent implements OnInit {
        console.log(convs);
     });
   }
+  // 
+  
 
-  // chuyền sự kiện thay đổi conv id, id của người đăng nhập
-  changeConvid(convid , userid){
-    this.convidTransferService.changeConvid(convid);
-    this.transferIdUser.changeIdUser(userid);
+  // chuyền sự kiện thay đổi conv để lấy id conv và  id của người phía bên kia trong conv
+  choseConvid(conv){
+    conv.unreadCount = 0;
+    var i = 0;
+    let userId = [];
+    for (let user of conv.participants){
+      if(user.userId != this.idUser ){
+        this.transferIdUser.changeIdUser(user.userId);
+        userId[i] = user.userId;
+        i++;
+      }
+    }
+    this.stringeeService.markConversationAsRead(conv.id);
   }
 
+  // hàm tính thời gian chênh lệch để xác định hiển thị thời gian như thế nào
+  calculateTime(time:any) {
+    
+    let changeTime = new Date(time);
+    let date2 = new Date();
+    this.timer = Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) - Date.UTC(changeTime.getFullYear(), changeTime.getMonth(), changeTime.getDate())) / (1000 * 60 * 60 * 24));
+    if(this.timer <= 1){
+      return 1;
+    }else if(this.timer >1 && this.timer <=7){
+      return 2;
+    }else{
+      return 3;
+    }
+
+    
+  }
+
+  // getTime(time){
+  //   return new Date(time);
+  // }
 
 
   // thay đổi thành đã seen 
@@ -132,9 +162,10 @@ export class LeftBoxComponent implements OnInit {
 
   // bắt sự kiện thay đổi id từ bên message để thực hiện focus vào cuộc trò chuyện
   getFocus() {
-    this.dataService.userID.subscribe(data => {
+    this.convidTransferService.convid.subscribe(data => {
       this.focus = data;
-    })
+    });
+    console.log(this.focus);
   }
 
   // thay đổi list conversation
