@@ -55,7 +55,15 @@ export class LeftBoxComponent implements OnInit {
   ngOnInit(): void {
     this._activeRoute.paramMap.subscribe(x => {
       this.getidUser();
-      this.getConv();
+  
+      this.stringeeService.stringeeClient.on('connect', (res) => {
+        this.getConv();
+        
+      });
+      this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
+        this.getConv();
+      });
+
       
     });
 
@@ -145,20 +153,6 @@ export class LeftBoxComponent implements OnInit {
     
   }
 
-  // getTime(time){
-  //   return new Date(time);
-  // }
-
-
-  // thay đổi thành đã seen 
-  clickRep(id: number) {
-    this.friend.forEach(f => {
-      if (f.id === id) {
-        f.noRep = 0;
-
-      }
-    });
-  }
 
   // bắt sự kiện thay đổi id từ bên message để thực hiện focus vào cuộc trò chuyện
   getFocus() {

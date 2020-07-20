@@ -16,7 +16,8 @@ export class BoxComponent implements OnInit {
 
   ngOnInit(): void {
     this.stringeeService.Connect(this.accountService.userValue.token);
-    
+   
+ 
   }
 
 

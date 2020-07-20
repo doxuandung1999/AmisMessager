@@ -48,7 +48,7 @@ export class StringeeService {
             let userId = this.getCurrentUserIdFromAccessToken(Access_token);
             this.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
                 let user = users[0];
-                if (!user) {
+                if (user) {
                     let username = self.getCurrentUsernameFromAccessToken(Access_token);
                     // let avatar = this.getCurrentUserAvatarFromAccessToken(Access_token);
                     let useremail = self.getCurrentUserEmailFromAccessToken(Access_token);
@@ -139,7 +139,7 @@ export class StringeeService {
     //     });
     // }
 
-
+    // lấy các conv
     getLastConversation(callback: any) {
         let seft = this;
         // this.stringeeClient.on('connect', function (res) {
