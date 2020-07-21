@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, ViewChildren, QueryList, Input } from '@angular/core';
 import { FriendService } from "../../service/friend.service";
 import { Friend } from "../../model/friend/friend";
 import { RouterModule, Routes, Router } from '@angular/router';
@@ -16,7 +16,9 @@ import { TransferIdUserService } from "../../service/transferIdUser.service";
 import { ConvidTransferService } from "../../service/convidTransfer.service";
 import { FileService } from "../../service/file.service";
 import {UpdateListTransfer} from "../../service/updateListTransfer.service";
-
+import {MessageTransferService} from "../../service/MessageTransfer.service";
+import {idConvTransferService} from "../../service/idConvTransfer.service";
+import {idUserTransferService} from "../../service/idUserService.service";
 
 
 
@@ -52,13 +54,16 @@ export class MessageBoxComponent implements OnInit {
   user: User2;
   idUser: any // lấy id user người đang đăng nhập
   // idtest : any; // id conv
-  messages: any // mảng chứa tin nhắn trong 1 conversation
+  
   userName: any; // tên người đăng nhập
   userInfor = null;
   idUserInfor: any;
   idUrl: any;
   sendFile: any; // xác định loại file cần gửi
   filePath: any;
+  idConv : any;
+
+  @Input() messages: any // mảng chứa tin nhắn trong 1 conversation
 
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
@@ -69,7 +74,10 @@ export class MessageBoxComponent implements OnInit {
     private convidTransferService: ConvidTransferService,
     private transferIdUserService: TransferIdUserService,
     private fileService: FileService,
-    private updateListTransfer : UpdateListTransfer
+    private updateListTransfer : UpdateListTransfer,
+    private messageTransferService : MessageTransferService,
+    private idConvTransferService : idConvTransferService,
+    private idUserTransferService : idUserTransferService
   ) {
 
 
@@ -84,16 +92,24 @@ export class MessageBoxComponent implements OnInit {
       this.getidUserInfor();
       this.getUserInfor();
       this.postIdConvs();
+      this.messageTransferService.messages.subscribe(data => {
+        this.messages = data;
+      });
 
       this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
         this.getLastMessage();
       });
 
-
+      // this.idConvTransferService.convid.subscribe(data => {
+      //   this.idConv = data;
+      // });
+      this.idUserTransferService.Userid.subscribe(data => {
+        this.idUserInfor = data;
+      });
     });
 
-
-
+    // console.log(this.idConv);
+    
     console.log(this.accountService.userValue.name);
     // this.stringeeClient.connect();
 
@@ -131,6 +147,8 @@ export class MessageBoxComponent implements OnInit {
   postIdConvs() {
     const idUrl = this.route.snapshot.paramMap.get('id');
     this.convidTransferService.changeConvid(idUrl);
+    
+    
   }
 
   // thay đổi biến check để ẩn hiện phần extend component

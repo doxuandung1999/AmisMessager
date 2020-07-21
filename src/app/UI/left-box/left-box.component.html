@@ -17,7 +17,7 @@
     <div class="list_friend" *ngIf="checkChangeList == 1">
        
 
-        <div id="friend" *ngFor="let conv of convasation" routerLink='/home/message/{{conv.id}}'
+        <div id="friend" *ngFor="let conv of convasation" routerLink='/home/convasation/{{conv.id}}'
             (click)="choseConvid(conv)"
             [ngStyle]="{'background-color' : focus == conv.id ? 'rgba(255, 255, 255, 0.15)' : '#0a1d3b'}">
 
@@ -128,7 +128,7 @@
 
 
         <div id="friend" *ngFor="let user of users | friendFilter : searchFriend"
-            routerLink='/home/message/{{user.userId}}' (click)="changeIdUser(user)">
+            routerLink='/home/convasation/{{user.userId}}' (click)="changeIdUser(user)">
 
             <div id="avatar" *ngIf="userLogin != user.userEmail">
 

@@ -39,7 +39,7 @@ export class SiginComponent implements OnInit {
         });
 
         // return ra đường dẫn mặc định
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home/message/conv-vn-1-NO20OWUHMD-1594421831662';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
        
     }
 

@@ -4,8 +4,18 @@
         <app-header-box id="header"></app-header-box>
 
         <div class="body_1">
-            <app-left-box id="left"></app-left-box>
-            <app-right-box id="right"></app-right-box>
+            <app-left-box id="left" [convasation] = "convasation"></app-left-box>
+            <!-- <app-right-box id="right"></app-right-box> -->
+            <div id="right">
+                <div class="message-all">
+                    <div class="message">
+                        
+                        <app-message-box [messages] = "messages"></app-message-box>
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
 
     </div>

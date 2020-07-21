@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FriendService } from '../../service/friend.service';
 import { Friend } from '../../model/friend/friend';
 import { MessageModule } from '../../module/message/message.module';
@@ -14,6 +14,7 @@ import { StringeeService } from "../../service/stringee.service";
 import { filter } from 'rxjs/operators';
 import { ConvidTransferService } from "../../service/convidTransfer.service";
 import {UpdateListTransfer} from "../../service/updateListTransfer.service";
+import {idConvTransferService} from "../../service/idConvTransfer.service";
 
 
 @Component({
@@ -31,7 +32,7 @@ export class LeftBoxComponent implements OnInit {
   checkFocus: boolean;
   users = null;
   checkChangeList = 1;
-  convasation: any;
+    
   userLogin: any;
   convId: string;
   conv: any;
@@ -39,6 +40,7 @@ export class LeftBoxComponent implements OnInit {
   timer: any;
   updateCheck : number;// bắt sự kiện bên message để update list convs
 
+  @Input() convasation: any; // mảng chứa convs
 
   constructor(private friendService: FriendService,
     private _router: Router, private _activeRoute: ActivatedRoute,
@@ -47,7 +49,8 @@ export class LeftBoxComponent implements OnInit {
     private transferIdUser: TransferIdUserService,
     private stringeeService: StringeeService,
     private convidTransferService: ConvidTransferService,
-    private updateListTransfer : UpdateListTransfer) {
+    private updateListTransfer : UpdateListTransfer,
+    private idConvTransferService: idConvTransferService) {
     // this.friend = friendService.getFriends();
     this._activeRoute.paramMap.subscribe(x => {
       // this.check();
@@ -61,13 +64,13 @@ export class LeftBoxComponent implements OnInit {
       this.getidUser();
       // this.stringeeService.listentUpdate(this.accountService.userValue.token);
 
-      this.stringeeService.stringeeClient.on('connect', (res) => {
-        this.getConv();
+      // this.stringeeService.stringeeClient.on('connect', (res) => {
+      //   this.getConv();
 
-        // let self = this;
-        // this.choseConvid(this.focus);
+      //   // let self = this;
+      //   // this.choseConvid(this.focus);
 
-      });
+      // });
       // this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
       //   this.getConv();
       // });
@@ -147,6 +150,7 @@ export class LeftBoxComponent implements OnInit {
         i++;
       }
     }
+    this.idConvTransferService.changeConvid(conv.id);
     this.stringeeService.markConversationAsRead(conv.id);
   }
 

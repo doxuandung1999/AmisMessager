@@ -8,14 +8,16 @@ import {BoxComponent} from '../../UI/box/box.component';
 const routes: Routes = [
 
   
-  {path : 'home' , component : BoxComponent,
-    children : [
-      {
-        path : 'message/:id' , component : MessageBoxComponent
-      }
-    ]
-
+  {
+    path : '' , 
+    redirectTo: 'convasation/',
+    pathMatch: 'full'
+  },
+  {
+    path : 'convasation/:id' , component : BoxComponent
+  
   }
+
  
 ];
 
