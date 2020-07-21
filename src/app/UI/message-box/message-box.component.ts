@@ -13,8 +13,9 @@ import { AccountService } from "../../service/accountService";
 import { StringeeService } from "../../service/stringee.service";
 import { TransferIdUserService } from "../../service/transferIdUser.service";
 
-import {ConvidTransferService} from "../../service/convidTransfer.service";
-import { StringeeClient, StringeeChat } from "stringee-chat-js-sdk";
+import { ConvidTransferService } from "../../service/convidTransfer.service";
+import { FileService } from "../../service/file.service";
+import {UpdateListTransfer} from "../../service/updateListTransfer.service";
 
 
 
@@ -37,7 +38,7 @@ const FileSaver = require('file-saver');
 export class MessageBoxComponent implements OnInit {
 
   friends: Friend;
- 
+
   messageAdd: Message;
   idAmin = 1;
   friend_1;
@@ -51,11 +52,13 @@ export class MessageBoxComponent implements OnInit {
   user: User2;
   idUser: any // lấy id user người đang đăng nhập
   // idtest : any; // id conv
-  messages : any // mảng chứa tin nhắn trong 1 conversation
-  userName : any; // tên người đăng nhập
+  messages: any // mảng chứa tin nhắn trong 1 conversation
+  userName: any; // tên người đăng nhập
   userInfor = null;
-  idUserInfor : any;
-  idUrl : any;
+  idUserInfor: any;
+  idUrl: any;
+  sendFile: any; // xác định loại file cần gửi
+  filePath: any;
 
   constructor(private friendService: FriendService
     , private route: ActivatedRoute, private messageService: MessageService,
@@ -63,11 +66,13 @@ export class MessageBoxComponent implements OnInit {
     private dataService: DataTransferService,
     private accountService: AccountService,
     private stringeeService: StringeeService,
-    private convidTransferService : ConvidTransferService,
-    private transferIdUserService : TransferIdUserService
+    private convidTransferService: ConvidTransferService,
+    private transferIdUserService: TransferIdUserService,
+    private fileService: FileService,
+    private updateListTransfer : UpdateListTransfer
   ) {
 
-    
+
   }
 
   ngOnInit(): void {
@@ -79,13 +84,14 @@ export class MessageBoxComponent implements OnInit {
       this.getidUserInfor();
       this.getUserInfor();
       this.postIdConvs();
+
       this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
         this.getLastMessage();
       });
 
 
     });
-   
+
 
 
     console.log(this.accountService.userValue.name);
@@ -100,29 +106,29 @@ export class MessageBoxComponent implements OnInit {
   }
 
   // lấy id user đang nhập
-  getidUser(){
-    this.idUser  = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
+  getidUser() {
+    this.idUser = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
     // console.log(this.idUser);
   }
   // lấy user name user đăng nhập
-  getNameUser(){
+  getNameUser() {
     this.userName = this.accountService.userValue.name;
   }
 
   // lấy id user phía bên kia bắn sang
-  getidUserInfor(){
-    this.transferIdUserService.userID.subscribe(data => {this.idUserInfor = data});
+  getidUserInfor() {
+    this.transferIdUserService.userID.subscribe(data => { this.idUserInfor = data });
   }
 
 
   // lấy thông tin user phía bên kia đang nhắn tin
-  getUserInfor(){
+  getUserInfor() {
     this.accountService.getById(this.idUserInfor)
-    .subscribe(users => this.userInfor = users);
+      .subscribe(users => this.userInfor = users);
   }
 
   // truyền id convs sang bên list để thực hiện focus
-  postIdConvs(){
+  postIdConvs() {
     const idUrl = this.route.snapshot.paramMap.get('id');
     this.convidTransferService.changeConvid(idUrl);
   }
@@ -138,16 +144,16 @@ export class MessageBoxComponent implements OnInit {
     const idUrl = this.route.snapshot.paramMap.get('id');
     var message = event.target.value;
     // this.stringeeService.sendTextMessage(this.idtest,message);
-    this.stringeeService.sendTextMessage(idUrl,message);
+    this.stringeeService.sendTextMessage(idUrl, message);
     event.target.value = null;
     this.getLastMessage();
-
+    this.updateListTransfer.changeConvid();
   }
 
   // lấy các message cuối cùng
-  getLastMessage(){
+  getLastMessage() {
     const idUrl = this.route.snapshot.paramMap.get('id');
-    this.stringeeService.getLastMessage(idUrl,(status, code, message, msgs) => {
+    this.stringeeService.getLastMessage(idUrl, (status, code, message, msgs) => {
       this.messages = msgs;
       console.log(msgs);
     });
@@ -162,107 +168,76 @@ export class MessageBoxComponent implements OnInit {
     // console.log(file.type);
     const render = new FileReader();
 
-    render.addEventListener('load', (event: any) => {
+    render.addEventListener('load', async (event: any) => {
       this.selectedFile = new fileSnippet(event.target.result, file);
-      const id = +this.route.snapshot.paramMap.get('id');
+      // với FormData, chúng ta có thể submit dữ liệu lên server thông qua AJAX như là đang submit form bình thường.
+      const idUrl = this.route.snapshot.paramMap.get('id');
+      var formData = new FormData();
+      formData.set("file", file);
 
-      this.messageAdd = new Message();
-      // thêm file dạng img vào mảng messages 
+      // nếu file input là img
       if (file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') {
-        this.messageAdd.src = this.selectedFile.src;
-        this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
-        this.messageAdd.type = 'img';
-        this.messages.push(this.messageAdd);
+
+        this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
+          this.filePath = data;
+
+          this.stringeeService.sendImgMessage(idUrl, this.filePath.filename);
+          this.getLastMessage();
+          this.updateListTransfer.changeConvid();
+
+        });
+
 
       }
       // thêm file dang pdf
-      else if (file.type == 'application/pdf') {
-        this.messageAdd.src = this.selectedFile.src;
-        this.messageAdd.message = file.name;
-        this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
-        this.messageAdd.type = 'pdf';
+      else if (file.type == 'application/pdf' || file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+      || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
+        this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
+          this.filePath = data;
+          var fileName = file.name;
+          var length = file.size;
 
-        this.messages.push(this.messageAdd);
+          // console.log(fileName + " adsdas" + lenght);
+
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.getLastMessage();
+          this.updateListTransfer.changeConvid();
+
+        });
+
       }
-      // thêm file dạng word
-      else if (
-        file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-        this.messageAdd.src = this.selectedFile.src;
-        this.messageAdd.message = file.name;
-        this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
-        this.messageAdd.type = 'word';
-
-        this.messages.push(this.messageAdd);
-      }
-      // thêm file dạng excel
-      else if (
-        file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-        this.messageAdd.src = this.selectedFile.src;
-        this.messageAdd.message = file.name;
-        this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
-        this.messageAdd.type = 'excel';
-
-        this.messages.push(this.messageAdd);
-      }
-      // them file dạng powerpoint
-      else if (
-        file.type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
-        this.messageAdd.src = this.selectedFile.src;
-        this.messageAdd.message = file.name;
-        this.messageAdd.senderId = this.idAmin;
-        this.messageAdd.receiveId = id;
-        this.messageAdd.type = 'pp';
-
-        this.messages.push(this.messageAdd);
-      }
-
-
-
-
-      // console.log(this.messageAdd.src);
+      
 
     });
 
     render.readAsDataURL(file);
 
   }
+
+
+
   // download file
   downloadFile(src: string, name: string) {
     FileSaver.saveAs(src, name);
   }
 
-
-
-  //cho thanh cuộn xuống bottom
-  // ngAfterViewChecked() {
-  //   this.scrollBottom();
-  // }
-  // @ViewChild('scrollMe') private scroll: ElementRef;
-  // scrollBottom() {
-  //   // debugger;
-  //   this.scroll.nativeElement.scrollTop = this.scroll.nativeElement.scrollHeight;
-  // }
-
-  @ViewChild('scrollMe', {static: false}) scrollMe: ElementRef;
+  // thanh cuộn scroll tự động cuộn xuống
+  @ViewChild('scrollMe', { static: false }) scrollMe: ElementRef;
   @ViewChildren('item') itemElements: QueryList<any>;
-  
+
   private scrollContainer: any;
   private items = [];
 
   ngAfterViewInit() {
-    this.scrollContainer = this.scrollMe.nativeElement;  
-    this.itemElements.changes.subscribe(_ => this.onItemElementsChanged());    
+    this.scrollContainer = this.scrollMe.nativeElement;
+    this.itemElements.changes.subscribe(_ => this.onItemElementsChanged());
 
     // Add a new item every 2 seconds
     setInterval(() => {
       this.items.push({});
     }, 2000);
   }
-  
+
   private onItemElementsChanged(): void {
     this.scrollToBottom();
   }

@@ -9,10 +9,11 @@ import { DataTransferService } from '../../service/dataTransferService';
 import { User2 } from '@app/model/user/user2';
 import { AccountService } from "../../service/accountService";
 import { first, map } from 'rxjs/operators';
-import {TransferIdUserService} from "../../service/transferIdUser.service";
-import {StringeeService} from "../../service/stringee.service";
+import { TransferIdUserService } from "../../service/transferIdUser.service";
+import { StringeeService } from "../../service/stringee.service";
 import { filter } from 'rxjs/operators';
-import {ConvidTransferService} from "../../service/convidTransfer.service";
+import { ConvidTransferService } from "../../service/convidTransfer.service";
+import {UpdateListTransfer} from "../../service/updateListTransfer.service";
 
 
 @Component({
@@ -30,24 +31,27 @@ export class LeftBoxComponent implements OnInit {
   checkFocus: boolean;
   users = null;
   checkChangeList = 1;
-  convasation : any;
-  userLogin : any;
-  convId : string;
-  conv : any;
-  idUser : any;
-  timer : any;
-  
+  convasation: any;
+  userLogin: any;
+  convId: string;
+  conv: any;
+  idUser: any;
+  timer: any;
+  updateCheck : number;// bắt sự kiện bên message để update list convs
+
 
   constructor(private friendService: FriendService,
     private _router: Router, private _activeRoute: ActivatedRoute,
     private dataService: DataTransferService,
     private accountService: AccountService,
-    private transferIdUser : TransferIdUserService,
-    private stringeeService : StringeeService,
-    private convidTransferService : ConvidTransferService ) {
+    private transferIdUser: TransferIdUserService,
+    private stringeeService: StringeeService,
+    private convidTransferService: ConvidTransferService,
+    private updateListTransfer : UpdateListTransfer) {
     // this.friend = friendService.getFriends();
     this._activeRoute.paramMap.subscribe(x => {
       // this.check();
+
     });
 
   }
@@ -55,25 +59,35 @@ export class LeftBoxComponent implements OnInit {
   ngOnInit(): void {
     this._activeRoute.paramMap.subscribe(x => {
       this.getidUser();
-  
+      // this.stringeeService.listentUpdate(this.accountService.userValue.token);
+
       this.stringeeService.stringeeClient.on('connect', (res) => {
         this.getConv();
-        
-      });
-      this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
-        this.getConv();
-      });
 
-      
+        // let self = this;
+        // this.choseConvid(this.focus);
+
+      });
+      // this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
+      //   this.getConv();
+      // });
+      // this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
+      //   this.getConv();
+      // });
+      this.getUpdate();
+     
+
+
     });
-
-   
+    // this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
+    //   this.getConv();
+    // });
 
     // this.getId();
     this.getFocus();
     // lấy danh sách user
     this.getUser();
-   
+
     this.getEmailLogin();
 
   }
@@ -82,52 +96,52 @@ export class LeftBoxComponent implements OnInit {
     // this.getMessage();
   }
 
-   // lấy id user đăng nhập
-   getidUser(){
-    this.idUser  = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
+  // lấy id user đăng nhập
+  getidUser() {
+    this.idUser = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
     // console.log(this.idUser);
   }
 
 
   //lấy danh sách user
-  getUser(){
+  getUser() {
     this.accountService.getAll()
-    .pipe(first())
-    .subscribe(users => this.users = users);
+      .pipe(first())
+      .subscribe(users => this.users = users);
   }
 
 
   // lấy email người đăng nhập
-  getEmailLogin(){
+  getEmailLogin() {
     this.userLogin = this.accountService.userValue.email;
     // console.log(this.accountService.userValue.Id);
     console.log(this.userLogin);
-    
+
   }
 
   // tạo cuộc trò chuyện khi click vào list user
-  changeIdUser(user){
+  changeIdUser(user) {
     console.log(user.userId);
     this.stringeeService.creatAConversation(user.userId);
   }
   // lấy danh sách conversation
   getConv() {
-    this.stringeeService.getLastConversation( (status, code, message, convs) => {
+    this.stringeeService.getLastConversation((status, code, message, convs) => {
       // self.convasation = convs;
       this.convasation = convs;
-       console.log(convs);
+      console.log(convs);
     });
   }
   // 
-  
+
 
   // chuyền sự kiện thay đổi conv để lấy id conv và  id của người phía bên kia trong conv
-  choseConvid(conv){
+  choseConvid(conv) {
     conv.unreadCount = 0;
     var i = 0;
     let userId = [];
-    for (let user of conv.participants){
-      if(user.userId != this.idUser ){
+    for (let user of conv.participants) {
+      if (user.userId != this.idUser) {
         this.transferIdUser.changeIdUser(user.userId);
         userId[i] = user.userId;
         i++;
@@ -137,20 +151,20 @@ export class LeftBoxComponent implements OnInit {
   }
 
   // hàm tính thời gian chênh lệch để xác định hiển thị thời gian như thế nào
-  calculateTime(time:any) {
-    
+  calculateTime(time: any) {
+
     let changeTime = new Date(time);
     let date2 = new Date();
     this.timer = Math.floor((Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate()) - Date.UTC(changeTime.getFullYear(), changeTime.getMonth(), changeTime.getDate())) / (1000 * 60 * 60 * 24));
-    if(this.timer <= 1){
+    if (this.timer <= 1) {
       return 1;
-    }else if(this.timer >1 && this.timer <=7){
+    } else if (this.timer > 1 && this.timer <= 7) {
       return 2;
-    }else{
+    } else {
       return 3;
     }
 
-    
+
   }
 
 
@@ -162,11 +176,20 @@ export class LeftBoxComponent implements OnInit {
     console.log(this.focus);
   }
 
+  // bắt sự kiện update bên message
+  getUpdate(){
+    this.updateListTransfer.onupdate.subscribe(data => {
+      this.getConv();
+    });
+  }
+
+
+
   // thay đổi list conversation
-  listConv (){
+  listConv() {
     this.checkChangeList = 1;
   }
-  listFriend(){
+  listFriend() {
     this.checkChangeList = 2;
   }
 

@@ -278,6 +278,26 @@ p {
     height: 80%;
     overflow-y: auto;
 }
+.list_friend::-webkit-scrollbar {
+    width: 10px;
+    background-color: #0a1d3b;
+  }
+  .list_friend::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: linear-gradient(left, #96A6BF, #63738C);
+    box-shadow: inset 0 0 1px 1px #5C6670;
+  }
+  
+  .list_friend::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: #0a1d3b;
+    // box-shadow: 0 0 0px 0px #bbb, inset 0 0 7px #ffffff
+  }
+  
+  .list_friend::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(left, #8391A6, #536175);
+  }
+
 // highlight phần list friend
 #highlight{
     background-color: #2196f3;

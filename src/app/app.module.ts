@@ -19,6 +19,7 @@ import {StringeeService} from "./service/stringee.service";
 
 import { UserService } from './service/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ConvsFilterPipe } from './pipe/convs-filter.pipe';
 
 
 
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     SiginComponent,
-    SignupComponent
+    SignupComponent,
+    ConvsFilterPipe
 
   ],
   imports: [

@@ -20,49 +20,25 @@ export class StringeeService {
     }
     // lắng nghe sự kiện connect
     listentUpdate(Access_token: string) {
-        
-        // this.stringeeClient.on('connect', function (res) {
-        //     // this.renderLastConversationsAndMessages();
-        //     // this.initEvents();
-        //     let userId = seft.getCurrentUserIdFromAccessToken(Access_token);
-        //     seft.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
-        //         let user = users[0];
-        //         if (!user) {
-        //             let username = seft.getCurrentUsernameFromAccessToken(Access_token);
-        //             // let avatar = this.getCurrentUserAvatarFromAccessToken(Access_token);
-        //             let useremail = seft.getCurrentUserEmailFromAccessToken(Access_token);
-        //             let phone = seft.getCurrentPhoneNumberFromAccessToken(Access_token);
-        //             let updateUserData = {
-        //                 display_name: username,
-        //                 avatar_url: "",
-        //                 email: useremail
+        let self = this;
+        let userId = this.getCurrentUserIdFromAccessToken(Access_token);
+        this.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
+            let user = users[0];
+            if (!user) {
+                let username = self.getCurrentUsernameFromAccessToken(Access_token);
+                // let avatar = this.getCurrentUserAvatarFromAccessToken(Access_token);
+                let useremail = self.getCurrentUserEmailFromAccessToken(Access_token);
+                let phone = self.getCurrentPhoneNumberFromAccessToken(Access_token);
+                let updateUserData = {
+                    display_name: username,
+                    avatar_url: "",
+                    email: useremail
 
-        //             }
-        //             seft.updateUserInfo(updateUserData);
-        //         }
-        //     })
-        //     // seft.getLastMessage();
-        // });
-            // this.initEvents();
-            let self = this;
-            let userId = this.getCurrentUserIdFromAccessToken(Access_token);
-            this.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
-                let user = users[0];
-                if (user) {
-                    let username = self.getCurrentUsernameFromAccessToken(Access_token);
-                    // let avatar = this.getCurrentUserAvatarFromAccessToken(Access_token);
-                    let useremail = self.getCurrentUserEmailFromAccessToken(Access_token);
-                    let phone = self.getCurrentPhoneNumberFromAccessToken(Access_token);
-                    let updateUserData = {
-                        display_name: username,
-                        avatar_url: "",
-                        email: useremail
-
-                    }
-                    self.updateUserInfo(updateUserData);
                 }
-            })
-            // seft.getLastMessage();
+                self.updateUserInfo(updateUserData);
+            }
+        })
+        // seft.getLastMessage();
     }
 
     // lắng nghe on connect
@@ -129,15 +105,6 @@ export class StringeeService {
 
     }
 
-    // lấy các cuộc trò chuyện
-    // renderLastConversationsAndMessages() {
-    //     var count = 50;
-    //     var isAscending = false;
-
-    //     this.stringeeChat.getLastConversations(count, isAscending, function (status, code, message, convs) {
-
-    //     });
-    // }
 
     // lấy các conv
     getLastConversation(callback: any) {
@@ -172,6 +139,54 @@ export class StringeeService {
 
     }
 
+    // gửi tin nhắn img
+    sendImgMessage(conId, imgurl) {
+
+        var imgMsg = {
+            type: 2,
+            convId: conId,
+            message: {
+                content: "",
+                photo: {
+                    filePath: imgurl,
+                    thumbnail: "",
+                    ratio: ""
+                },
+                metadata: {
+                    key: 'value'
+                }
+            }
+        };
+        this.stringeeChat.sendMessage(imgMsg, function (status, code, message, msg) {
+
+        });
+    }
+
+    // gửi tin nhắn file
+    sendFileMessage(conId, filePath, fileName , length) {
+
+        var fileMsg = {
+            type: 5,
+            convId: conId,
+            message: {
+                content: "",
+                // File
+                file: {
+                    filePath: filePath ,// file's url.
+                    filename: fileName ,
+                    length: length // number type, number of bytes
+                },
+                metadata: {
+                    key: 'value'
+                }
+            }
+        };
+        this.stringeeChat.sendMessage(fileMsg, function (status, code, message, msg) {
+            console.log(status + code + message + "msg result " + JSON.stringify(msg));
+        });
+
+    }
+
     // lấy tin nhắn của 1 cuộc trò chuyện
     getLastMessage(convid, call: any) {
         var convId = convid;
@@ -185,11 +200,13 @@ export class StringeeService {
     // hàm đánh dấu là conv đã đọc
     markConversationAsRead(convid) {
         var convId = convid;
-       this.stringeeChat.markConversationAsRead(convId , function(res){
-        // this.setTotalUnReadConvs();
-       });
+        this.stringeeChat.markConversationAsRead(convId, function (res) {
+            // this.setTotalUnReadConvs();
+        });
 
     }
+
+
 
 
 
