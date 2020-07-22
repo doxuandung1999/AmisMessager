@@ -20,6 +20,7 @@ export class BoxComponent implements OnInit {
   idUser: any; // id người đang đăng nhập
   idUrl: any;
   idUserInfor: any;
+  token : any;
 
   constructor(private stringeeService: StringeeService,
     private accountService: AccountService,
@@ -33,14 +34,16 @@ export class BoxComponent implements OnInit {
 
 
 
-
+    this.token = this.accountService.userValue.token;
     this.stringeeService.Connect(this.accountService.userValue.token);
 
     this.idUser = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
+    let sefl = this;
     this.stringeeService.stringeeClient.on('connect', (res) => {
       this.getConv();
-      
+      this.stringeeService.listentUpdate(this.token);
     });
+    
   
 
   }

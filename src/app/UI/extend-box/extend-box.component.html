@@ -2,11 +2,11 @@
     <!-- thông tin người đang trong cuộc trò chuyện -->
     <div class="infor-acc">
         <img id="avatar" src="" alt="">
-        <ngx-avatar  size="120" name="{{userInfor.userName}}"></ngx-avatar>  
+        <ngx-avatar  size="120" name="{{userInfor?.userName}}"></ngx-avatar>  
         <div id="infor-text">
-            <p id="name">{{userInfor.userName}}</p>
-            <p id="phone">{{userInfor.phoneNumber}}</p>
-            <p id="email">{{userInfor.userEmail}}</p>
+            <p id="name">{{userInfor?.userName}}</p>
+            <p id="phone">{{userInfor?.phoneNumber}}</p>
+            <p id="email">{{userInfor?.userEmail}}</p>
         </div>
     </div>
     <div class="file-shared">

@@ -25,17 +25,17 @@
             <div id="highlight" *ngIf="focus == conv.id">
             </div>
             <div id="avatar">
-                <ngx-avatar id="img_1" size="34" *ngIf="conv.participants[0].name != null"
+                <ngx-avatar id="img_1" size="34" *ngIf="conv.participants[0].name != null && conv.participants[0].name != userNameLogin"
                     name="{{conv.participants[0].name}}"></ngx-avatar>
-                <ngx-avatar id="img_1" size="34" *ngIf="conv.participants[1].name != null"
+                <ngx-avatar id="img_1" size="34" *ngIf="conv.participants[1].name != null && conv.participants[1].name != userNameLogin"
                     name="{{conv.participants[1].name}}"></ngx-avatar>
             </div>
             <div class="content">
                 <!-- so sánh để highlight friend khi chưa rep -->
-                <p id="name" *ngIf="conv.participants[0].name != null"
+                <p id="name" *ngIf="conv.participants[0].name != null && conv.participants[0].name != userNameLogin "
                     [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}"> {{conv.participants[0].name}}
                 </p>
-                <p id="name" *ngIf="conv.participants[1].name != null"
+                <p id="name" *ngIf="conv.participants[1].name != null && conv.participants[1].name != userNameLogin"
                     [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}"> {{conv.participants[1].name}}
                 </p>
 

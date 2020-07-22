@@ -23,7 +23,7 @@ export class StringeeService {
         let self = this;
         let userId = this.getCurrentUserIdFromAccessToken(Access_token);
         this.stringeeChat.getUsersInfo([userId], function (status, code, msg, users) {
-            let user = users[0];
+            // let user = users[0];
             if (1) {
                 let username = self.getCurrentUsernameFromAccessToken(Access_token);
                 // let avatar = this.getCurrentUserAvatarFromAccessToken(Access_token);

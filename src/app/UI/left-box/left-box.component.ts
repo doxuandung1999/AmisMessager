@@ -39,6 +39,7 @@ export class LeftBoxComponent implements OnInit {
   idUser: any;
   timer: any;
   updateCheck : number;// bắt sự kiện bên message để update list convs
+  userNameLogin : any;
 
   @Input() convasation: any; // mảng chứa convs
 
@@ -78,6 +79,7 @@ export class LeftBoxComponent implements OnInit {
       //   this.getConv();
       // });
       this.getUpdate();
+      this.userNameLogin = this.accountService.userValue.name;
      
 
 
@@ -132,7 +134,7 @@ export class LeftBoxComponent implements OnInit {
     this.stringeeService.getLastConversation((status, code, message, convs) => {
       // self.convasation = convs;
       this.convasation = convs;
-      console.log(convs);
+      // console.log(convs);
     });
   }
   // 

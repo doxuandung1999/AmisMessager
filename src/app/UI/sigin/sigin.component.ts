@@ -78,7 +78,8 @@ export class SiginComponent implements OnInit {
                     // this.stringeeService.stringeeClient.on('connect', (res) =>{
                     //     this.stringeeService.listentUpdate(data['token']);
                     //   });
-                  
+                    // this.stringeeService.listentUpdate(this.accountService.userValue.token);
+                   
                 },
                 error => {
                     this.alertService.error(error);
