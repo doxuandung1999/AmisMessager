@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener, ViewChildren, QueryList, Input } from '@angular/core';
-import { FriendService } from "../../service/friend.service";
+
 import { Friend } from "../../model/friend/friend";
 import { RouterModule, Routes, Router } from '@angular/router';
 import { ActivatedRoute } from "@angular/router";
-import { MessageService } from '../../service/message.service';
+
 import { Message } from '../../model/message/message';
 import { User2 } from 'src/app/model/user/user2';
 // import { Store } from '@ngrx/store';
@@ -19,6 +19,9 @@ import {UpdateListTransfer} from "../../service/updateListTransfer.service";
 import {MessageTransferService} from "../../service/MessageTransfer.service";
 import {idConvTransferService} from "../../service/idConvTransfer.service";
 import {idUserTransferService} from "../../service/idUserService.service";
+import {PostFileService} from "../../service/post-file.service";
+import {FileSave} from "../../model/file/file";
+import { first } from 'rxjs/operators';
 
 
 
@@ -57,16 +60,18 @@ export class MessageBoxComponent implements OnInit {
   
   userName: any; // tên người đăng nhập
   userInfor = null;
-  idUserInfor: any;
+ 
   idUrl: any;
   sendFile: any; // xác định loại file cần gửi
   filePath: any;
   idConv : any;
+  fileSave : FileSave;
 
   @Input() messages: any // mảng chứa tin nhắn trong 1 conversation
+  idUserInfor: any;
 
-  constructor(private friendService: FriendService
-    , private route: ActivatedRoute, private messageService: MessageService,
+  constructor(
+     private route: ActivatedRoute, 
     private router: Router,
     private dataService: DataTransferService,
     private accountService: AccountService,
@@ -77,7 +82,8 @@ export class MessageBoxComponent implements OnInit {
     private updateListTransfer : UpdateListTransfer,
     private messageTransferService : MessageTransferService,
     private idConvTransferService : idConvTransferService,
-    private idUserTransferService : idUserTransferService
+    private idUserTransferService : idUserTransferService,
+    private postFileService : PostFileService
   ) {
 
 
@@ -103,9 +109,9 @@ export class MessageBoxComponent implements OnInit {
       // this.idConvTransferService.convid.subscribe(data => {
       //   this.idConv = data;
       // });
-      this.idUserTransferService.Userid.subscribe(data => {
-        this.idUserInfor = data;
-      });
+      // this.idUserTransferService.Userid.subscribe(data => {
+      //   this.idUserInfor = data;
+      // });
     });
 
     // console.log(this.idConv);
@@ -173,10 +179,16 @@ export class MessageBoxComponent implements OnInit {
     const idUrl = this.route.snapshot.paramMap.get('id');
     this.stringeeService.getLastMessage(idUrl, (status, code, message, msgs) => {
       this.messages = msgs;
-      console.log(msgs);
+      // console.log(msgs);
+      
     });
-
+    
+    this.updateListTransfer.changeConvid();
   }
+
+
+ 
+
 
   // up file
   selectedFile: fileSnippet;
@@ -185,6 +197,9 @@ export class MessageBoxComponent implements OnInit {
     // console.log(file.name);
     // console.log(file.type);
     const render = new FileReader();
+
+    this.fileSave = new FileSave();
+    const idUrl = this.route.snapshot.paramMap.get('id');
 
     render.addEventListener('load', async (event: any) => {
       this.selectedFile = new fileSnippet(event.target.result, file);
@@ -203,13 +218,22 @@ export class MessageBoxComponent implements OnInit {
           this.getLastMessage();
           this.updateListTransfer.changeConvid();
 
+          // lưu file img vào database
+          this.fileSave.filePath = this.filePath.filename;
+          this.fileSave.fileType = "img";
+          this.fileSave.fileName = "";
+          this.fileSave.convId = idUrl;
+
+          this.postFileService.saveFile(this.fileSave).pipe(first()).subscribe(data => {
+
+          });
+
         });
 
 
       }
       // thêm file dang pdf
-      else if (file.type == 'application/pdf' || file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
-      || file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || file.type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
+      else if (file.type == 'application/pdf') {
         this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
           this.filePath = data;
           var fileName = file.name;
@@ -220,6 +244,95 @@ export class MessageBoxComponent implements OnInit {
           this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
           this.getLastMessage();
           this.updateListTransfer.changeConvid();
+
+          // lưu file pdf vào database
+          this.fileSave.filePath = this.filePath.filename;
+          this.fileSave.fileType = "pdf";
+          this.fileSave.fileName = fileName;
+          this.fileSave.convId = idUrl;
+
+          this.postFileService.saveFile(this.fileSave).pipe(first()).subscribe(data => {
+
+          });
+
+        });
+
+      }
+
+      // thêm file dạng docs
+      else if (file.type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
+          this.filePath = data;
+          var fileName = file.name;
+          var length = file.size;
+
+          // console.log(fileName + " adsdas" + lenght);
+
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.getLastMessage();
+          this.updateListTransfer.changeConvid();
+
+          // lưu file docs vào database
+          this.fileSave.filePath = this.filePath.filename;
+          this.fileSave.fileType = "docs";
+          this.fileSave.fileName = fileName;
+          this.fileSave.convId = idUrl;
+
+          this.postFileService.saveFile(this.fileSave).pipe(first()).subscribe(data => {
+
+          });
+
+        });
+
+      }
+      // thêm file dạng excel
+      else if ( file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+        this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
+          this.filePath = data;
+          var fileName = file.name;
+          var length = file.size;
+
+          // console.log(fileName + " adsdas" + lenght);
+
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.getLastMessage();
+          this.updateListTransfer.changeConvid();
+
+          // lưu file excel vào database
+          this.fileSave.filePath = this.filePath.filename;
+          this.fileSave.fileType = "excel";
+          this.fileSave.fileName = fileName;
+          this.fileSave.convId = idUrl;
+
+          this.postFileService.saveFile(this.fileSave).pipe(first()).subscribe(data => {
+
+          });
+
+        });
+
+      }
+      // thêm file dạng ppt
+      else if (file.type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {
+        this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
+          this.filePath = data;
+          var fileName = file.name;
+          var length = file.size;
+
+          // console.log(fileName + " adsdas" + lenght);
+
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.getLastMessage();
+          this.updateListTransfer.changeConvid();
+
+          // lưu file powerpoint vào database
+          this.fileSave.filePath = this.filePath.filename;
+          this.fileSave.fileType = "ppt";
+          this.fileSave.fileName = fileName;
+          this.fileSave.convId = idUrl;
+
+          this.postFileService.saveFile(this.fileSave).pipe(first()).subscribe(data => {
+
+          });
 
         });
 

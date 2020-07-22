@@ -10,7 +10,7 @@ const routes: Routes = [
   
   {
     path : '' , 
-    redirectTo: 'convasation/',
+    redirectTo: 'convasation/1',
     pathMatch: 'full'
   },
   {

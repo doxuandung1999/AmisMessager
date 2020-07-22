@@ -10,7 +10,7 @@ import {MessageRoutingModule} from "./message.routing.module";
 import {HeaderBoxComponent} from "../../UI/header-box/header-box.component";
 import {listModule} from "../share/list.module";
 import {ExtendBoxComponent} from "../../UI/extend-box/extend-box.component";
-import { UserService } from '../../service/user.service';
+
 import { AvatarModule } from 'ngx-avatar';
 
 import {FormsModule} from '@angular/forms';

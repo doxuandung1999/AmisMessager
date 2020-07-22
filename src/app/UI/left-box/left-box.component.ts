@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FriendService } from '../../service/friend.service';
+
 import { Friend } from '../../model/friend/friend';
 import { MessageModule } from '../../module/message/message.module';
 import { from, Observable } from 'rxjs';
@@ -21,7 +21,7 @@ import {idConvTransferService} from "../../service/idConvTransfer.service";
   selector: 'app-left-box',
   templateUrl: './left-box.component.html',
   styleUrls: ['./left-box.component.scss'],
-  providers: [FriendService]
+  providers: []
 })
 export class LeftBoxComponent implements OnInit {
 
@@ -42,7 +42,7 @@ export class LeftBoxComponent implements OnInit {
 
   @Input() convasation: any; // mảng chứa convs
 
-  constructor(private friendService: FriendService,
+  constructor(
     private _router: Router, private _activeRoute: ActivatedRoute,
     private dataService: DataTransferService,
     private accountService: AccountService,

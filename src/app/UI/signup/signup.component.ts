@@ -93,10 +93,14 @@ export class SignupComponent implements OnInit {
                     this.router.navigate(['/signIn'], { relativeTo: this.route });
                     this.stringeeService.Connect(data['token']);
                     // update profile lên stringee
-                     this.stringeeService.listentUpdate(data['token']);
-                  
-                  
+                    this.stringeeService.stringeeClient.on('connect', (res) => {
+                      
+                      this.stringeeService.listentUpdate(data['token']);
+                    });
                     
+                  
+                  
+
                    
                 },
                 error => {

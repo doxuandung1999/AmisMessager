@@ -1,11 +1,14 @@
 import { Component, OnInit , Input , ElementRef, ViewChild, HostListener} from '@angular/core';
 import {Friend} from "../../model/friend/friend";
-import {FriendService} from "../../service/friend.service";
+
 import {ActivatedRoute} from "@angular/router";
 import {Message} from "../../model/message/message";
 import {DataTransferService} from '../../service/dataTransferService';
 import {TransferIdUserService} from "../../service/transferIdUser.service";
 import {AccountService} from "../../service/accountService";
+import {PostFileService} from "../../service/post-file.service";
+import { first } from 'rxjs/operators';
+import {UpdateListTransfer} from "../../service/updateListTransfer.service";
 
 declare var require: any
 const FileSaver = require('file-saver');
@@ -23,16 +26,19 @@ export class ExtendBoxComponent implements OnInit {
   checkZoom = false;
   idUserInfor : any ; // lấy id user phía bên kia
   // userInfor = null; // user phía bên nhận
+  fileSave : any;
 
   // lấy mảng message tử component cha
    @Input() message : Message[];
    @Input() userInfor = null;
-
-  constructor( private friendService : FriendService , 
+   
+  constructor(
     private route : ActivatedRoute,
     private dataService : DataTransferService,
     private transferIdUserService : TransferIdUserService,
-    private accountService : AccountService) { 
+    private accountService : AccountService,
+    private postFileService : PostFileService,
+    private updateListTransfer: UpdateListTransfer) { 
       
     }
 
@@ -41,16 +47,24 @@ export class ExtendBoxComponent implements OnInit {
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(x => {
-      
-      // this.getidUserInfor();
-      // this.getUserInfor();
+      this.getFile();
+      this.getUpdate();
     });
     
   }
 
-  getConv(){
+  getFile(){
     const idUrl = this.route.snapshot.paramMap.get('id');
-    
+    this.postFileService.getFileById(idUrl).pipe(first()).subscribe(data => {
+      this.fileSave = data;
+    });
+  }
+
+  // bắt sự kiện update bên message
+  getUpdate(){
+    this.updateListTransfer.onupdate.subscribe(data => {
+      this.getFile();
+    });
   }
 
 
