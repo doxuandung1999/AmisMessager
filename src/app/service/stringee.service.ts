@@ -109,11 +109,7 @@ export class StringeeService {
     // lấy các conv
     getLastConversation(callback: any) {
         let seft = this;
-        // this.stringeeClient.on('connect', function (res) {
-        //     var count = 25;
-        //     var isAscending = false;
-        //     seft.stringeeChat.getLastConversations(count, isAscending, callback);
-        // });
+        
         var count = 25;
         var isAscending = false;
         seft.stringeeChat.getLastConversations(count, isAscending, callback);

@@ -22,6 +22,9 @@ import {idUserTransferService} from "../../service/idUserService.service";
 import {PostFileService} from "../../service/post-file.service";
 import {FileSave} from "../../model/file/file";
 import { first } from 'rxjs/operators';
+import {UpdateAsReadTransfer} from "../../service/updateAsReadTransfer.service";
+import {UserConvIdTranferService} from "../../service/userConvIdTranfer.service";
+import {IdFocusTranferService} from "../../service/idFocusTransfer.service";
 
 
 
@@ -66,6 +69,10 @@ export class MessageBoxComponent implements OnInit {
   filePath: any;
   idConv : any;
   fileSave : FileSave;
+  idUrlTest : any; // id conv lấy từ conv 
+  idUserTransfer : any; // id user từ bên list conv chuyền sang
+  idConvasation : any;
+  convasation : any;
 
   @Input() messages: any // mảng chứa tin nhắn trong 1 conversation
   idUserInfor: any;
@@ -83,7 +90,10 @@ export class MessageBoxComponent implements OnInit {
     private messageTransferService : MessageTransferService,
     private idConvTransferService : idConvTransferService,
     private idUserTransferService : idUserTransferService,
-    private postFileService : PostFileService
+    private postFileService : PostFileService,
+    private updateAsReadTransfer : UpdateAsReadTransfer,
+    private userConvIdTranferService : UserConvIdTranferService,
+    private idFocusTranferService : IdFocusTranferService
   ) {
 
 
@@ -92,26 +102,24 @@ export class MessageBoxComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(x => {
       // this.getIdConv();
-      this.getLastMessage();
+      this.getLastMessage(this.idUrlTest);
       this.getidUser();
       this.getNameUser();
       this.getidUserInfor();
       this.getUserInfor();
       this.postIdConvs();
+      this.getTest();
+      this.getUserIdChangeConv();
       this.messageTransferService.messages.subscribe(data => {
         this.messages = data;
       });
-
+      this.idUrlTest = this.route.snapshot.paramMap.get('id');
       this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
-        this.getLastMessage();
+        this.getLastMessage(this.idUrlTest);
+        
       });
 
-      // this.idConvTransferService.convid.subscribe(data => {
-      //   this.idConv = data;
-      // });
-      // this.idUserTransferService.Userid.subscribe(data => {
-      //   this.idUserInfor = data;
-      // });
+     
     });
 
     // console.log(this.idConv);
@@ -125,6 +133,9 @@ export class MessageBoxComponent implements OnInit {
   }
   ngOndestroy() {
     // this.getId();
+  }
+  getTest(){
+    console.log(this.idUrlTest);
   }
 
   // lấy id user đang nhập
@@ -170,20 +181,40 @@ export class MessageBoxComponent implements OnInit {
     // this.stringeeService.sendTextMessage(this.idtest,message);
     this.stringeeService.sendTextMessage(idUrl, message);
     event.target.value = null;
-    this.getLastMessage();
+    this.getLastMessage(this.idUrlTest);
     this.updateListTransfer.changeConvid();
+    this.updateAsReadTransfer.changeAsRead();
   }
 
   // lấy các message cuối cùng
-  getLastMessage() {
-    const idUrl = this.route.snapshot.paramMap.get('id');
-    this.stringeeService.getLastMessage(idUrl, (status, code, message, msgs) => {
+  getLastMessage(convid) {
+    
+    this.stringeeService.getLastMessage(convid, (status, code, message, msgs) => {
       this.messages = msgs;
       // console.log(msgs);
       
     });
     
     this.updateListTransfer.changeConvid();
+    // this.updateAsReadTransfer.changeAsRead();
+  }
+
+  // lấy id user từ bên list covs sang để thực hiện get message của convs
+  getUserIdChangeConv(){
+    this.userConvIdTranferService.userId.subscribe(data => {
+      this.idConvasation = data;
+    });
+  
+    // console.log(this.idConvasation);
+    this.getLastMessage(this.idConvasation);
+    // chuyền id conv sang bên list để thực hiện focus
+    this.idFocusTranferService.changeFocus(this.idConvasation);
+  
+     
+  }
+
+  clickInput(){
+    this.updateAsReadTransfer.changeAsRead();
   }
 
 
@@ -215,8 +246,11 @@ export class MessageBoxComponent implements OnInit {
           this.filePath = data;
 
           this.stringeeService.sendImgMessage(idUrl, this.filePath.filename);
-          this.getLastMessage();
-          this.updateListTransfer.changeConvid();
+          this.getLastMessage(this.idUrlTest);
+         // up date list conv
+         this.updateListTransfer.changeConvid();
+         // update conv là đã xem
+         this.updateAsReadTransfer.changeAsRead();
 
           // lưu file img vào database
           this.fileSave.filePath = this.filePath.filename;
@@ -242,8 +276,11 @@ export class MessageBoxComponent implements OnInit {
           // console.log(fileName + " adsdas" + lenght);
 
           this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
-          this.getLastMessage();
+          this.getLastMessage(this.idUrlTest);
+          // up date list conv
           this.updateListTransfer.changeConvid();
+          // update conv là đã xem
+          this.updateAsReadTransfer.changeAsRead();
 
           // lưu file pdf vào database
           this.fileSave.filePath = this.filePath.filename;
@@ -269,8 +306,11 @@ export class MessageBoxComponent implements OnInit {
           // console.log(fileName + " adsdas" + lenght);
 
           this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
-          this.getLastMessage();
-          this.updateListTransfer.changeConvid();
+          this.getLastMessage(this.idUrlTest);
+         // up date list conv
+         this.updateListTransfer.changeConvid();
+         // update conv là đã xem
+         this.updateAsReadTransfer.changeAsRead();
 
           // lưu file docs vào database
           this.fileSave.filePath = this.filePath.filename;
@@ -295,8 +335,11 @@ export class MessageBoxComponent implements OnInit {
           // console.log(fileName + " adsdas" + lenght);
 
           this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
-          this.getLastMessage();
+          this.getLastMessage(this.idUrlTest);
+          // up date list conv
           this.updateListTransfer.changeConvid();
+          // update conv là đã xem
+          this.updateAsReadTransfer.changeAsRead();
 
           // lưu file excel vào database
           this.fileSave.filePath = this.filePath.filename;
@@ -321,8 +364,9 @@ export class MessageBoxComponent implements OnInit {
           // console.log(fileName + " adsdas" + lenght);
 
           this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
-          this.getLastMessage();
+          this.getLastMessage(this.idUrlTest);
           this.updateListTransfer.changeConvid();
+          this.updateAsReadTransfer.changeAsRead();
 
           // lưu file powerpoint vào database
           this.fileSave.filePath = this.filePath.filename;

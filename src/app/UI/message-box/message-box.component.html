@@ -138,7 +138,7 @@
                 <div class="send">
                     <!-- nhận dữ liệu ở input khi nhấn enter -->
                     <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
-                        (keydown.enter)="sendMessage($event)" autocomplete="off">
+                        (keydown.enter)="sendMessage($event)" autocomplete="off" (click) = "clickInput()">
                     <div id="smile">
                         <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
                     </div>

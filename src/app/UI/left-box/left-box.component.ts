@@ -15,7 +15,9 @@ import { filter } from 'rxjs/operators';
 import { ConvidTransferService } from "../../service/convidTransfer.service";
 import {UpdateListTransfer} from "../../service/updateListTransfer.service";
 import {idConvTransferService} from "../../service/idConvTransfer.service";
-
+import {UpdateAsReadTransfer} from "../../service/updateAsReadTransfer.service";
+import {UserConvIdTranferService} from "../../service/userConvIdTranfer.service";
+import {IdFocusTranferService} from "../../service/idFocusTransfer.service";
 
 @Component({
   selector: 'app-left-box',
@@ -40,6 +42,7 @@ export class LeftBoxComponent implements OnInit {
   timer: any;
   updateCheck : number;// bắt sự kiện bên message để update list convs
   userNameLogin : any;
+  idConvasation : any;
 
   @Input() convasation: any; // mảng chứa convs
 
@@ -51,7 +54,10 @@ export class LeftBoxComponent implements OnInit {
     private stringeeService: StringeeService,
     private convidTransferService: ConvidTransferService,
     private updateListTransfer : UpdateListTransfer,
-    private idConvTransferService: idConvTransferService) {
+    private idConvTransferService: idConvTransferService,
+    private updateAsReadTransfer : UpdateAsReadTransfer,
+    private userConvIdTranferService : UserConvIdTranferService,
+    private idFocusTranferService : IdFocusTranferService) {
     // this.friend = friendService.getFriends();
     this._activeRoute.paramMap.subscribe(x => {
       // this.check();
@@ -63,33 +69,20 @@ export class LeftBoxComponent implements OnInit {
   ngOnInit(): void {
     this._activeRoute.paramMap.subscribe(x => {
       this.getidUser();
-      // this.stringeeService.listentUpdate(this.accountService.userValue.token);
-
-      // this.stringeeService.stringeeClient.on('connect', (res) => {
-      //   this.getConv();
-
-      //   // let self = this;
-      //   // this.choseConvid(this.focus);
-
-      // });
-      // this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
-      //   this.getConv();
-      // });
-      // this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
-      //   this.getConv();
-      // });
+      // this.getTest();
       this.getUpdate();
+      this.getAsRead();
       this.userNameLogin = this.accountService.userValue.name;
      
 
 
     });
-    // this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
-    //   this.getConv();
-    // });
+    
 
     // this.getId();
     this.getFocus();
+
+    this.getFocus2();
     // lấy danh sách user
     this.getUser();
 
@@ -97,9 +90,11 @@ export class LeftBoxComponent implements OnInit {
 
   }
   ngOndestroy() {
-    // this.getId();
-    // this.getMessage();
+    
   }
+  // getTest(){
+  //   console.log(this.convasation);
+  // }
 
   // lấy id user đăng nhập
   getidUser() {
@@ -125,19 +120,33 @@ export class LeftBoxComponent implements OnInit {
   }
 
   // tạo cuộc trò chuyện khi click vào list user
+  // chuyển id user sang bên message để bên message nhận dạng conv để thực hiện luôn convasation
   changeIdUser(user) {
     console.log(user.userId);
+    // this.listFriend();
     this.stringeeService.creatAConversation(user.userId);
+    this.checkChangeList = 1;
+    for (let conv of this.convasation){
+      for (let parti of conv.participants ){
+        if(parti.userId == user.userId){
+          this.idConvasation = conv.id;
+          break;
+        }
+      }
+    }
+    // console.log(this.idConvasation);
+
+    this.userConvIdTranferService.userTransferconvId(this.idConvasation);
   }
   // lấy danh sách conversation
   getConv() {
     this.stringeeService.getLastConversation((status, code, message, convs) => {
       // self.convasation = convs;
       this.convasation = convs;
-      // console.log(convs);
+      console.log(convs);
     });
   }
-  // 
+  
 
 
   // chuyền sự kiện thay đổi conv để lấy id conv và  id của người phía bên kia trong conv
@@ -181,11 +190,26 @@ export class LeftBoxComponent implements OnInit {
     });
     console.log(this.focus);
   }
+  //
+  getFocus2(){
+    this.idFocusTranferService.convId.subscribe(data => {
+      this.focus = data;
+    });
+  }
 
   // bắt sự kiện update bên message
   getUpdate(){
     this.updateListTransfer.onupdate.subscribe(data => {
       this.getConv();
+    });
+  }
+
+  // bắt sự kiên update là đã xem bên message
+  getAsRead(){
+    
+    this.updateAsReadTransfer.asRead.subscribe(data =>{
+      this.stringeeService.markConversationAsRead(this.focus);
+      // this.choseConvid(this.focus);
     });
   }
 
