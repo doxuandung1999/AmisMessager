@@ -56,6 +56,7 @@ export class SignupComponent implements OnInit {
         
 
         this.submitted = true;
+        
 
         // reset khi ấn password
         this.alertService.clear();
@@ -91,6 +92,7 @@ export class SignupComponent implements OnInit {
                     // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
                     let self = this;
                     this.router.navigate(['/signIn'], { relativeTo: this.route });
+                    
                     this.stringeeService.Connect(data['token']);
                     // update profile lên stringee
                     this.stringeeService.stringeeClient.on('connect', (res) => {

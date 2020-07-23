@@ -1,18 +1,22 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Friend} from '../model/friend/friend';
-import {User2} from "../model/user/user2";
+import { User2 } from "../model/user/user2";
+import { AccountService } from "../service/accountService";
+import { first } from 'rxjs/operators';
 
 @Pipe({
   name: 'friendFilter'
 })
 export class FriendFilterPipe implements PipeTransform {
 
-  // viết pipe để lấy các friend theo ký tự search đc
-  transform(friends: Friend[], searchFriend : string): Friend[] {
-    if(!friends || !searchFriend){
+
+  // viết pipe để lấy các User theo ký tự search đc
+  transform(friends: any[], searchFriend: string): any[] {
+    if (!friends || !searchFriend) {
       return friends;
     }
-    return friends.filter(friend => friend.name.toLocaleLowerCase().indexOf(searchFriend.toLocaleLowerCase()) !== -1);
+    return friends.filter(friend => friend.userName.toLocaleLowerCase().indexOf(searchFriend.toLocaleLowerCase()) !== -1);
+    
   }
+
 
 }

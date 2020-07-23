@@ -16,6 +16,7 @@ import { AvatarModule } from 'ngx-avatar';
 import {FormsModule} from '@angular/forms';
 import { from } from 'rxjs';
 
+
 @NgModule({
   declarations: [
     RightBoxComponent,
@@ -23,6 +24,7 @@ import { from } from 'rxjs';
    ExtendBoxComponent,
     MessageBoxComponent,
     BoxComponent
+   
  
   ],
   imports: [

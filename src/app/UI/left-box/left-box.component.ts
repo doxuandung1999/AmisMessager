@@ -27,7 +27,7 @@ import {IdFocusTranferService} from "../../service/idFocusTransfer.service";
 })
 export class LeftBoxComponent implements OnInit {
 
-  searchFriend: string;
+  searchFriend: any;
   friend: Friend[];
   checkIt: boolean;
   focus: any // nhận id convs bên message để focus 
@@ -43,6 +43,7 @@ export class LeftBoxComponent implements OnInit {
   updateCheck : number;// bắt sự kiện bên message để update list convs
   userNameLogin : any;
   idConvasation : any;
+  test : any;
 
   @Input() convasation: any; // mảng chứa convs
 
@@ -82,7 +83,7 @@ export class LeftBoxComponent implements OnInit {
     // this.getId();
     this.getFocus();
 
-    this.getFocus2();
+    
     // lấy danh sách user
     this.getUser();
 
@@ -92,9 +93,7 @@ export class LeftBoxComponent implements OnInit {
   ngOndestroy() {
     
   }
-  // getTest(){
-  //   console.log(this.convasation);
-  // }
+
 
   // lấy id user đăng nhập
   getidUser() {
@@ -122,9 +121,10 @@ export class LeftBoxComponent implements OnInit {
   // tạo cuộc trò chuyện khi click vào list user
   // chuyển id user sang bên message để bên message nhận dạng conv để thực hiện luôn convasation
   changeIdUser(user) {
-    console.log(user.userId);
-    // this.listFriend();
-    this.stringeeService.creatAConversation(user.userId);
+    this.stringeeService.creatAConversation(user.userId , (status, code, message, conv) => {
+      this._router.navigate(['/home/convasation/' + conv.id]);
+    });
+
     this.checkChangeList = 1;
     for (let conv of this.convasation){
       for (let parti of conv.participants ){
@@ -134,17 +134,18 @@ export class LeftBoxComponent implements OnInit {
         }
       }
     }
-    // console.log(this.idConvasation);
-
+    
+    this.transferIdUser.changeIdUser(user.userId);
     this.userConvIdTranferService.userTransferconvId(this.idConvasation);
   }
   // lấy danh sách conversation
   getConv() {
-    this.stringeeService.getLastConversation((status, code, message, convs) => {
-      // self.convasation = convs;
+    this.stringeeService.getLastConversation((status, code, message, convs) => { 
       this.convasation = convs;
-      console.log(convs);
+
     });
+
+
   }
   
 
@@ -152,13 +153,11 @@ export class LeftBoxComponent implements OnInit {
   // chuyền sự kiện thay đổi conv để lấy id conv và  id của người phía bên kia trong conv
   choseConvid(conv) {
     conv.unreadCount = 0;
-    var i = 0;
-    let userId = [];
+    
     for (let user of conv.participants) {
       if (user.userId != this.idUser) {
         this.transferIdUser.changeIdUser(user.userId);
-        userId[i] = user.userId;
-        i++;
+        break;
       }
     }
     this.idConvTransferService.changeConvid(conv.id);
@@ -187,21 +186,20 @@ export class LeftBoxComponent implements OnInit {
   getFocus() {
     this.convidTransferService.convid.subscribe(data => {
       this.focus = data;
+    
     });
-    console.log(this.focus);
+    
   }
-  //
-  getFocus2(){
-    this.idFocusTranferService.convId.subscribe(data => {
-      this.focus = data;
-    });
-  }
+
+ 
+  
 
   // bắt sự kiện update bên message
   getUpdate(){
     this.updateListTransfer.onupdate.subscribe(data => {
       this.getConv();
     });
+    
   }
 
   // bắt sự kiên update là đã xem bên message

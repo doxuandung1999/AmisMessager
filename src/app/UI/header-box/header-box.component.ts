@@ -27,6 +27,7 @@ export class HeaderBoxComponent implements OnInit {
   logout(){
    
       this.accountService.logout();
+      window.location.reload();
   
   }
 

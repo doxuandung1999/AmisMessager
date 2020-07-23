@@ -5,7 +5,7 @@
             <!-- binding 2 chiều với searchFriend -->
             <img id="icon_search" src="../../../assets/ICON/IconAppChat/4.svg" alt="">
 
-            <input id="text_search" type="text" placeholder="Tìm kiếm cuộc trò chuyện" [(ngModel)]="searchFriend">
+            <input id="text_search" type="text" placeholder="Tìm kiếm cuộc trò chuyện" [(ngModel)]="searchFriend" (click) = "listFriend()">
         </div>
         <div id="add">
             <img id="icon_add" src="../../../assets/ICON/IconboxChat/23.svg" alt="">
@@ -89,7 +89,7 @@
     <div class="list_friend" *ngIf="checkChangeList == 2">
         
         <div id="friend" *ngFor="let user of users | friendFilter : searchFriend"
-            routerLink='/home/convasation/{{user.userId}}' (click)="changeIdUser(user)">
+             (click)="changeIdUser(user)">
 
             <div id="avatar" *ngIf="userLogin != user.userEmail">
 

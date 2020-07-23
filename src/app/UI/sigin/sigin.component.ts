@@ -40,6 +40,7 @@ export class SiginComponent implements OnInit {
 
         // return ra đường dẫn mặc định
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+        
        
     }
 

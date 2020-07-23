@@ -92,16 +92,19 @@ export class StringeeService {
     }
 
     // tạo cuộc trò chuyện 
-    creatAConversation(id) {
+    creatAConversation(id , call: any) {
         var userIds = [id];
         var options = {
             //   name: "Your conversation name",
             isDistinct: true,
             isGroup: false
         };
-        this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
-            console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
-        });
+        this.stringeeChat.createConversation(userIds, options, call);
+            
+      
+        // this.stringeeChat.createConversation(userIds, options, (status, code, message, conv) => {
+        //     console.log('status:' + status + ' code:' + code + ' message:' + message + ' conv:' + JSON.stringify(conv));
+        // });
 
     }
 

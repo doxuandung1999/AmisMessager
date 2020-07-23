@@ -20,6 +20,7 @@ import {StringeeService} from "./service/stringee.service";
 
 import { HttpClientModule } from '@angular/common/http';
 import { ConvsFilterPipe } from './pipe/convs-filter.pipe';
+// import {FriendFilterPipe} from "../app/pipe/friend-filter.pipe"
 
 
 
@@ -29,6 +30,7 @@ import { ConvsFilterPipe } from './pipe/convs-filter.pipe';
     SiginComponent,
     SignupComponent,
     ConvsFilterPipe
+  
 
   ],
   imports: [
