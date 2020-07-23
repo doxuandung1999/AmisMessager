@@ -6,11 +6,13 @@
         <div id="avatar">
             <!-- <img src="{{friends.avatar}}" alt=""> -->
             <ngx-avatar  size="32" name="{{userInfor?.userName}}"></ngx-avatar>  
+            <ngx-avatar *ngIf = "userInfor?.userName == null" size="32" name="{{name}}"></ngx-avatar>  
             
            <!-- ng {{idUser}} -->
         </div>
         <div id="content">
              <p id="name">{{userInfor?.userName}}</p>
+             <p id="name" *ngIf = "userInfor?.userName == null" >{{name}}</p>
             <p id="status"> Đang hoạt động </p> 
         </div>
 
@@ -39,6 +41,7 @@
                         <div class="inlineContainer">
                             <!-- <img class="inlineIcon" src=""> -->
                             <ngx-avatar  size="20" name="{{userInfor?.userName}}"></ngx-avatar>  
+                            <ngx-avatar  size="20" *ngIf = "userInfor?.userName == null" name="{{name}}"></ngx-avatar> 
                             <div class="otherBubble other">
                              {{message.content.content}}
                             </div>
@@ -49,6 +52,7 @@
                     <div class="bubbleWrapper" *ngIf = "message.sender != idUser && message.type == 2 ">
                         <div class="inlineContainer">
                             <ngx-avatar  size="20" name="{{userInfor?.userName}}"></ngx-avatar>  
+                            <ngx-avatar  size="20" *ngIf = "userInfor?.userName == null" name="{{name}}"></ngx-avatar> 
                             <!-- <img class="inlineIcon" > -->
                             <div class=" other">
                                  <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh  -->
@@ -62,6 +66,7 @@
                         <div class="inlineContainer">
 
                             <ngx-avatar  size="20" name="{{userInfor?.userName}}"></ngx-avatar>  
+                            <ngx-avatar  size="20" *ngIf = "userInfor?.userName == null" name="{{name}}"></ngx-avatar> 
                             <div class="otherBubble other">
                                  <!-- <img id="img-message-send" src={{m.src}}>  -->
                                  <!-- click vào file để download  -->

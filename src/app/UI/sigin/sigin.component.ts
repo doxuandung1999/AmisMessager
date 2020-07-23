@@ -49,6 +49,7 @@ export class SiginComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+  
 
         // reset lại thông báo khi ấn submit
         this.alertService.clear();

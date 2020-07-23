@@ -2,11 +2,17 @@
     <!-- thông tin người đang trong cuộc trò chuyện -->
     <div class="infor-acc">
         <img id="avatar" src="" alt="">
+
+        <!-- nếu userInfor mà null thì sẽ get thông tin user từ trên home về -->
         <ngx-avatar  size="120" name="{{userInfor?.userName}}"></ngx-avatar>  
+        <ngx-avatar  *ngIf = "userInfor?.userName == null"  size="120" name="{{name}}"></ngx-avatar>  
         <div id="infor-text">
             <p id="name">{{userInfor?.userName}}</p>
+            <p id="name" *ngIf = "userInfor?.userName == null">{{name}}</p>
             <p id="phone">{{userInfor?.phoneNumber}}</p>
+            <p id="phone" *ngIf = "userInfor?.userName == null">{{phone}}</p>
             <p id="email">{{userInfor?.userEmail}}</p>
+            <p id="email" *ngIf = "userInfor?.userName == null">{{email}}</p>
         </div>
     </div>
     <div class="file-shared">

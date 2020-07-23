@@ -23,8 +23,9 @@ import {PostFileService} from "../../service/post-file.service";
 import {FileSave} from "../../model/file/file";
 import { first } from 'rxjs/operators';
 import {UpdateAsReadTransfer} from "../../service/updateAsReadTransfer.service";
-import {UserConvIdTranferService} from "../../service/userConvIdTranfer.service";
+// import {UserConvIdTranferService} from "../../service/userConvIdTranfer.service";
 import {IdFocusTranferService} from "../../service/idFocusTransfer.service";
+import {userNameService} from "../../service/userName.service";
 
 
 
@@ -75,7 +76,9 @@ export class MessageBoxComponent implements OnInit {
   convasation : any;
 
   @Input() messages: any // mảng chứa tin nhắn trong 1 conversation
-  idUserInfor: any;
+  
+   idUserInfor: any;
+   name: any;
 
   constructor(
      private route: ActivatedRoute, 
@@ -92,9 +95,11 @@ export class MessageBoxComponent implements OnInit {
     private idUserTransferService : idUserTransferService,
     private postFileService : PostFileService,
     private updateAsReadTransfer : UpdateAsReadTransfer,
-    private userConvIdTranferService : UserConvIdTranferService,
-    private idFocusTranferService : IdFocusTranferService
+    // private userConvIdTranferService : UserConvIdTranferService,
+    private idFocusTranferService : IdFocusTranferService,
+    private userNameService : userNameService
   ) {
+    
 
 
   }
@@ -108,8 +113,14 @@ export class MessageBoxComponent implements OnInit {
       this.getidUserInfor();
       this.getUserInfor();
       this.postIdConvs();
-      // this.getTest();
-      // this.getUserIdChangeConv();
+      
+      this.userNameService.userNameTransfer.subscribe(data => {
+        this.name = data;
+      });
+    
+
+      
+
       this.messageTransferService.messages.subscribe(data => {
         this.messages = data;
       });
@@ -174,13 +185,16 @@ export class MessageBoxComponent implements OnInit {
   sendMessage(event) {
     // lấy id covs trên url
     const idUrl = this.route.snapshot.paramMap.get('id');
-    var message = event.target.value;
-    // this.stringeeService.sendTextMessage(this.idtest,message);
-    this.stringeeService.sendTextMessage(idUrl, message);
-    event.target.value = null;
-    this.getLastMessage();
-    this.updateListTransfer.changeConvid();
-    this.updateAsReadTransfer.changeAsRead();
+    if(event.target.value != ""){
+      var message = event.target.value;
+      // this.stringeeService.sendTextMessage(this.idtest,message);
+      this.stringeeService.sendTextMessage(idUrl, message);
+      event.target.value = null;
+      this.getLastMessage();
+      this.updateListTransfer.changeConvid();
+      this.updateAsReadTransfer.changeAsRead();
+    }
+  
   }
 
   // lấy các message cuối cùng
@@ -190,8 +204,21 @@ export class MessageBoxComponent implements OnInit {
       this.messages = msgs;
     });  
     this.updateListTransfer.changeConvid();
+    // console.log(this.messages);
     
   }
+  //
+  // getIdUserMessage(){
+  //   const idUrlTest = this.route.snapshot.paramMap.get('id');
+  //   this.stringeeService.getLastMessage(idUrlTest, (status, code, message, msgs) => {
+  //     for(let mes of msgs){
+  //       if(mes.sender != this.idUser){
+  //         console.log(mes.sender);
+  //         break;
+  //       }
+  //     }
+  //   }); 
+  // }
 
   // khi click vào input thì được tính là đã xem
   clickInput(){

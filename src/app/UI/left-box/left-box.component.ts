@@ -119,24 +119,25 @@ export class LeftBoxComponent implements OnInit {
   }
 
   // tạo cuộc trò chuyện khi click vào list user
-  // chuyển id user sang bên message để bên message nhận dạng conv để thực hiện luôn convasation
+  // từ idUser để tìm ra conv tương ứng 
   changeIdUser(user) {
+    // đổi đường link trên thanh Url
     this.stringeeService.creatAConversation(user.userId , (status, code, message, conv) => {
       this._router.navigate(['/home/convasation/' + conv.id]);
     });
 
     this.checkChangeList = 1;
-    for (let conv of this.convasation){
-      for (let parti of conv.participants ){
-        if(parti.userId == user.userId){
-          this.idConvasation = conv.id;
-          break;
-        }
-      }
-    }
+    // for (let conv of this.convasation){
+    //   for (let parti of conv.participants ){
+    //     if(parti.userId == user.userId){
+    //       this.idConvasation = conv.id;
+    //       break;
+    //     }
+    //   }
+    // }
     
     this.transferIdUser.changeIdUser(user.userId);
-    this.userConvIdTranferService.userTransferconvId(this.idConvasation);
+    // this.userConvIdTranferService.userTransferconvId(this.idConvasation);
   }
   // lấy danh sách conversation
   getConv() {

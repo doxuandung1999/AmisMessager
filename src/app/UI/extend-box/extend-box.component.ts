@@ -9,6 +9,7 @@ import {AccountService} from "../../service/accountService";
 import {PostFileService} from "../../service/post-file.service";
 import { first } from 'rxjs/operators';
 import {UpdateListTransfer} from "../../service/updateListTransfer.service";
+import {userNameService} from "../../service/userName.service";
 
 declare var require: any
 const FileSaver = require('file-saver');
@@ -31,6 +32,9 @@ export class ExtendBoxComponent implements OnInit {
   // lấy mảng message tử component cha
    @Input() message : Message[];
    @Input() userInfor = null;
+  name : any;
+  phone: any;
+  email : any;
    
   constructor(
     private route : ActivatedRoute,
@@ -38,7 +42,8 @@ export class ExtendBoxComponent implements OnInit {
     private transferIdUserService : TransferIdUserService,
     private accountService : AccountService,
     private postFileService : PostFileService,
-    private updateListTransfer: UpdateListTransfer) { 
+    private updateListTransfer: UpdateListTransfer,
+    private userNameService : userNameService) { 
       
     }
 
@@ -49,6 +54,15 @@ export class ExtendBoxComponent implements OnInit {
     this.route.paramMap.subscribe(x => {
       this.getFile();
       this.getUpdate();
+      this.userNameService.userNameTransfer.subscribe(data => {
+        this.name = data;
+      });
+      this.userNameService.emailTransfer.subscribe(data =>{
+        this.email = data;
+      });
+      this.userNameService.phoneTransfer.subscribe(data =>{
+        this.phone = data;
+      });
     });
     
   }
