@@ -5,15 +5,15 @@
 
         <div id="avatar">
             <!-- <img src="{{friends.avatar}}" alt=""> -->
-            <ngx-avatar  size="32" name="{{userInfor?.userName}}"></ngx-avatar>  
-            <ngx-avatar *ngIf = "userInfor?.userName == null" size="32" name="{{name}}"></ngx-avatar>  
-            
-           <!-- ng {{idUser}} -->
+            <ngx-avatar size="32" name="{{userInfor?.userName}}"></ngx-avatar>
+            <ngx-avatar *ngIf="userInfor?.userName == null" size="32" name="{{name}}"></ngx-avatar>
+
+            <!-- ng {{idUser}} -->
         </div>
         <div id="content">
-             <p id="name">{{userInfor?.userName}}</p>
-             <p id="name" *ngIf = "userInfor?.userName == null" >{{name}}</p>
-            <p id="status"> Đang hoạt động </p> 
+            <p id="name">{{userInfor?.userName}}</p>
+            <p id="name" *ngIf="userInfor?.userName == null">{{name}}</p>
+            <p id="status"> Đang hoạt động </p>
         </div>
 
         <div class="option">
@@ -31,93 +31,117 @@
     <div class="text_box">
         <!-- responsive chiều rộng khi ẩn , hiện phần hiển thị thông tin người và cuộc trò chuyện -->
         <div class="main-right" [ngStyle]="{'width' : check ? '100%' : 'calc(100% - 300px)'}">
-            
+
             <!-- ========================================================================================================== -->
+
+            <!-- <div class="search-results" infiniteScroll [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolledUp)="onScroll()" [infiniteScrollDistance]="scrollDistance"> -->
+            <!-- <! - sinner -> -->
+            <!-- <div class="row pb-5">
+                <div class="col-md-12 p-5">
+                    <ngx-spinner bdOpacity=0.9 bdColor="" size="default" color="# 581f87" type="ball-Pulse-sync"
+                        [fullScreen]="false">
+                    </ngx-spinner>
+                </div>
+            </div> -->
+
             <!-- # scrollMe làm cho thanh scroll tự động cuộn xuống -->
-            <div class="contact" #scrollMe>
-                <div class="inline" *ngFor = "let message of messages" >
+
+            <div id="contact" #scrollMe infiniteScroll [infiniteScrollUpDistance]="2" 
+                [infiniteScrollThrottle]="50" (scrolledUp)="onScroll()" [scrollWindow]="false">
+                <div class="inline" *ngFor="let message of messages">
                     <!-- so sánh id để xác định bên hiện message -->
-                    <div class="bubbleWrapper" *ngIf = "message.sender != idUser && message.type == 1 ">
+                    <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 1 ">
                         <div class="inlineContainer">
                             <!-- <img class="inlineIcon" src=""> -->
-                            <ngx-avatar  size="20" name="{{userInfor?.userName}}"></ngx-avatar>  
-                            <ngx-avatar  size="20" *ngIf = "userInfor?.userName == null" name="{{name}}"></ngx-avatar> 
+                            <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
+                            <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                            </ngx-avatar>
                             <div class="otherBubble other">
-                             {{message.content.content}}
+                                {{message.content.content}}
                             </div>
                         </div>
                         <!-- <span class="other">08:41</span> -->
                     </div>
                     <!-- gửi ảnh -->
-                    <div class="bubbleWrapper" *ngIf = "message.sender != idUser && message.type == 2 ">
+                    <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 2 ">
                         <div class="inlineContainer">
-                            <ngx-avatar  size="20" name="{{userInfor?.userName}}"></ngx-avatar>  
-                            <ngx-avatar  size="20" *ngIf = "userInfor?.userName == null" name="{{name}}"></ngx-avatar> 
+                            <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
+                            <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                            </ngx-avatar>
                             <!-- <img class="inlineIcon" > -->
                             <div class=" other">
-                                 <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh  -->
-                                <img src="{{message.content.photo.filePath}}" (click) = "getClickImg(message.content.photo.filePath)">
+                                <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh  -->
+                                <img src="{{message.content.photo.filePath}}"
+                                    (click)="getClickImg(message.content.photo.filePath)">
                             </div>
                         </div>
-                         <!-- <span class="other">08:41</span>  -->
+                        <!-- <span class="other">08:41</span>  -->
                     </div>
                     <!-- hiện các loại file -->
-                    <div class="bubbleWrapper"  *ngIf = "message.sender != idUser && message.type == 5 ">
+                    <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 5 ">
                         <div class="inlineContainer">
 
-                            <ngx-avatar  size="20" name="{{userInfor?.userName}}"></ngx-avatar>  
-                            <ngx-avatar  size="20" *ngIf = "userInfor?.userName == null" name="{{name}}"></ngx-avatar> 
+                            <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
+                            <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                            </ngx-avatar>
                             <div class="otherBubble other">
-                                 <!-- <img id="img-message-send" src={{m.src}}>  -->
-                                 <!-- click vào file để download  -->
-                                <a href="{{message.content.file.filePath}}" (click) = "downloadFile(message.content.file.filePath,message.content.file.filename)"> {{message.content.file.filename}}</a>
+                                <!-- <img id="img-message-send" src={{m.src}}>  -->
+                                <!-- click vào file để download  -->
+                                <a href="{{message.content.file.filePath}}"
+                                    (click)="downloadFile(message.content.file.filePath,message.content.file.filename)">
+                                    {{message.content.file.filename}}</a>
                             </div>
                         </div>
-                         <!-- <span class="own">08:55</span>  -->
+                        <!-- <span class="own">08:55</span>  -->
                     </div>
 
 
                     <!-- khi tin nhắn là do user admin gửi -->
-                    <div class="bubbleWrapper" *ngIf = "message.sender == idUser && message.type == 1">
+                    <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 1">
                         <div class="inlineContainer own">
 
                             <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
                             <!-- <img class="inlineIcon" src="../../../assets/Avatar/5.jpg"> -->
-                            <ngx-avatar  size="20" name="{{userName}}"></ngx-avatar>        
+                            <ngx-avatar size="20" name="{{userName}}"></ngx-avatar>
                             <div class="ownBubble own">
-                               {{message.content.content}}
+                                {{message.content.content}}
                             </div>
                         </div>
                         <!-- <span class="own">08:55</span> -->
                     </div>
                     <!-- // tin nhắn là img -->
-                    <div class="bubbleWrapper" *ngIf = "message.sender == idUser && message.type == 2 ">
+                    <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 2 ">
                         <div class="inlineContainer own">
-                            <ngx-avatar  size="20" name="{{userName}}"></ngx-avatar>                            
+                            <ngx-avatar size="20" name="{{userName}}"></ngx-avatar>
                             <div class=" own">
-                                 <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh  -->
-                                <img id="img-message-send" src="{{message.content.photo.filePath}}" (click) = "getClickImg(message.content.photo.filePath)">
-                                 <!-- <a href="">{{message.content.photo.filePath}}</a>  -->
+                                <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh  -->
+                                <img id="img-message-send" src="{{message.content.photo.filePath}}"
+                                    (click)="getClickImg(message.content.photo.filePath)">
+                                <!-- <a href="">{{message.content.photo.filePath}}</a>  -->
                             </div>
                         </div>
-                         <!-- <span class="own">08:55</span>  -->
+                        <!-- <span class="own">08:55</span>  -->
                     </div>
                     <!-- tin nhắn là file -->
-                    <div class="bubbleWrapper" *ngIf = "message.sender == idUser && message.type == 5 ">
+                    <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 5 ">
                         <div class="inlineContainer own">
 
-                            <ngx-avatar  size="20" name="{{userName}}"></ngx-avatar>  
+                            <ngx-avatar size="20" name="{{userName}}"></ngx-avatar>
                             <div class="ownBubble own">
-                                 
-                                <a href="{{message.content.file.filePath}}" (click) = "downloadFile(message.content.file.filePath,message.content.file.filename)" >{{message.content.file.filename}} </a>
+
+                                <a href="{{message.content.file.filePath}}"
+                                    (click)="downloadFile(message.content.file.filePath,message.content.file.filename)">{{message.content.file.filename}}
+                                </a>
                             </div>
                         </div>
-                         <!-- <span class="own">08:55</span>  -->
+                        <!-- <span class="own">08:55</span>  -->
                     </div>
 
                 </div>
 
             </div>
+            <!-- </div> -->
 
 
             <div class="type-bot">
@@ -142,8 +166,10 @@
                 </div>
                 <div class="send">
                     <!-- nhận dữ liệu ở input khi nhấn enter -->
-                    <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
-                        (keydown.enter)="sendMessage($event)" autocomplete="off" (click) = "clickInput()">
+                    <!-- <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
+                        (keydown.enter)="sendMessage($event)" autocomplete="off" (click) = "clickInput()"> -->
+                    <textarea id="text" rows="4" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
+                        (keydown.enter)="sendMessage($event)" autocomplete="off" (click)="clickInput()"></textarea>
                     <div id="smile">
                         <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
                     </div>
@@ -155,7 +181,7 @@
 
         <div class="extend" [hidden]="check">
             <!-- input mảng message sang component con extend component để lấy các file đã gửi -->
-            <app-extend-box [message]="messages" [userInfor] = "userInfor"></app-extend-box>
+            <app-extend-box [message]="messages" [userInfor]="userInfor"></app-extend-box>
 
         </div>
 
@@ -170,6 +196,5 @@
 <div *ngIf="checkZoom" class="zoom-img-click" (click)="UnZoom()">
 
     <img src={{imgsrc}} alt="">
-
 
 </div>

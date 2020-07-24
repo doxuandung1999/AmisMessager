@@ -26,6 +26,7 @@ import {UpdateAsReadTransfer} from "../../service/updateAsReadTransfer.service";
 // import {UserConvIdTranferService} from "../../service/userConvIdTranfer.service";
 import {IdFocusTranferService} from "../../service/idFocusTransfer.service";
 import {userNameService} from "../../service/userName.service";
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -79,6 +80,8 @@ export class MessageBoxComponent implements OnInit {
   
    idUserInfor: any;
    name: any;
+   notscrolly = true;
+   notEmptyPost = true;
 
   constructor(
      private route: ActivatedRoute, 
@@ -97,7 +100,8 @@ export class MessageBoxComponent implements OnInit {
     private updateAsReadTransfer : UpdateAsReadTransfer,
     // private userConvIdTranferService : UserConvIdTranferService,
     private idFocusTranferService : IdFocusTranferService,
-    private userNameService : userNameService
+    private userNameService : userNameService,
+    private spiner : NgxSpinnerService
   ) {
     
 
@@ -113,6 +117,8 @@ export class MessageBoxComponent implements OnInit {
       this.getidUserInfor();
       this.getUserInfor();
       this.postIdConvs();
+      // this.getLastMessageBefore();
+      
       
       this.userNameService.userNameTransfer.subscribe(data => {
         this.name = data;
@@ -127,7 +133,7 @@ export class MessageBoxComponent implements OnInit {
       this.idUrlTest = this.route.snapshot.paramMap.get('id');
       this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
         this.getLastMessage();
-        
+        // this.scrollToTop();
       });
 
      
@@ -183,13 +189,12 @@ export class MessageBoxComponent implements OnInit {
 
   // gửi tin nhắn dạng text vào mảng message
   sendMessage(event) {
-    // lấy id covs trên url
+   
     const idUrl = this.route.snapshot.paramMap.get('id');
     if(event.target.value != ""){
       var message = event.target.value;
-      // this.stringeeService.sendTextMessage(this.idtest,message);
       this.stringeeService.sendTextMessage(idUrl, message);
-      event.target.value = null;
+      event.target.value = "";
       this.getLastMessage();
       this.updateListTransfer.changeConvid();
       this.updateAsReadTransfer.changeAsRead();
@@ -202,31 +207,18 @@ export class MessageBoxComponent implements OnInit {
     const idUrlTest = this.route.snapshot.paramMap.get('id');
     this.stringeeService.getLastMessage(idUrlTest, (status, code, message, msgs) => {
       this.messages = msgs;
+      
     });  
     this.updateListTransfer.changeConvid();
-    // console.log(this.messages);
     
   }
-  //
-  // getIdUserMessage(){
-  //   const idUrlTest = this.route.snapshot.paramMap.get('id');
-  //   this.stringeeService.getLastMessage(idUrlTest, (status, code, message, msgs) => {
-  //     for(let mes of msgs){
-  //       if(mes.sender != this.idUser){
-  //         console.log(mes.sender);
-  //         break;
-  //       }
-  //     }
-  //   }); 
-  // }
+ 
+
 
   // khi click vào input thì được tính là đã xem
   clickInput(){
     this.updateAsReadTransfer.changeAsRead();
   }
-
-
- 
 
 
   // up file
@@ -429,6 +421,27 @@ export class MessageBoxComponent implements OnInit {
       top: this.scrollContainer.scrollHeight,
       left: 0,
       behavior: 'smooth'
+    });
+  }
+
+  // cuộn để lấy thêm message
+  onScroll () { 
+    if (this.notscrolly && this.notEmptyPost) { 
+      // this.spinner.show (); 
+      this.notscrolly = false; 
+      this.loadNextPost (); 
+   } 
+  }
+
+  // load next message
+  loadNextPost(){
+    const idUrlTest = this.route.snapshot.paramMap.get('id');
+    this.stringeeService.getLastMessageBefore(idUrlTest ,this.messages[0].sequence, (status, code, message, msgs) => {
+      if(msgs.length === 0){
+        this.notEmptyPost = false;
+      }
+      this.messages = msgs.concat(this.messages);
+      this.notscrolly = true;
     });
   }
 

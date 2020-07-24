@@ -189,7 +189,7 @@ span.other{
   }
   
 }
-.contact{
+#contact{
   width: 100%;
   height: calc(100% - 61px);
   
@@ -204,23 +204,23 @@ span.other{
 //   width: 0px;
 //   background: transparent; /* make scrollbar transparent */
 // }
-.contact::-webkit-scrollbar {
+#contact::-webkit-scrollbar {
   width: 10px;
 	background-color: #F5F5F5;
 }
-.contact::-webkit-scrollbar-thumb {
+#contact::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: linear-gradient(left, #96A6BF, #63738C);
   box-shadow: inset 0 0 1px 1px #5C6670;
 }
 
-.contact::-webkit-scrollbar-track {
+#contact::-webkit-scrollbar-track {
   border-radius: 10px;
   background: #eee;
   box-shadow: 0 0 0px 0px #bbb, inset 0 0 7px #ffffff
 }
 
-.contact::-webkit-scrollbar-thumb:hover {
+#contact::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(left, #8391A6, #536175);
 }
 
@@ -319,10 +319,10 @@ span.other{
 #text{
   border: none;
   width: 100%;
-  height: 39px;
+  height: 27px;
   outline: none;
   padding-left: 20px;
-  overflow: hidden;
+  overflow-y: auto;
   font-family: 'Roboto';
 }
 #smile{
@@ -410,4 +410,5 @@ span.other{
   text-decoration: white!important;
   text-decoration:underline!important ;
 }
+
 

@@ -53,31 +53,18 @@ export class SignupComponent implements OnInit {
     get f() { return this.form.controls; }
     
     onSubmit() {
-        
-
         this.submitted = true;
-        
-
         // reset khi ấn password
         this.alertService.clear();
-
         // dừng nếu form ko hợp lệ
         if (this.form.invalid) {
             this.checkError = false;
             return;
         }
-        // if(this.f.Password.value != this.f.PasswordConfirms.value){
-        //     this.checkConfirm = true;
-        //     return;   
-        // }
         if(this.test == null && this.f.Password.value != this.f.PasswordConfirms.value ){
             this.checkConfirm = true;
             return;
           }
-       
-        
-      
-        // console.log(this.f.Password.value);
 
         this.loading = true;
        
@@ -89,7 +76,6 @@ export class SignupComponent implements OnInit {
             .pipe(delay(500))
             .subscribe(
                 data => {
-                    // this.alertService.success('Registration successful', { keepAfterRouteChange: true });
                     let self = this;
                     this.router.navigate(['/signIn'], { relativeTo: this.route });
                     
@@ -99,25 +85,15 @@ export class SignupComponent implements OnInit {
                       
                       this.stringeeService.listentUpdate(data['token']);
                     });
-                    
-                  
-                  
 
-                   
                 },
                 error => {
-                    
-                    // this.alertService.error(error.error.message);
                     this.loading = false;
                   this.test = error.error.message;
                   if(this.test != null){
                       this.checkError = true;
-                    //   this.checkConfirm = false;
                   }
                             
-                });
-
-               
-                
+                });       
     }
 }

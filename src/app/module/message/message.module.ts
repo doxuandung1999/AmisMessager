@@ -12,8 +12,9 @@ import {listModule} from "../share/list.module";
 import {ExtendBoxComponent} from "../../UI/extend-box/extend-box.component";
 
 import { AvatarModule } from 'ngx-avatar';
-
-import {FormsModule} from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll'
+import {NgxSpinnerModule} from 'ngx-spinner';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { from } from 'rxjs';
 
 
@@ -32,6 +33,11 @@ import { from } from 'rxjs';
     MessageRoutingModule,
     listModule,
     AvatarModule,
+    InfiniteScrollModule,
+    NgxSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule
+  
   ]
 })
 export class MessageModule { }

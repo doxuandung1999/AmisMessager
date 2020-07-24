@@ -113,7 +113,7 @@ export class StringeeService {
     getLastConversation(callback: any) {
         let seft = this;
         
-        var count = 25;
+        var count = 50;
         var isAscending = false;
         seft.stringeeChat.getLastConversations(count, isAscending, callback);
 
@@ -189,11 +189,20 @@ export class StringeeService {
     // lấy tin nhắn của 1 cuộc trò chuyện
     getLastMessage(convid, call: any) {
         var convId = convid;
-        var count = 50;
+        var count = 15;
         var isAscending = true;
 
         this.stringeeChat.getLastMessages(convId, count, isAscending, call);
 
+    }
+
+    // lấy các tin nhắn trước đó , để thực hiện load more
+    getLastMessageBefore(convid ,sequence, call : any){
+        var convId = convid;
+        var count = 15;
+        var isAscending = true;
+        
+        this.stringeeChat.getMessagesBefore(convId, sequence, count, isAscending, call);
     }
 
     // hàm đánh dấu là conv đã đọc

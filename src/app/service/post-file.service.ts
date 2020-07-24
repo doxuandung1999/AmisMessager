@@ -13,7 +13,7 @@ export class PostFileService {
 
 
   saveFile(file : FileSave) {
-    // console.log("register");
+    
     return this.http.post(`${environment.apiUrl}/api/Files/upFile`, file);
   }
 
