@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewChild, ElementRef } from '@angular/core';
 
 import { Friend } from '../../model/friend/friend';
 import { MessageModule } from '../../module/message/message.module';
@@ -120,7 +120,11 @@ export class LeftBoxComponent implements OnInit {
 
   // tạo cuộc trò chuyện khi click vào list user
   // từ idUser để tìm ra conv tương ứng 
+  @ViewChild('searchInput') searchInput: ElementRef;
   changeIdUser(user) {
+    // bỏ giá trị ô search khi đã click vào user
+    this.searchInput.nativeElement.value = "";
+    
     // đổi đường link trên thanh Url
     this.stringeeService.creatAConversation(user.userId , (status, code, message, conv) => {
       this._router.navigate(['/home/convasation/' + conv.id]);

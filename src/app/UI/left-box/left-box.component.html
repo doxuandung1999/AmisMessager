@@ -5,7 +5,7 @@
             <!-- binding 2 chiều với searchFriend -->
             <img id="icon_search" src="../../../assets/ICON/IconAppChat/4.svg" alt="">
 
-            <input id="text_search" type="text" placeholder="Tìm kiếm cuộc trò chuyện" [(ngModel)]="searchFriend"
+            <input #searchInput id="text_search" type="text" placeholder="Tìm kiếm cuộc trò chuyện" [(ngModel)]="searchFriend"
                 (click)="listFriend()">
         </div>
         <div id="add">

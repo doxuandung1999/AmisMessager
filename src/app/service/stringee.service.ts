@@ -213,6 +213,12 @@ export class StringeeService {
         });
 
     }
+    
+    // khi người dùng gõ tin nhắn
+    userBeginTyping(convId){
+        var convId = convId;
+      
+    }
 
 
 

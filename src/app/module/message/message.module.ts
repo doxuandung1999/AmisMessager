@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RightBoxComponent} from "../../UI/right-box/right-box.component";
-
 import {MessageBoxComponent} from "../../UI/message-box/message-box.component";
 import {BoxComponent} from "../../UI/box/box.component";
 
@@ -20,7 +18,7 @@ import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
-    RightBoxComponent,
+   
     HeaderBoxComponent,
    ExtendBoxComponent,
     MessageBoxComponent,
