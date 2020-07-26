@@ -427,7 +427,7 @@ export class MessageBoxComponent implements OnInit {
   // cuộn để lấy thêm message
   onScroll () { 
     if (this.notscrolly && this.notEmptyPost) { 
-      // this.spinner.show (); 
+      this.spiner.show (); 
       this.notscrolly = false; 
       this.loadNextPost (); 
    } 
@@ -440,7 +440,11 @@ export class MessageBoxComponent implements OnInit {
       if(msgs.length === 0){
         this.notEmptyPost = false;
       }
-      this.messages = msgs.concat(this.messages);
+      setTimeout(() => {
+        // delay 
+        this.spiner.hide();
+        this.messages = msgs.concat(this.messages);
+      }, 1500)
       this.notscrolly = true;
     });
   }

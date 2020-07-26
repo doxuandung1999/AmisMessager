@@ -13,7 +13,7 @@
         <div id="content">
             <p id="name">{{userInfor?.userName}}</p>
             <p id="name" *ngIf="userInfor?.userName == null">{{name}}</p>
-            <p id="status"> Đang hoạt động </p>
+            <p id="status" *ngIf = "messages !=null"> Đang hoạt động </p>
         </div>
 
         <div class="option">
@@ -34,21 +34,14 @@
 
             <!-- ========================================================================================================== -->
 
-            <!-- <div class="search-results" infiniteScroll [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="50"
-                (scrolledUp)="onScroll()" [infiniteScrollDistance]="scrollDistance"> -->
-            <!-- <! - sinner -> -->
-            <!-- <div class="row pb-5">
-                <div class="col-md-12 p-5">
-                    <ngx-spinner bdOpacity=0.9 bdColor="" size="default" color="# 581f87" type="ball-Pulse-sync"
-                        [fullScreen]="false">
-                    </ngx-spinner>
-                </div>
-            </div> -->
+            <ngx-spinner id="load" bdOpacity=0.9 bdColor="" size="small" color="#1600f4" type="ball-spin-clockwise"
+                [fullScreen]="false">
+            </ngx-spinner>
 
             <!-- # scrollMe làm cho thanh scroll tự động cuộn xuống -->
 
-            <div id="contact" #scrollMe infiniteScroll [infiniteScrollUpDistance]="2" 
-                [infiniteScrollThrottle]="50" (scrolledUp)="onScroll()" [scrollWindow]="false">
+            <div id="contact"  #scrollMe infiniteScroll [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="50"
+                (scrolledUp)="onScroll()" [scrollWindow]="false">
                 <div class="inline" *ngFor="let message of messages">
                     <!-- so sánh id để xác định bên hiện message -->
                     <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 1 ">
@@ -141,6 +134,11 @@
                 </div>
 
             </div>
+
+            <!-- khi ko có cuộc trò chuyện nào -->
+            <!-- <div id="contact2" *ngIf = "messages ==null">
+
+            </div> -->
             <!-- </div> -->
 
 

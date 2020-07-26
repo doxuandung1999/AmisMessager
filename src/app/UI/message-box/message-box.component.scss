@@ -178,6 +178,8 @@ span.other{
   display: flex;
   flex-direction: column;
   position: relative;
+  flex-direction: column;
+  align-items: center;
   @media screen and (max-width : 992px) {
     min-width: calc(100% - 250px)!important;
   }
@@ -186,6 +188,10 @@ span.other{
   }
   @media screen and (max-width : 576px) {
     min-width: calc(100% - 150px)!important;
+  }
+  #load{
+    position: absolute;
+    top: 0;
   }
   
 }
@@ -199,6 +205,19 @@ span.other{
   overflow-y: auto;
   margin-bottom: 5px;
   
+}
+#contact2{
+  width: 100%;
+  height: calc(100% - 61px);
+  
+  display: inline-block;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto;
+  margin-bottom: 5px;
+  background-image: url("../../../assets/File/watermark.svg");
+  background-size: cover; 
+  object-fit: cover;
 }
 // .contact::-webkit-scrollbar {
 //   width: 0px;
@@ -324,6 +343,10 @@ span.other{
   padding-left: 20px;
   overflow-y: auto;
   font-family: 'Roboto';
+}
+#text::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 #smile{
   width: 50px;

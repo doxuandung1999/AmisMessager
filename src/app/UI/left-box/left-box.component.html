@@ -5,7 +5,8 @@
             <!-- binding 2 chiều với searchFriend -->
             <img id="icon_search" src="../../../assets/ICON/IconAppChat/4.svg" alt="">
 
-            <input id="text_search" type="text" placeholder="Tìm kiếm cuộc trò chuyện" [(ngModel)]="searchFriend" (click) = "listFriend()">
+            <input id="text_search" type="text" placeholder="Tìm kiếm cuộc trò chuyện" [(ngModel)]="searchFriend"
+                (click)="listFriend()">
         </div>
         <div id="add">
             <img id="icon_add" src="../../../assets/ICON/IconAppChat/3.svg" alt="">
@@ -15,7 +16,7 @@
 
     <!-- hiện danh sách Conversation -->
     <div class="list_friend" *ngIf="checkChangeList == 1">
-       
+
 
         <div id="friend" *ngFor="let conv of convasation" routerLink='/home/convasation/{{conv.id}}'
             (click)="choseConvid(conv)"
@@ -25,9 +26,11 @@
             <div id="highlight" *ngIf="focus == conv.id">
             </div>
             <div id="avatar">
-                <ngx-avatar id="img_1" size="34" *ngIf="conv.participants[0].name != null && conv.participants[0].name != userNameLogin"
+                <ngx-avatar id="img_1" size="34"
+                    *ngIf="conv.participants[0].name != null && conv.participants[0].name != userNameLogin"
                     name="{{conv.participants[0].name}}"></ngx-avatar>
-                <ngx-avatar id="img_1" size="34" *ngIf="conv.participants[1].name != null && conv.participants[1].name != userNameLogin"
+                <ngx-avatar id="img_1" size="34"
+                    *ngIf="conv.participants[1].name != null && conv.participants[1].name != userNameLogin"
                     name="{{conv.participants[1].name}}"></ngx-avatar>
             </div>
             <div class="content">
@@ -43,6 +46,11 @@
                 <p id="message" *ngIf="conv.lastMessage.sender != idUser && conv.lastMessage.type == 1 "
                     [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}">
                     {{conv.lastMessage.content.content}}</p>
+                <!-- tin nhắn khi bắt đầu cuộc trò chuyện -->
+                <p id="message"
+                    *ngIf="conv.lastMessage.sender != idUser && conv.lastMessage.type != 1 && conv.lastMessage.type != 2 && conv.lastMessage.type != 5"
+                    [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}">
+                    Đã đầu cuộc trò chuyện</p>
                 <!-- tin nhắn cuối là 1 img -->
                 <p id="message" *ngIf="conv.lastMessage.sender != idUser && conv.lastMessage.type == 2 "
                     [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}">
@@ -56,6 +64,11 @@
                 <p id="message" *ngIf="conv.lastMessage.sender == idUser && conv.lastMessage.type == 1"
                     [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}">Bạn:
                     {{conv.lastMessage.content.content}}</p>
+                <!-- tin nhắn cuối khi bắt đầu cuộc trò chuyện -->
+                <p id="message"
+                    *ngIf="conv.lastMessage.sender == idUser && conv.lastMessage.type != 1 && conv.lastMessage.type != 2 && conv.lastMessage.type != 5"
+                    [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}">
+                    Bạn đã đầu cuộc trò chuyện</p>
                 <!-- tin nhắn cuối là 1 img -->
                 <p id="message" *ngIf="conv.lastMessage.sender == idUser && conv.lastMessage.type == 2"
                     [ngStyle]="{'color' : conv.unreadCount != 0 ? '#ffffff' : '#8e97a5'}">Bạn:
@@ -87,9 +100,8 @@
 
     <!-- hiện danh sách người dùng -->
     <div class="list_friend" *ngIf="checkChangeList == 2">
-        
-        <div id="friend" *ngFor="let user of users | friendFilter : searchFriend"
-             (click)="changeIdUser(user)">
+
+        <div id="friend" *ngFor="let user of users | friendFilter : searchFriend" (click)="changeIdUser(user)">
 
             <div id="avatar" *ngIf="userLogin != user.userEmail">
 

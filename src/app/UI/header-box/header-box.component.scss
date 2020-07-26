@@ -53,6 +53,12 @@
             color: white;
         }
     }
+    img{
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
     
 }
 
@@ -69,6 +75,17 @@
     align-items: center;
     transition: 0.4s;
   }
+  .img-infor{
+    object-fit: cover;
+    // border-radius: 50%;
+  }
+  .img-infor2{
+    object-fit: cover;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+  }
+
 
 
 

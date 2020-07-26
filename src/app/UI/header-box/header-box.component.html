@@ -14,8 +14,8 @@
         <div class="dropdown dropleft" id="avatar">
             <div id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
-                <!-- <img *ngIf="user.imageUrl" src="user.imageUrl" alt="message-icon"> -->
-                <ngx-avatar  size="34" name="{{username}}"></ngx-avatar>
+                <img src="{{avatar}}" *ngIf = "avatar != null" alt="message-icon">
+                <ngx-avatar *ngIf = "avatar == null"  size="34" name="{{username}}"></ngx-avatar>
             </div>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li id="logout" class="dropdown-item" (click) = onProfile()> Profile </li>
@@ -35,8 +35,8 @@
             <div class="module-inner">
                 <div class="side-bar">
                     <div class="user-info">
-                        <!-- <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""> -->
-                        <ngx-avatar  size="120" name="{{username}}"></ngx-avatar>
+                        <img class="img-profile img-circle img-responsive center-block img-infor" *ngIf = "avatar != null" src="{{avatar}}" alt="">
+                        <ngx-avatar *ngIf = "avatar == null"  size="120" name="{{username}}"></ngx-avatar>
                         <ul class="meta list list-unstyled">
                             <li class="name">{{username}}
                                 <!-- <label class="label label-info">UX Designer</label> -->
@@ -55,12 +55,13 @@
                             <!-- <h3 class="fieldset-title">Personal Info</h3> -->
                             <div class="form-group avatar">
                                 <figure class="figure col-md-2 col-sm-3 col-xs-12">
-                                    <!-- <img class="img-rounded img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""> -->
-                                    <ngx-avatar  size="64" name="{{username}}"></ngx-avatar>
+                                    <img class="img-rounded img-responsive img-infor2" *ngIf = "filePath == null && avatar != null"   src="{{avatar}}" alt="">
+                                    <img class="img-rounded img-responsive img-infor2" *ngIf = "filePath != null"  src="{{filePath}}" alt="">
+                                    <ngx-avatar  size="64" *ngIf = "avatar == null && filePath == null" name="{{username}}"></ngx-avatar>
 
                                 </figure>
                                 <div class="form-inline col-md-10 col-sm-9 col-xs-12">
-                                    <input #fileInput  type="file" accept="image/*" class="file-uploader pull-left" formControlName="avatar" (change)="processImg(fileInput)" >
+                                    <input #fileInput  type="file" accept="image/*" class="file-uploader pull-left" (change)="processImg(fileInput)" >
                                     <!-- <button type="submit" class="btn btn-sm btn-default-alt pull-left">Update Image</button> -->
                                 </div>
                             </div>

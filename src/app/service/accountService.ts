@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 import {User2} from "../model/user/user2";
+import {UserUpdate} from "../model/user/userUpdate";
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -61,11 +62,11 @@ export class AccountService {
         return this.http.get<User2>(`${environment.apiUrl}/api/Users/${id}`);
     }
 
-    update(id, params) {
-        return this.http.put(`${environment.apiUrl}/api/Users/${id}`, params)
+    update(params : UserUpdate) {
+        return this.http.put(`${environment.apiUrl}/api/Users/updateProfile`, params)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
-                if (id == this.userValue.Id) {
+                if (params.userId  == this.userValue.id) {
                     // update local storage
                     const user = { ...this.userValue, ...params };
                     localStorage.setItem('user', JSON.stringify(user));
@@ -75,6 +76,7 @@ export class AccountService {
                 }
                 return x;
             }));
+            
     }
 
     // delete(id: string) {

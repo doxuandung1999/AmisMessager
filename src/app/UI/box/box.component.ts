@@ -7,6 +7,7 @@ import { TransferIdUserService } from "../../service/transferIdUser.service";
 import { MessageTransferService } from "../../service/MessageTransfer.service";
 import { idUserTransferService } from "../../service/idUserService.service";
 import {userNameService} from "../../service/userName.service";
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-box',
@@ -21,6 +22,7 @@ export class BoxComponent implements OnInit {
   idUrl: any;
   userInfor: any;
   token : any;
+  loading = true;
 
   constructor(private stringeeService: StringeeService,
     private accountService: AccountService,
@@ -29,24 +31,37 @@ export class BoxComponent implements OnInit {
     private messageTransferService: MessageTransferService,
     private idUserTransferService: idUserTransferService,
     private userNameService : userNameService,
-    private router: Router) { }
+    private router: Router,
+    private spiner : NgxSpinnerService) { }
 
   ngOnInit(): void {
 
     // this.test();
+    
     this.token = this.accountService.userValue.token;
     this.stringeeService.Connect(this.accountService.userValue.token);
 
     this.idUser = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
     let sefl = this;
+    this.spiner.show();
     this.stringeeService.stringeeClient.on('connect', (res) => {
-      this.getConv();
-      this.stringeeService.listentUpdate(this.token);
+     
+      setTimeout(() => {
+        // delay 
+        this.spiner.hide();
+        this.getConv();
+        this.stringeeService.listentUpdate(this.token);
+       this.loading = false;
+      }, 3000)
+     
+      
     });
+    
     
  
 
   }
+
 
   // lấy danh sách các conversation
   getConv() {

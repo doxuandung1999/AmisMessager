@@ -1,22 +1,30 @@
-
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="!loading">
     <div class="union">
         <app-header-box id="header"></app-header-box>
 
         <div class="body_1">
-            <app-left-box id="left" [convasation] = "convasation"></app-left-box>
+            <app-left-box id="left" [convasation]="convasation"></app-left-box>
             <!-- <app-right-box id="right"></app-right-box> -->
             <div id="right">
                 <div class="message-all">
                     <div class="message">
-                        
-                        <app-message-box [messages] = "messages" ></app-message-box>
+
+                        <app-message-box [messages]="messages"></app-message-box>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
         </div>
 
+    </div>
+</div>
+<div id="intro" *ngIf="loading">
+    <div id="loading">
+        <img id="logo" src="../../../assets/ICON/IconAppChat/18.svg" alt="">
+        <ngx-spinner id="load" bdOpacity=0.9 bdColor="" size="default" color="#1600f4" type="line-scale-pulse-out"
+            [fullScreen]="false">
+            
+        </ngx-spinner>
     </div>
 </div>
