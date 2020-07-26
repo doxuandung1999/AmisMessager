@@ -15,17 +15,17 @@ import { TransferIdUserService } from "../../service/transferIdUser.service";
 
 import { ConvidTransferService } from "../../service/convidTransfer.service";
 import { FileService } from "../../service/file.service";
-import {UpdateListTransfer} from "../../service/updateListTransfer.service";
-import {MessageTransferService} from "../../service/MessageTransfer.service";
-import {idConvTransferService} from "../../service/idConvTransfer.service";
-import {idUserTransferService} from "../../service/idUserService.service";
-import {PostFileService} from "../../service/post-file.service";
-import {FileSave} from "../../model/file/file";
+import { UpdateListTransfer } from "../../service/updateListTransfer.service";
+import { MessageTransferService } from "../../service/MessageTransfer.service";
+import { idConvTransferService } from "../../service/idConvTransfer.service";
+import { idUserTransferService } from "../../service/idUserService.service";
+import { PostFileService } from "../../service/post-file.service";
+import { FileSave } from "../../model/file/file";
 import { first } from 'rxjs/operators';
-import {UpdateAsReadTransfer} from "../../service/updateAsReadTransfer.service";
+import { UpdateAsReadTransfer } from "../../service/updateAsReadTransfer.service";
 // import {UserConvIdTranferService} from "../../service/userConvIdTranfer.service";
-import {IdFocusTranferService} from "../../service/idFocusTransfer.service";
-import {userNameService} from "../../service/userName.service";
+import { IdFocusTranferService } from "../../service/idFocusTransfer.service";
+import { userNameService } from "../../service/userName.service";
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 
 
@@ -62,29 +62,34 @@ export class MessageBoxComponent implements OnInit {
   user: User2;
   idUser: any // lấy id user người đang đăng nhập
   // idtest : any; // id conv
-  
+
   userName: any; // tên người đăng nhập
   userInfor = null;
- 
+
   idUrl: any;
   sendFile: any; // xác định loại file cần gửi
   filePath: any;
-  idConv : any;
-  fileSave : FileSave;
-  idUrlTest : any; // id conv lấy từ conv 
-  idUserTransfer : any; // id user từ bên list conv chuyền sang
-  idConvasation : any;
-  convasation : any;
+  idConv: any;
+  fileSave: FileSave;
+  idUrlTest: any; // id conv lấy từ conv 
+  idUserTransfer: any; // id user từ bên list conv chuyền sang
+  idConvasation: any;
+  convasation: any;
 
   @Input() messages: any // mảng chứa tin nhắn trong 1 conversation
-  
-   idUserInfor: any;
-   name: any;
-   notscrolly = true;
-   notEmptyPost = true;
+
+  idUserInfor: any;
+  name: any;
+  notscrolly = true;
+  notEmptyPost = true;
+  usersTyping = [];// mảng lưu user đang typing
+  usersIdTyping = [];// mảng lưu id user đang typing
+  checkTyping = false; // hiện tin nhắn đang nhập
+  load = false; // hiện animation scroll
+  loadTyping = true; // hiện typing
 
   constructor(
-     private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     private dataService: DataTransferService,
     private accountService: AccountService,
@@ -92,23 +97,43 @@ export class MessageBoxComponent implements OnInit {
     private convidTransferService: ConvidTransferService,
     private transferIdUserService: TransferIdUserService,
     private fileService: FileService,
-    private updateListTransfer : UpdateListTransfer,
-    private messageTransferService : MessageTransferService,
-    private idConvTransferService : idConvTransferService,
-    private idUserTransferService : idUserTransferService,
-    private postFileService : PostFileService,
-    private updateAsReadTransfer : UpdateAsReadTransfer,
+    private updateListTransfer: UpdateListTransfer,
+    private messageTransferService: MessageTransferService,
+    private idConvTransferService: idConvTransferService,
+    private idUserTransferService: idUserTransferService,
+    private postFileService: PostFileService,
+    private updateAsReadTransfer: UpdateAsReadTransfer,
     // private userConvIdTranferService : UserConvIdTranferService,
-    private idFocusTranferService : IdFocusTranferService,
-    private userNameService : userNameService,
-    private spiner : NgxSpinnerService
+    private idFocusTranferService: IdFocusTranferService,
+    private userNameService: userNameService,
+    private spiner: NgxSpinnerService
   ) {
-    
+
 
 
   }
 
   ngOnInit(): void {
+
+    //-------------------------------------------------------- typing
+
+    //  kích hoạt sự kiện khi người dùng gõ tin nhắn - thêm người dùng dang gõ tin nhắn vào mảng
+    let self = this;
+
+    this.stringeeService.stringeeClient.on("userBeginTypingListener", (msg) => {
+      this.checkTyping = true;
+      this.spiner.show();
+    });
+    // kích hoạt sự kiện khi người dùng dừng gõ tin nhắn - xóa người dùng dừng gõ tin nhắn khỏii mảng
+    this.stringeeService.stringeeClient.on("userEndTypingListener", function (msg) {
+      self.checkTyping = false;
+      self.loadTyping == false;
+
+    });
+
+
+    //------------------------------------------------------------------------ entyping
+
     this.route.paramMap.subscribe(x => {
       // this.getIdConv();
       this.getLastMessage();
@@ -118,14 +143,14 @@ export class MessageBoxComponent implements OnInit {
       this.getUserInfor();
       this.postIdConvs();
       // this.getLastMessageBefore();
-      
-      
+
+
       this.userNameService.userNameTransfer.subscribe(data => {
         this.name = data;
       });
-    
 
-      
+
+
 
       this.messageTransferService.messages.subscribe(data => {
         this.messages = data;
@@ -133,16 +158,12 @@ export class MessageBoxComponent implements OnInit {
       this.idUrlTest = this.route.snapshot.paramMap.get('id');
       this.stringeeService.stringeeChat.on('onObjectChange', (info) => {
         this.getLastMessage();
+
         // this.scrollToTop();
       });
 
-     
-    });
 
-    // console.log(this.idConv);
-    
-    console.log(this.accountService.userValue.name);
-    // this.stringeeClient.connect();
+    });
 
     this.stringeeService.test();
 
@@ -151,7 +172,35 @@ export class MessageBoxComponent implements OnInit {
   ngOndestroy() {
     // this.getId();
   }
- 
+
+  //------------------------typing----------------------------//
+
+  // hàm nhận biết người dùng có đang gõ phím hay ko
+
+trackingUserTyping(event) {
+    let self = this;
+    const idUrl = this.route.snapshot.paramMap.get('id');
+    this.stringeeService.userBeginTyping(idUrl, this.accountService.userValue.id);
+   
+  }
+
+
+  // hàm nhận biết khi người dùng dừng gõ
+  trackingUserEndTyping(event) {
+
+    const idUrl = this.route.snapshot.paramMap.get('id');
+    setTimeout(() => {
+      this.stringeeService.userEndTyping(idUrl, this.accountService.userValue.id);
+    }, 1000);
+
+  }
+
+
+
+
+  //--------------------------typing----------------------------------//
+
+
   // lấy id user đang nhập
   getidUser() {
     this.idUser = this.stringeeService.getCurrentUserIdFromAccessToken(this.accountService.userValue.token);
@@ -178,8 +227,8 @@ export class MessageBoxComponent implements OnInit {
   postIdConvs() {
     const idUrl = this.route.snapshot.paramMap.get('id');
     this.convidTransferService.changeConvid(idUrl);
-    
-    
+
+
   }
 
   // thay đổi biến check để ẩn hiện phần extend component
@@ -189,34 +238,41 @@ export class MessageBoxComponent implements OnInit {
 
   // gửi tin nhắn dạng text vào mảng message
   sendMessage(event) {
-   
+
     const idUrl = this.route.snapshot.paramMap.get('id');
-    if(event.target.value != ""){
+    if (event.target.value != "") {
       var message = event.target.value;
       this.stringeeService.sendTextMessage(idUrl, message);
+      // sau khi gửi reset lại value thẻ area
       event.target.value = "";
+      // cập nhật lại message
       this.getLastMessage();
+      // chuyền sự kiện thay đổi sang bên list convasation để  update lại list convasation 
       this.updateListTransfer.changeConvid();
+      // khi gửi tin nhắn thì đánh dấu là đã đoc cho chính mình
       this.updateAsReadTransfer.changeAsRead();
     }
-  
+    this.checkTyping = false;
+
   }
 
   // lấy các message cuối cùng
   getLastMessage() {
+    // lấy ì conv từ url
     const idUrlTest = this.route.snapshot.paramMap.get('id');
     this.stringeeService.getLastMessage(idUrlTest, (status, code, message, msgs) => {
       this.messages = msgs;
-      
-    });  
+
+    });
+    // chuyền sự kiện thay đổi sang bên list convasation để  update lại list convasation 
     this.updateListTransfer.changeConvid();
-    
+
   }
- 
+
 
 
   // khi click vào input thì được tính là đã xem
-  clickInput(){
+  clickInput() {
     this.updateAsReadTransfer.changeAsRead();
   }
 
@@ -225,7 +281,7 @@ export class MessageBoxComponent implements OnInit {
   selectedFile: fileSnippet;
   processImg(fileInput: any) {
     const file: File = fileInput.files[0];
-    
+
     const render = new FileReader();
 
     this.fileSave = new FileSave();
@@ -241,15 +297,16 @@ export class MessageBoxComponent implements OnInit {
       // nếu file input là img
       if (file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') {
 
+        // tải file lên serve stringee cung cấp
         this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
           this.filePath = data;
 
           this.stringeeService.sendImgMessage(idUrl, this.filePath.filename);
           this.getLastMessage();
-         // up date list conv
-         this.updateListTransfer.changeConvid();
-         // update conv là đã xem
-         this.updateAsReadTransfer.changeAsRead();
+          // up date list conv
+          this.updateListTransfer.changeConvid();
+          // update conv là đã xem
+          this.updateAsReadTransfer.changeAsRead();
 
           // lưu file img vào database
           this.fileSave.filePath = this.filePath.filename;
@@ -257,6 +314,7 @@ export class MessageBoxComponent implements OnInit {
           this.fileSave.fileName = "";
           this.fileSave.convId = idUrl;
 
+          // post file vào database của mình
           this.postFileService.saveFile(this.fileSave).pipe(first()).subscribe(data => {
 
           });
@@ -274,7 +332,7 @@ export class MessageBoxComponent implements OnInit {
 
           // console.log(fileName + " adsdas" + lenght);
 
-          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename, fileName, length);
           this.getLastMessage();
           // up date list conv
           this.updateListTransfer.changeConvid();
@@ -304,12 +362,12 @@ export class MessageBoxComponent implements OnInit {
 
           // console.log(fileName + " adsdas" + lenght);
 
-          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename, fileName, length);
           this.getLastMessage();
-         // up date list conv
-         this.updateListTransfer.changeConvid();
-         // update conv là đã xem
-         this.updateAsReadTransfer.changeAsRead();
+          // up date list conv
+          this.updateListTransfer.changeConvid();
+          // update conv là đã xem
+          this.updateAsReadTransfer.changeAsRead();
 
           // lưu file docs vào database
           this.fileSave.filePath = this.filePath.filename;
@@ -325,7 +383,7 @@ export class MessageBoxComponent implements OnInit {
 
       }
       // thêm file dạng excel
-      else if ( file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+      else if (file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
         this.fileService.saveFileToServer(formData, this.accountService.userValue.token).subscribe(data => {
           this.filePath = data;
           var fileName = file.name;
@@ -333,7 +391,7 @@ export class MessageBoxComponent implements OnInit {
 
           // console.log(fileName + " adsdas" + lenght);
 
-          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename, fileName, length);
           this.getLastMessage();
           // up date list conv
           this.updateListTransfer.changeConvid();
@@ -362,7 +420,7 @@ export class MessageBoxComponent implements OnInit {
 
           // console.log(fileName + " adsdas" + lenght);
 
-          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename , fileName , length);
+          this.stringeeService.sendFileMessage(idUrl, this.filePath.filename, fileName, length);
           this.getLastMessage();
           this.updateListTransfer.changeConvid();
           this.updateAsReadTransfer.changeAsRead();
@@ -380,7 +438,7 @@ export class MessageBoxComponent implements OnInit {
         });
 
       }
-      
+
 
     });
 
@@ -425,24 +483,26 @@ export class MessageBoxComponent implements OnInit {
   }
 
   // cuộn để lấy thêm message
-  onScroll () { 
-    if (this.notscrolly && this.notEmptyPost) { 
-      this.spiner.show (); 
-      this.notscrolly = false; 
-      this.loadNextPost (); 
-   } 
+  onScroll() {
+    if (this.notscrolly && this.notEmptyPost) {
+      this.spiner.show();
+      this.notscrolly = false;
+      this.loadNextPost();
+    }
   }
 
   // load next message
-  loadNextPost(){
+  loadNextPost() {
+    this.load = true;
     const idUrlTest = this.route.snapshot.paramMap.get('id');
-    this.stringeeService.getLastMessageBefore(idUrlTest ,this.messages[0].sequence, (status, code, message, msgs) => {
-      if(msgs.length === 0){
+    // lấy tin nhắn tiếp theo sau tin nhắn cuối cùng trong trang
+    this.stringeeService.getLastMessageBefore(idUrlTest, this.messages[0].sequence, (status, code, message, msgs) => {
+      if (msgs.length === 0) {
         this.notEmptyPost = false;
       }
       setTimeout(() => {
-        // delay 
-        this.spiner.hide();
+        // delay tin nhắn hiện ra
+        this.load = false;
         this.messages = msgs.concat(this.messages);
       }, 1500)
       this.notscrolly = true;

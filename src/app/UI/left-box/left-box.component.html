@@ -9,7 +9,7 @@
                 (click)="listFriend()">
         </div>
         <div id="add">
-            <img id="icon_add" src="../../../assets/ICON/IconAppChat/3.svg" alt="">
+            <img id="icon_add" src="../../../assets/ICON/IconAppChat/3.svg" alt="" (click)="listFriend()">
         </div>
     </div>
 
@@ -103,14 +103,14 @@
 
         <div id="friend" *ngFor="let user of users | friendFilter : searchFriend" (click)="changeIdUser(user)">
 
-            <div id="avatar" *ngIf="userLogin != user.userEmail">
+            <div id="avatar" >
 
-                <ngx-avatar id="img_1" size="34" name="{{user.userName}}"></ngx-avatar>
+                <ngx-avatar  id="img_1" size="34" name="{{user.userName}}"></ngx-avatar>
 
             </div>
-            <div class="content" *ngIf="userLogin != user.userEmail">
+            <div class="content" >
                 <!-- so sánh để highlight friend khi chưa rep -->
-                <p id="name"> {{user.userName}}</p>
+                <p  id="name"> {{user.userName}}</p>
 
             </div>
         </div>

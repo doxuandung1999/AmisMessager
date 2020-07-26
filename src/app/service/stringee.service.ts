@@ -215,16 +215,31 @@ export class StringeeService {
     }
     
     // khi người dùng gõ tin nhắn
-    userBeginTyping(convId){
-        var convId = convId;
-      
+    /**
+ * Hàm xử lý khi khi người dùng gõ tin nhắn
+ * @param {*} convId 
+ */
+userBeginTyping(convId , userId) {
+    var userId = userId;
+    if (convId && userId) {
+        const body = { userId: userId, convId: convId };
+        this.stringeeChat.userBeginTyping(body, function (res) {
+            // console.log(res);
+         });
     }
-
-
-
-
-
-
-
+}
+/**
+ * Hàm xử lý khi người dùng dừng gõ tin nhắn
+ * @param {*} convId 
+ */
+userEndTyping(convId ,userId) {
+    var userId = userId;
+    if (convId && userId) {
+        const body = { userId: userId, convId: convId };
+        this.stringeeChat.userEndTyping(body, function (res) { 
+            // console.log(res);
+        });
+    }
+}
 
 }

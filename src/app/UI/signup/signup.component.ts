@@ -39,11 +39,12 @@ export class SignupComponent implements OnInit {
         this.form = this.formBuilder.group({
             UserEmail: ['', [Validators.required , Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$") ]],
             UserName: ['', Validators.required],
-            PhoneNumber: ['', [Validators.required , Validators.pattern("((09|03|07|08|05)+([0-9]{8}))")]],
+            PhoneNumber: ['', [Validators.required , Validators.pattern("((09|03|07|08|05|016||012)+([0-9]{8}))")]],
             Password: ['', [Validators.required, Validators.minLength(6)]],
             PasswordConfirms:['', [Validators.required, Validators.minLength(6)] ]
             
         });
+        /// kiểm tra password và password confirm có giống nhau ko
         if(this.f.PasswordConfirms.value == null){
             this.checkConfirm = false;
         }
@@ -73,10 +74,12 @@ export class SignupComponent implements OnInit {
         this.accountService.register(this.form.value)
             // pipe lấy đối tượng đầu tiên
             .pipe(first())
+            // delay
             .pipe(delay(500))
             .subscribe(
                 data => {
                     let self = this;
+                    // thành công thì route đến sign in
                     this.router.navigate(['/signIn'], { relativeTo: this.route });
                     
                     this.stringeeService.Connect(data['token']);
@@ -89,6 +92,7 @@ export class SignupComponent implements OnInit {
                 },
                 error => {
                     this.loading = false;
+                    // lỗi trả veeff message
                   this.test = error.error.message;
                   if(this.test != null){
                       this.checkError = true;

@@ -13,7 +13,7 @@
         <div id="content">
             <p id="name">{{userInfor?.userName}}</p>
             <p id="name" *ngIf="userInfor?.userName == null">{{name}}</p>
-            <p id="status" *ngIf = "messages !=null"> Đang hoạt động </p>
+            <p id="status" *ngIf="messages !=null"> Đang hoạt động </p>
         </div>
 
         <div class="option">
@@ -34,13 +34,14 @@
 
             <!-- ========================================================================================================== -->
 
-            <ngx-spinner id="load" bdOpacity=0.9 bdColor="" size="small" color="#1600f4" type="ball-spin-clockwise"
-                [fullScreen]="false">
+            <ngx-spinner id="load" *ngIf="load" bdOpacity=0.9 bdColor="" size="small" color="#1600f4"
+                type="ball-spin-clockwise" [fullScreen]="false">
             </ngx-spinner>
 
             <!-- # scrollMe làm cho thanh scroll tự động cuộn xuống -->
+            <!-- infiniteScrollUpDistance :; % độ caoo tương đối khi mình cuộn đến , tức khi độ cao đạt 80% thì sẽ kích hoạt sự kiện -->
 
-            <div id="contact"  #scrollMe infiniteScroll [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="50"
+            <div id="contact" #scrollMe infiniteScroll [infiniteScrollUpDistance]="2" [infiniteScrollThrottle]="50"
                 (scrolledUp)="onScroll()" [scrollWindow]="false">
                 <div class="inline" *ngFor="let message of messages">
                     <!-- so sánh id để xác định bên hiện message -->
@@ -56,6 +57,8 @@
                         </div>
                         <!-- <span class="other">08:41</span> -->
                     </div>
+
+
                     <!-- gửi ảnh -->
                     <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 2 ">
                         <div class="inlineContainer">
@@ -131,7 +134,24 @@
                         <!-- <span class="own">08:55</span>  -->
                     </div>
 
+
+
                 </div>
+                <div class="bubbleWrapper" *ngIf="checkTyping">
+                    <div class="inlineContainer">
+                        <!-- <img class="inlineIcon" src=""> -->
+                        <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
+                        <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                        </ngx-avatar>
+                        <div class="otherBubble-typing">
+                            <ngx-spinner id="typing" *ngIf="loadTyping" bdColor="" size="small" color="#050505"
+                                type="ball-fall" [fullScreen]="false">
+                            </ngx-spinner>
+                        </div>
+                    </div>
+                    <!-- <span class="other">08:41</span> -->
+                </div>
+
 
             </div>
 
@@ -166,8 +186,9 @@
                     <!-- nhận dữ liệu ở input khi nhấn enter -->
                     <!-- <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
                         (keydown.enter)="sendMessage($event)" autocomplete="off" (click) = "clickInput()"> -->
-                    <textarea id="text" rows="4" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
-                        (keydown.enter)="sendMessage($event)" autocomplete="off" (click)="clickInput()"></textarea>
+                    <textarea #chat id="text" rows="4" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
+                        (keydown.enter)="sendMessage($event)" autocomplete="off" (focus)="trackingUserTyping($event)"
+                        (focusout)="trackingUserEndTyping($event)" (click)="clickInput()"></textarea>
                     <div id="smile">
                         <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
                     </div>
