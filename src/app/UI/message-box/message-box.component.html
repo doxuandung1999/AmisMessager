@@ -186,9 +186,9 @@
                     <!-- nhận dữ liệu ở input khi nhấn enter -->
                     <!-- <input type="text" id="text" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
                         (keydown.enter)="sendMessage($event)" autocomplete="off" (click) = "clickInput()"> -->
-                    <textarea #chat id="text" rows="4" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
-                        (keydown.enter)="sendMessage($event)" autocomplete="off" (focus)="trackingUserTyping($event)"
-                        (focusout)="trackingUserEndTyping($event)" (click)="clickInput()"></textarea>
+                    <textarea #chat id="text" rows="1" placeholder="Nhập nội dung tin nhắn, gõ @tên để nhắc tên"
+                        (keydown.enter)="sendMessage($event)" autocomplete="off" (focus)="trackingUserTyping($event)" 
+                        (focusout)="trackingUserEndTyping($event)" (click)="clickInput()" (keyup.alt.enter)="chat.value = chat.value + '\n'" ></textarea>
                     <div id="smile">
                         <img src="../../../assets/ICON/IconAppChat/7.svg" alt="">
                     </div>

@@ -77,7 +77,8 @@ p{
   border: 1px solid #2688e6;
   color: #ffffff;
   font-size: 13px;
-  
+  white-space: pre-line;
+  word-wrap: break-word;
  
 }
 .otherBubble {
@@ -90,6 +91,9 @@ p{
   border: 1px solid  #eeeeee;
   color: #212121;
   font-size: 13px;
+  white-space: pre-line;
+  word-wrap: break-word;
+  
    
 }
 .otherBubble-typing{

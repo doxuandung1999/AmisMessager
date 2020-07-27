@@ -123,7 +123,8 @@ export class HeaderBoxComponent implements OnInit {
         let sefl = this;
         
          
-        this.accountService.update(this.updateUser).pipe(first()).subscribe(data => {     
+        this.accountService.update(this.updateUser).pipe(first()).subscribe(data => {  
+          
              window.location.reload();
         });
 

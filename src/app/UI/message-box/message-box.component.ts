@@ -87,6 +87,7 @@ export class MessageBoxComponent implements OnInit {
   checkTyping = false; // hiện tin nhắn đang nhập
   load = false; // hiện animation scroll
   loadTyping = true; // hiện typing
+  avatar : any; // avatar của user đăng nhập
 
   constructor(
     private route: ActivatedRoute,
@@ -161,6 +162,8 @@ export class MessageBoxComponent implements OnInit {
 
         // this.scrollToTop();
       });
+
+      this.avatar = this.accountService.userValue.avatar;   
 
 
     });
