@@ -97,9 +97,9 @@
                     <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 1">
                         <div class="inlineContainer own">
 
-                            <!-- <img class="inlineIcon" src="{{users[0].avatar}}"> -->
+                            <img class="inlineIcon" src="{{avatar}}" *ngIf = "avatar != null">
                             <!-- <img class="inlineIcon" src="../../../assets/Avatar/5.jpg"> -->
-                            <ngx-avatar size="20" name="{{userName}}"></ngx-avatar>
+                            <ngx-avatar size="20" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
                             <div class="ownBubble own">
                                 {{message.content.content}}
                             </div>
@@ -109,7 +109,8 @@
                     <!-- // tin nhắn là img -->
                     <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 2 ">
                         <div class="inlineContainer own">
-                            <ngx-avatar size="20" name="{{userName}}"></ngx-avatar>
+                            <img class="inlineIcon" src="{{avatar}}" *ngIf = "avatar != null">
+                            <ngx-avatar size="20" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
                             <div class=" own">
                                 <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh  -->
                                 <img id="img-message-send" src="{{message.content.photo.filePath}}"
@@ -122,8 +123,8 @@
                     <!-- tin nhắn là file -->
                     <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 5 ">
                         <div class="inlineContainer own">
-
-                            <ngx-avatar size="20" name="{{userName}}"></ngx-avatar>
+                            <img class="inlineIcon" src="{{avatar}}" *ngIf = "avatar != null">
+                            <ngx-avatar size="20" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
                             <div class="ownBubble own">
 
                                 <a href="{{message.content.file.filePath}}"
