@@ -48,8 +48,8 @@
                     <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 1 ">
                         <div class="inlineContainer">
                             <!-- <img class="inlineIcon" src=""> -->
-                            <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
-                            <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                            <ngx-avatar size="30" name="{{userInfor?.userName}}"></ngx-avatar>
+                            <ngx-avatar size="30" *ngIf="userInfor?.userName == null" name="{{name}}">
                             </ngx-avatar>
                             <div class="otherBubble other">
                                 {{message.content.content}}
@@ -62,8 +62,8 @@
                     <!-- gửi ảnh -->
                     <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 2 ">
                         <div class="inlineContainer">
-                            <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
-                            <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                            <ngx-avatar size="30" name="{{userInfor?.userName}}"></ngx-avatar>
+                            <ngx-avatar size="30" *ngIf="userInfor?.userName == null" name="{{name}}">
                             </ngx-avatar>
                             <!-- <img class="inlineIcon" > -->
                             <div class=" other">
@@ -78,8 +78,8 @@
                     <div class="bubbleWrapper" *ngIf="message.sender != idUser && message.type == 5 ">
                         <div class="inlineContainer">
 
-                            <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
-                            <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                            <ngx-avatar size="30" name="{{userInfor?.userName}}"></ngx-avatar>
+                            <ngx-avatar size="30" *ngIf="userInfor?.userName == null" name="{{name}}">
                             </ngx-avatar>
                             <div class="otherBubble other">
                                 <!-- <img id="img-message-send" src={{m.src}}>  -->
@@ -99,7 +99,7 @@
 
                             <img class="inlineIcon" src="{{avatar}}" *ngIf = "avatar != null">
                             <!-- <img class="inlineIcon" src="../../../assets/Avatar/5.jpg"> -->
-                            <ngx-avatar size="20" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
+                            <ngx-avatar size="30" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
                             <div class="ownBubble own">
                                 {{message.content.content}}
                             </div>
@@ -110,7 +110,7 @@
                     <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 2 ">
                         <div class="inlineContainer own">
                             <img class="inlineIcon" src="{{avatar}}" *ngIf = "avatar != null">
-                            <ngx-avatar size="20" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
+                            <ngx-avatar size="30" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
                             <div class=" own">
                                 <!-- click vào ảnh để lấy checkZoom và lấy src của ảnh  -->
                                 <img id="img-message-send" src="{{message.content.photo.filePath}}"
@@ -124,7 +124,7 @@
                     <div class="bubbleWrapper" *ngIf="message.sender == idUser && message.type == 5 ">
                         <div class="inlineContainer own">
                             <img class="inlineIcon" src="{{avatar}}" *ngIf = "avatar != null">
-                            <ngx-avatar size="20" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
+                            <ngx-avatar size="30" name="{{userName}}" *ngIf = "avatar == null"></ngx-avatar>
                             <div class="ownBubble own">
 
                                 <a href="{{message.content.file.filePath}}"
@@ -141,8 +141,8 @@
                 <div class="bubbleWrapper" *ngIf="checkTyping">
                     <div class="inlineContainer">
                         <!-- <img class="inlineIcon" src=""> -->
-                        <ngx-avatar size="20" name="{{userInfor?.userName}}"></ngx-avatar>
-                        <ngx-avatar size="20" *ngIf="userInfor?.userName == null" name="{{name}}">
+                        <ngx-avatar size="30" name="{{userInfor?.userName}}"></ngx-avatar>
+                        <ngx-avatar size="30" *ngIf="userInfor?.userName == null" name="{{name}}">
                         </ngx-avatar>
                         <div class="otherBubble-typing">
                             <ngx-spinner id="typing" *ngIf="loadTyping" bdColor="" size="small" color="#050505"

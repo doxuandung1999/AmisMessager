@@ -62,10 +62,10 @@ p{
   flex-direction: row-reverse;
 }
 .inlineIcon {
-  width:20px;
-  height: 20px;
+  width:30px;
+  height: 30px;
   object-fit: contain;
-  border-radius: 50%;
+  border-radius: 50%!important;
 }
 .ownBubble {
 	min-width: 60px;
@@ -116,6 +116,7 @@ p{
 .own img{
   max-width: 300px;
   max-height: 300px;
+  // border-radius: 50%;
   // margin: 8px 0px 8px 8px;
   border-radius: 12px;
   @media screen and (max-width : 992px) {
@@ -130,6 +131,7 @@ p{
   
   
 }
+
 .other img{
   max-width: 300px;
   max-height: 300px;
